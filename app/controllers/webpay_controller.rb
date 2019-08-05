@@ -13,13 +13,13 @@ class WebpayController < ApplicationController
     session_id = params[:session_id]
     amount = params[:amount]
     return_url = params[:return_url]
+    @req = params.as_json
     @resp = Transbank::Webpay::WebpayPlus::Transaction::create(
                                                        buy_order: buy_order,
                                                        session_id: session_id,
                                                        amount: amount,
                                                        return_url: return_url
                                                       )
-
-    render json: @resp
+    render 'transaction_created'
   end
 end

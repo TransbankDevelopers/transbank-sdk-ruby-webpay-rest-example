@@ -6,12 +6,12 @@
   <label for="buy_order">
     Orden de compra
   </label>
-  <input id="buy_order" name="buy_order" value="123456"/>
+  <input id="buy_order" name="buy_order" value="<%='12345' + rand(1000).to_s %>"/>
 
   <label for="session_id">
     Id de sesión
   </label>
-  <input id="session_id" name="session_id" value="session123456" />
+  <input id="session_id" name="session_id" value="<%='session12345' + rand(1000).to_s %>" />
 
   <label for="amount">
     Monto
@@ -22,7 +22,7 @@
   <label for="return_url">
     URL de retorno
   </label>
-  <input id="return_url" name="return_url" value="http://0.0.0.0:3000/webpayplus/returnUrl"/>
+  <input id="return_url" name="return_url" value="http://0.0.0.0:3000/webpayplus/return_url"/>
 
   <button type="submit">Aceptar</button>
 </form>

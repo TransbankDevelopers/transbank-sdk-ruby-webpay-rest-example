@@ -22,4 +22,16 @@ class WebpayController < ApplicationController
                                                       )
     render 'transaction_created'
   end
+
+  def commit
+    @req = params.as_json
+
+    @token = params[:token_ws]
+    @resp = Transbank::Webpay::WebpayPlus::Transaction::commit(token: @token)
+    render 'transaction_committed'
+  end
+
+  def send_commit
+
+  end
 end

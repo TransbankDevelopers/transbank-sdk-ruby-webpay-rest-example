@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   get 'webpayplus/create', to: 'webpay#create'
   post 'webpayplus/create', to: 'webpay#send_create'
-
+  post '/webpayplus/return_url', to: 'webpay#commit'
 
 end

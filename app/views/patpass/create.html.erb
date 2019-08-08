@@ -1,6 +1,13 @@
+<style>
+  label {
+    font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+    font-size: 14px;
+    font-weight: bolder;
+  }
+</style>
 <h1>Ejemplo Patpass by Webpay (Create Transaction)</h1>
 
-<form class="patpass_form" action="create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+<form class="patpass_form" action="<%= send_create_path %>" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
   <div>
     <label for="buy_order">
       Orden de compra
@@ -28,5 +35,58 @@
     </label>
     <input id="return_url" name="return_url" value="http://0.0.0.0:3000/webpayplus/returnUrl"/>
   </div>
-  <button type="submit">Send</button>
+  <hr>
+  <div>
+    <label for="session_id_wpm_details">Session ID</label>
+    <input type="text" name="wpm_detail[service_id]" id="session_id_wpm_details" value="123345567">
+  </div>
+  <div>
+    <label for="card_holder_id_wpm_details">Card Holder ID</label>
+    <input type="text" name="wpm_detail[card_holder_id]" id="card_holder_id_wpm_details" value="12345">
+  </div>
+
+  <div>
+    <label for="card_holder_name_wpm_details"> Card Holder Name</label>
+    <input type="text" name="wpm_detail[card_holder_name]" id="card_holder_name_wpm_details" value="Juan">
+  </div>
+
+  <div>
+    <label for="card_holder_last_name1_wpm_details">Card Holder Lastname 1</label>
+    <input type="text" name="wpm_detail[card_holder_last_name1]" id="card_holder_last_name1_wpm_details" value="Perez">
+  </div>
+
+  <div>
+    <label for="card_holder_last_name2_wpm_details">Card Holder Lastname 2</label>
+    <input type="text" name="wpm_detail[card_holder_last_name2]" id="card_holder_last_name2_wpm_details" value="Gonzalez">
+  </div>
+
+  <div>
+    <label for="card_holder_mail_wpm_details">Card Holder Mail</label>
+    <input type="text" name="wpm_detail[card_holder_mail]" id="card_holder_mail_wpm_details" value="juan.perez@gmail.com">
+  </div>
+
+  <div>
+    <label for="cellphone_number_wpm_details">Cellphone Number</label>
+    <input type="text" name="wpm_detail[cellphone_number]" id="card_holder_mail_wpm_details" value="9912345678">
+  </div>
+
+  <div>
+    <label for="expiration_date_wpm_details">Expiration Date</label>
+    <input type="text" name="wpm_detail[expiration_date]" id="expiration_date_wpm_details" value="2019-03-20T20:18:20Z">
+  </div>
+
+  <div>
+    <label for="commerce_mail_wpm_details">Commerce Email</label>
+    <input type="text" name="wpm_detail[commerce_mail]" id="commerce_mail_wpm_details" value="contacto@comercio.cl">
+  </div>
+
+  <div>
+    <label for="uf_flag_wpm_details">UF Flag</label>
+    <input type="text" name="wpm_detail[uf_flag]" id="uf_flag_wpm_details" value="false">
+  </div>
+
+  <hr style="background-color: #2E2F30"/>
+  <div>
+    <button type="submit" style="background-color: #CCC; border: solid #CCC 0px; font-size: 14px; width: 150px; padding: 10px">Create transaction</button>
+  </div>
 </form>

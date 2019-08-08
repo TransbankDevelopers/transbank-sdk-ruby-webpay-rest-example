@@ -1,0 +1,32 @@
+<h1>Ejemplo Patpass by Webpay (Create Transaction)</h1>
+
+<form class="patpass_form" action="create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <div>
+    <label for="buy_order">
+      Orden de compra
+    </label>
+    <input id="buy_order" name="buy_order" value="123456"/>
+  </div>
+
+  <div>
+    <label for="session_id">
+      Session ID
+    </label>
+    <input id="session_id" name="session_id" value="session123456" />
+  </div>
+
+  <div>
+    <label for="amount">
+      Monto
+    </label>
+    <input id="amount" name="amount" value="1000"/>
+  </div>
+
+  <div>
+    <label for="return_url">
+      URL de retorno
+    </label>
+    <input id="return_url" name="return_url" value="http://0.0.0.0:3000/webpayplus/returnUrl"/>
+  </div>
+  <button type="submit">Send</button>
+</form>

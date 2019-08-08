@@ -41,5 +41,6 @@ Rails.application.routes.draw do
   post '/oneclick/mall/status', to: 'oneclick_mall#status'
   post '/oneclick/mall/refund', to: 'oneclick_mall#refund'
 
+  get 'patpass/create', to: 'patpass#create'
 
 end

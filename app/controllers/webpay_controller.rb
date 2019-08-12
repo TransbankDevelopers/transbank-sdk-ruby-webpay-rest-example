@@ -63,9 +63,4 @@ class WebpayController < ApplicationController
     render 'mall_transaction_created'
   end
 
-  def mall_commit
-    binding.pry
-    puts "test"
-  end
-
 end

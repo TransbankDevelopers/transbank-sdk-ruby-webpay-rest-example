@@ -1,0 +1,29 @@
+<h1>Transacción Webpay Plus confirmada</h1>
+
+<div>
+
+    <div>
+       <%= @resp.inspect %>
+    </div>
+
+    <h2>Obtener status de la transacción</h2>
+
+    <form method="get" action="/webpayplus/status/<%= @req["token_ws"] %>">
+        <div> Token: <%=@req["token_ws"]  %></div>
+        <button type="submit">Obtener status</button>
+    </form>
+
+    <h2>Reembolso de la transacción</h2>
+    <form method="post" action="/webpayplus/refund" style="display:flex; flex-direction: column; width: 30%">
+        <input type="hidden"
+               value="<%= @req["token_ws"] %>"
+        name="token">
+        <div> Token:  <%= @req["token_ws"] %></div>
+
+        <label>Monto</label>
+        <input value="<%= @resp.amount %>" name="amount" />
+        <button type="submit">Reembolsar</button>
+
+    </form>
+
+</div>

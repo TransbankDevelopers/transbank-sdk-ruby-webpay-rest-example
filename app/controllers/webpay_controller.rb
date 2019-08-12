@@ -31,8 +31,6 @@ class WebpayController < ApplicationController
     render 'transaction_committed'
   end
 
-
-
   def refund
     @req = params.as_json
     @token = params[:token]

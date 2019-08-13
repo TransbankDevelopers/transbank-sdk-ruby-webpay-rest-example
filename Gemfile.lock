@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 48fefdf91b5a891db96ba9f4957b374cf2f9b819
-  branch: feat/add-webpay-plus-diferido
+  revision: c97b7a4ed6951910b8df576cc7c5920ef48e5341
+  branch: feat/add-webpay-plus-mall
   specs:
     transbank-sdk (1.1.0)
 

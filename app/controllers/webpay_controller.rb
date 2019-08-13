@@ -76,4 +76,16 @@ class WebpayController < ApplicationController
     render 'webpay/mall_transaction_status'
   end
 
+  def mall_refund
+    @token = params[:token]
+    @child_commerce_code = params[:commerce_code]
+    @child_buy_order = params[:buy_order]
+    @child_amount = params[:amount]
+    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::refund(token: @token,
+                                                                   buy_order: @child_buy_order,
+                                                                   child_commerce_code: @child_commerce_code,
+                                                                   amount: @child_amount)
+    render 'webpay/mall_transaction_refunded'
+  end
+
 end

@@ -65,7 +65,8 @@ class WebpayController < ApplicationController
 
   def mall_commit
     @req = params.as_json
-    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::commit(@req['token_ws'])
+    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::commit(token: @req['token_ws'])
+
     render 'mall_transaction_committed'
   end
 

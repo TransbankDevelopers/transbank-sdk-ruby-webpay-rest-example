@@ -28,4 +28,18 @@ Rails.application.routes.draw do
   post 'webpayplus/mall/diferido/capture', to: 'webpay_mall_deferred#capture'
   get '/webpayplus/mall/diferido/status/:token', to: 'webpay_mall_deferred#status'
   post '/webpayplus/mall/diferido/refund', to: 'webpay_mall_deferred#refund'
+
+  get '/oneclick/mall/inscription/start', to: 'oneclick_mall#inscription'
+  post '/oneclick/mall/inscription/start', to: 'oneclick_mall#start_inscription'
+  post '/oneclick/mall/inscription/finish', to: 'oneclick_mall#finish_inscription'
+  delete '/oneclick/mall/inscription', to: 'oneclick_mall#delete_inscription'
+
+
+  post '/oneclick/inscription/response_url', to: 'oneclick_mall#finish_inscription'
+
+  post '/oneclick/mall/authorize', to: 'oneclick_mall#authorize'
+
+
+
+
 end

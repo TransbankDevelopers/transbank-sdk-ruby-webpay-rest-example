@@ -1,0 +1,2 @@
+module WebpayMallDeferredHelper
+end

@@ -20,4 +20,12 @@ Rails.application.routes.draw do
   post '/webpayplus/mall/return_url', to: 'webpay#mall_commit'
   get '/webpayplus/mall/status/:token', to: 'webpay#mall_status'
   post '/webpayplus/mall/refund', to: 'webpay#mall_refund'
+
+
+  get '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#create'
+  post '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#send_create'
+  post '/webpayplus/mall/diferido/return_url', to: 'webpay_mall_deferred#commit'
+  post 'webpayplus/mall/diferido/capture', to: 'webpay_mall_deferred#capture'
+  get '/webpayplus/mall/diferido/status/:token', to: 'webpay_mall_deferred#status'
+  post '/webpayplus/mall/diferido/refund', to: 'webpay_mall_deferred#refund'
 end

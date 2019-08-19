@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   get '/webpayplus/mall/create', to: 'webpay#mall_create'
   post '/webpayplus/mall/create', to: 'webpay#send_mall_create'
+  post '/webpayplus/mall/return_url', to: 'webpay#mall_commit'
+  get '/webpayplus/mall/status/:token', to: 'webpay#mall_status'
 end

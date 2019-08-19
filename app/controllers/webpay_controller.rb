@@ -70,4 +70,10 @@ class WebpayController < ApplicationController
     render 'mall_transaction_committed'
   end
 
+  def mall_status
+    @token = params[:token]
+    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::status(token: @token)
+    render 'webpay/mall_transaction_status'
+  end
+
 end

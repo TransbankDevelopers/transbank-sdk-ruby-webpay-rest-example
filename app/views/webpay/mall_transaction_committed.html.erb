@@ -11,10 +11,7 @@
 
   <h2>Obtener status de la transacción</h2>
 
-  <form method="post" action="/webpayplus/mall/transaction_status">
-    <input type="hidden"
-           value="<%= @req['token_ws'] %>"
-           name="token">
+  <form method="get" action="/webpayplus/mall/status/<%= @req['token_ws'] %>">
     <div> Token: <%= @req['token_ws'] %> </div>
     <button type="submit">Obtener status</button>
   </form>

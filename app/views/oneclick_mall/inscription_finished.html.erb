@@ -10,13 +10,13 @@
 <form method="post" action="/oneclick/mall/authorize" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
 
   <label for="username">Nombre de usuario</label>
-  <input id="username" name="username" value="<%= session[:user_name] %>"/>
+  <input id="username" name="username" value="<%= @user_name %>"/>
 
   <label for="tbk_user">Codigo de usuario</label>
   <input id="tbk_user" name="tbk_user" value="<%= @resp.tbk_user %>"/>
 
   <label for="parent_buy_order">Orden de compra (comercio padre)</label>
-  <input id="parent_buy_order" name="buy_order" value="<%='12345' + Time.now.to_i %>"/>
+  <input id="parent_buy_order" name="buy_order" value="<%='12345' + Time.now.to_i.to_s %>"/>
 
   <label for="details_commerce_code">Detalles de transacción</label>
   <select id="details_commerce_code" name="details[0][commerce_code]" value="<%= @child_commerce_codes.first %>">
@@ -26,7 +26,7 @@
 
 
   <label for="details_buy_order">Orden de compra (comercio hijo)</label>
-  <input id="details_buy_order" name="details[0][buy_order]" value="<%= 'abcdef' + Time.zone.now.to_i %>"/>
+  <input id="details_buy_order" name="details[0][buy_order]" value="<%= 'abcdef' + Time.zone.now.to_i.to_s %>"/>
 
   <label for="details_amount">Monto</label>
   <input id="details_amount" name="details[0][amount]" value="1000"/>
@@ -45,10 +45,10 @@
 </form>
 
 <h2>Eliminar inscripcion</h2>
-<form method="post" data-method="delete" action="/oneclick/mall/inscription" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-
+<form method="post" action="/oneclick/mall/inscription" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <input name="_method" type="hidden" value="delete">
   <label>Nombre de usuario</label>
-  <input name="user_name" value="<%= session[:user_name] %>"/>
+  <input name="user_name" value="<%= @user_name %>"/>
 
   <label>Id de usuario</label>
   <input name="tbk_user" value="<%= @resp.tbk_user %>"/>

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 5e8deec8421ea05381d8c47d8fb6779f3b38da69
+  revision: 1b5ef5d63de33316286fbfd2a3ec8a736f964fc4
   branch: feat/add-oneclick-mall
   specs:
     transbank-sdk (1.1.0)

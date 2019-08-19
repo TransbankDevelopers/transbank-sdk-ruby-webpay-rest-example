@@ -59,4 +59,24 @@ class OneclickMallController < ApplicationController
     render 'transaction_authorized'
   end
 
+  def status
+    @req = params.as_json
+    @buy_order = @req['buy_order']
+    @resp = Transbank::Webpay::Oneclick::MallTransaction::status(buy_order: @buy_order)
+  end
+
+  def refund
+    @req = params.as_json
+    @buy_order = @req['parent_buy_order']
+    @child_commerce_code = @req['child_commerce_code']
+    @child_buy_order = @req['child_buy_order']
+    @amount= @req['amount']
+
+    @resp = Transbank::Webpay::Oneclick::MallTransaction::refund(buy_order: @buy_order,
+                                                                 child_commerce_code: @child_commerce_code,
+                                                                 child_buy_order: @child_buy_order,
+                                                                 amount: @amount)
+  end
+
+
 end

@@ -44,4 +44,23 @@ class WebpayController < ApplicationController
     @resp = Transbank::Webpay::WebpayPlus::Transaction::status(token: @token)
   end
 
+  def mall_create
+  end
+
+  def send_mall_create
+    params.permit!
+    @req = params.as_json
+    @buy_order = params[:buy_order]
+    @session_id = params[:session_id]
+    @return_url = params[:return_url]
+    @details = params[:detail][:details].map(&:to_h)
+    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::create(
+      buy_order: @buy_order,
+      session_id: @session_id,
+      return_url: @return_url,
+      details: @details
+    )
+    render 'mall_transaction_created'
+  end
+
 end

@@ -1,0 +1,14 @@
+<h1>Webpay Plus Transaction diferida creada exitosamente</h1>
+
+<h2>Request</h2>
+<%= @req %>
+
+<h2>Response</h2>
+<%=  @resp.inspect %>
+
+<form method="post" action="<%= @resp.url %>">
+  <input name="token_ws" value="<%= @resp.token %>">
+
+  <button type="submit">Enviar datos</button>
+</form>
+

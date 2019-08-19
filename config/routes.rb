@@ -38,8 +38,8 @@ Rails.application.routes.draw do
   post '/oneclick/inscription/response_url', to: 'oneclick_mall#finish_inscription'
 
   post '/oneclick/mall/authorize', to: 'oneclick_mall#authorize'
-
-
+  post '/oneclick/mall/status', to: 'oneclick_mall#status'
+  post '/oneclick/mall/refund', to: 'oneclick_mall#refund'
 
 
 end

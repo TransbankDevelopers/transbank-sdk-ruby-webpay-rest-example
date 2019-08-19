@@ -36,4 +36,27 @@ class OneclickMallController < ApplicationController
     render 'inscription_deleted'
   end
 
+  def authorize
+    @req = params.as_json
+    @username = @req['username']
+    @tbk_user = @req['tbk_user']
+    @buy_order = @req['buy_order']
+
+    details = @req['detail']['details']
+
+    @details = details.map do |det|
+      {
+        commerce_code: det['commerce_code'],
+        buy_order: det['buy_order'],
+        amount: det['amount'],
+        installments_number: det['installments_number']
+      }
+    end
+    @resp = Transbank::Webpay::Oneclick::MallTransaction::authorize(username: @username,
+                                                                    tbk_user: @tbk_user,
+                                                                    parent_buy_order: @buy_order,
+                                                                    details: @details)
+    render 'transaction_authorized'
+  end
+
 end

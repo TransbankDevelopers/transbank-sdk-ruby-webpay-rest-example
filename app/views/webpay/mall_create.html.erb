@@ -9,7 +9,7 @@
   <input id="merchant_1_commerce_code" name="detail[details][][commerce_code]" value="597055555537">
 
   <label for="merchant_1_buy_order">Orden de compra comercio 1</label>
-  <input id="merchant_1_buy_order" name="detail[details][][buy_order]" value="123buyorder1">
+  <input id="merchant_1_buy_order" name="detail[details][][buy_order]" value=<%= "123buyorder1" + Time.now.to_i.to_s  %>>
 
 
   <label for="merchant_2_amount">Monto comercio 2</label>
@@ -19,15 +19,15 @@
   <input id="merchant_2_commerce_code" name="detail[details][][commerce_code]" value="597055555536">
 
   <label for="merchant_2_buy_order">Orden de compra comercio 2</label>
-  <input id="merchant_2_buy_order" name="detail[details][][buy_order]" value=<%=  %>"123buyorder2">
+  <input id="merchant_2_buy_order" name="detail[details][][buy_order]" value=<%= "123buyorder2" + Time.now.to_i.to_s %>>
 
   <label for="parent_merchant_buy_order">Orden de compra comercio Padre</label>
-  <input id="parent_merchant_buy_order" name="buy_order" value=<%= '222333' + rand(1000).to_s %>/>
+  <input id="parent_merchant_buy_order" name="buy_order" value=<%= '222333' + Time.now.to_i.to_s %>>
 
   <label for="session_id_parent">
     Session id comercio padre
   </label>
-  <input id="session_id_parent" name="session_id" value=<%= '123session_parent' + rand(1000).to_s %>>
+  <input id="session_id_parent" name="session_id" value=<%= '123session_parent' + Time.now.to_i.to_s %>>
 
 
   <label for="return_url">

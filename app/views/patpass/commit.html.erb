@@ -1,0 +1,13 @@
+<h1>Transacción Patpass by Webpay confirmada</h1>
+
+<h1>Request</h1>
+<%= @req %>
+
+<h1>Response</h1>
+<%= @resp.inspect %>>
+
+<h1>Ver estado de la transaccion</h1>
+<form action="<%="/patpass/patpass_by_webpay/status/#{@token}" %>" method="get">
+  <button type="submit">Obtener estado</button>
+</form>
+

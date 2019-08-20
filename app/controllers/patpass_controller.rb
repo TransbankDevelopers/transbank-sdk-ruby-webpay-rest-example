@@ -3,12 +3,12 @@ class PatpassController < ApplicationController
 
 
   def create
-
   end
 
   def send_create
+    params.permit!
     @request = params.as_json
-    params[:wpm_detail][:uf_flag] = params[:wpm_detail][:uf_flag] == 'false' ? false : true
+    params[:wpm_detail][:uf_flag] = params[:wpm_detail][:uf_flag] != 'false'
 
     buy_order = params[:buy_order]
     session_id = params[:session_id]
@@ -24,6 +24,19 @@ class PatpassController < ApplicationController
         details: details
     )
     render 'transaction_created'
+  end
+
+  def commit
+    @req = params.as_json
+    @token = @req['token_ws']
+
+    @resp = Transbank::Patpass::PatpassByWebpay::Transaction::commit(token: @token)
+  end
+
+  def status
+    @req = params.as_json
+    @token = @req['token']
+    @resp = Transbank::Patpass::PatpassByWebpay::Transaction::status(token: @token)
   end
 
 end

@@ -1,92 +1,50 @@
-<style>
-  label {
-    font-family: "Helvetica Neue", Helvetica, Arial, Sans-Serif;
-    font-size: 14px;
-    font-weight: bolder;
-  }
-</style>
-<h1>Ejemplo Patpass by Webpay (Create Transaction)</h1>
+<h1>Ejemplo Crear Transacción Patpass by Webpay</h1>
 
 <form class="patpass_form" action="<%= send_create_path %>" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <div>
-    <label for="buy_order">
-      Orden de compra
-    </label>
-    <input id="buy_order" name="buy_order" value="123456"/>
-  </div>
+  <label for="buy_order">Orden de compra</label>
+  <input id="buy_order" name="buy_order" value="<%= "buyorder" + Time.zone.now.to_i.to_s %>">
 
-  <div>
-    <label for="session_id">
-      Session ID
-    </label>
-    <input id="session_id" name="session_id" value="session123456" />
-  </div>
+  <label for="session_id">Session ID</label>
+  <input id="session_id" name="session_id" value="<%= "session123345567" + Time.zone.now.to_i.to_s %>"/>
 
-  <div>
-    <label for="amount">
-      Monto
-    </label>
-    <input id="amount" name="amount" value="1000"/>
-  </div>
+  <label for="amount">Monto</label>
+  <input id="amount" name="amount" value="1000"/>
 
-  <div>
-    <label for="return_url">
-      URL de retorno
-    </label>
-    <input id="return_url" name="return_url" value="http://0.0.0.0:3000/webpayplus/returnUrl"/>
-  </div>
-  <hr>
-  <div>
-    <label for="session_id_wpm_details">Session ID</label>
-    <input type="text" name="wpm_detail[service_id]" id="session_id_wpm_details" value="123345567">
-  </div>
-  <div>
-    <label for="card_holder_id_wpm_details">Card Holder ID</label>
-    <input type="text" name="wpm_detail[card_holder_id]" id="card_holder_id_wpm_details" value="12345">
-  </div>
+  <label for="return_url">URL de retorno</label>
+  <input id="return_url" name="return_url" value="http://0.0.0.0:3000/patpass/patpass_by_webpay/return_url"/>
 
-  <div>
-    <label for="card_holder_name_wpm_details"> Card Holder Name</label>
-    <input type="text" name="wpm_detail[card_holder_name]" id="card_holder_name_wpm_details" value="Juan">
-  </div>
+  <label for="session_id_wpm_details">Session ID</label>
+  <input type="text" name="wpm_detail[service_id]" id="session_id_wpm_details" value="<%= "123345567" + Time.zone.now.to_i.to_s %>">
 
-  <div>
-    <label for="card_holder_last_name1_wpm_details">Card Holder Lastname 1</label>
-    <input type="text" name="wpm_detail[card_holder_last_name1]" id="card_holder_last_name1_wpm_details" value="Perez">
-  </div>
+  <label for="card_holder_id_wpm_details">Card Holder ID</label>
+  <input type="text" name="wpm_detail[card_holder_id]" id="card_holder_id_wpm_details" value="12345">
 
-  <div>
-    <label for="card_holder_last_name2_wpm_details">Card Holder Lastname 2</label>
-    <input type="text" name="wpm_detail[card_holder_last_name2]" id="card_holder_last_name2_wpm_details" value="Gonzalez">
-  </div>
+  <label for="card_holder_name_wpm_details"> Card Holder Name</label>
+  <input type="text" name="wpm_detail[card_holder_name]" id="card_holder_name_wpm_details" value="Juan">
 
-  <div>
-    <label for="card_holder_mail_wpm_details">Card Holder Mail</label>
-    <input type="text" name="wpm_detail[card_holder_mail]" id="card_holder_mail_wpm_details" value="juan.perez@gmail.com">
-  </div>
+  <label for="card_holder_last_name1_wpm_details">Card Holder Lastname 1</label>
+  <input type="text" name="wpm_detail[card_holder_last_name1]" id="card_holder_last_name1_wpm_details" value="Perez">
 
-  <div>
-    <label for="cellphone_number_wpm_details">Cellphone Number</label>
-    <input type="text" name="wpm_detail[cellphone_number]" id="card_holder_mail_wpm_details" value="9912345678">
-  </div>
+  <label for="card_holder_last_name2_wpm_details">Card Holder Lastname 2</label>
+  <input type="text" name="wpm_detail[card_holder_last_name2]" id="card_holder_last_name2_wpm_details" value="Gonzalez">
 
-  <div>
-    <label for="expiration_date_wpm_details">Expiration Date</label>
-    <input type="text" name="wpm_detail[expiration_date]" id="expiration_date_wpm_details" value="2019-03-20T20:18:20Z">
-  </div>
+  <label for="card_holder_mail_wpm_details">Card Holder Mail</label>
+  <input type="text" name="wpm_detail[card_holder_mail]" id="card_holder_mail_wpm_details" value="juan.perez@gmail.com">
 
-  <div>
-    <label for="commerce_mail_wpm_details">Commerce Email</label>
-    <input type="text" name="wpm_detail[commerce_mail]" id="commerce_mail_wpm_details" value="contacto@comercio.cl">
-  </div>
+  <label for="cellphone_number_wpm_details">Cellphone Number</label>
+  <input type="text" name="wpm_detail[cellphone_number]" id="card_holder_mail_wpm_details" value="9912345678">
 
-  <div>
-    <label for="uf_flag_wpm_details">UF Flag</label>
-    <input type="text" name="wpm_detail[uf_flag]" id="uf_flag_wpm_details" value="false">
-  </div>
+  <label for="expiration_date_wpm_details">Expiration Date</label>
+  <input type="text" name="wpm_detail[expiration_date]" id="expiration_date_wpm_details" value="<%= (Time.now + 5.year).iso8601 %>">
 
-  <hr style="background-color: #2E2F30"/>
-  <div>
-    <button type="submit" style="background-color: #CCC; border: solid #CCC 0px; font-size: 14px; width: 150px; padding: 10px">Create transaction</button>
-  </div>
+  <label for="commerce_mail_wpm_details">Commerce Email</label>
+  <input type="text" name="wpm_detail[commerce_mail]" id="commerce_mail_wpm_details" value="contacto@comercio.cl">
+
+  <label for="uf_flag_wpm_details">UF Flag</label>
+  <select id="uf_flag_wpm_details" name="wpm_detail[uf_flag]">
+    <option value="true">true</option>
+    <option value="false" selected="selected">false</option>
+  </select>
+
+  <button type="submit">Create transaction</button>
 </form>

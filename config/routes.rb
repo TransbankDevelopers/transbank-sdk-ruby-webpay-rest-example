@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   post '/oneclick/mall/status', to: 'oneclick_mall#status'
   post '/oneclick/mall/refund', to: 'oneclick_mall#refund'
 
-  get 'patpass/create', to: 'patpass#create'
-  post 'patpass/create', to: 'patpass#send_create', as: :send_create
-
+  get '/patpass/patpass_by_webpay/create', to: 'patpass#create'
+  post '/patpass/patpass_by_webpay/create', to: 'patpass#send_create', as: :send_create
+  post '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
+  get '/patpass/patpass_by_webpay/status/:token', to: 'patpass#status'
 end

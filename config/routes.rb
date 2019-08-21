@@ -53,8 +53,12 @@ Rails.application.routes.draw do
   get  '/transaccion_completa/status/:token', to: 'transaccion_completa#status'
   post '/transaccion_completa/refund', to: 'transaccion_completa#refund'
 
-
-
+  get '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#create'
+  post '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#send_create'
+  post '/transaccion_completa/mall/installments', to: 'transaccion_completa_mall#installments'
+  post '/transaccion_completa/mall/commit', to: 'transaccion_completa_mall#commit'
+  get  '/transaccion_completa/mall/status/:token', to: 'transaccion_completa_mall#status'
+  post '/transaccion_completa/mall/refund', to: 'transaccion_completa_mall#refund'
 
 
 end

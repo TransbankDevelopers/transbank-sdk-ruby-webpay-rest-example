@@ -45,4 +45,16 @@ Rails.application.routes.draw do
   post '/patpass/patpass_by_webpay/create', to: 'patpass#send_create', as: :send_create
   post '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
   get '/patpass/patpass_by_webpay/status/:token', to: 'patpass#status'
+
+  get '/transaccion_completa/create', to: 'transaccion_completa#create'
+  post '/transaccion_completa/create', to: 'transaccion_completa#send_create'
+  post '/transaccion_completa/installments', to: 'transaccion_completa#installments'
+  post '/transaccion_completa/commit', to: 'transaccion_completa#commit'
+  get  '/transaccion_completa/status/:token', to: 'transaccion_completa#status'
+  post '/transaccion_completa/refund', to: 'transaccion_completa#refund'
+
+
+
+
+
 end

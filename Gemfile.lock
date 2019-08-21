@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 252e418d90e924c1eedd8640719e9e4828ffced2
-  branch: feat/add-pat-pass-by-webpay-create
+  revision: 059a34e5693895ff52f1af6aab471a5e92dc916b
+  branch: feat/add-transaccion-completa
   specs:
     transbank-sdk (1.1.0)
 

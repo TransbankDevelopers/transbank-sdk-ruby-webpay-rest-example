@@ -1,0 +1,47 @@
+<h1>Ejemplo transaccion completa cuotas consultadas</h1>
+
+<h2>Request</h2>
+<%= @req %>
+
+<h2>Response</h2>
+<%= @resp.inspect %>
+
+
+<h1>Confirmar transacción</h1>
+<form class="transaccion_completa_form" action="/transaccion_completa/mall/commit" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <label for="token">Token</label>
+  <input id="token" name="token" value="<%= @req['token'] %>">
+
+  <label for="child_commerce_code">Codigo de comercio (hijo)</label>
+  <input disabled name="child_commerce_code" value="<%= @req['child_commerce_code'] %>">
+
+  <label for="child_buy_order">Codigo de comercio (hijo)</label>
+  <input disabled name="child_buy_order" value="<%= @req['child_buy_order'] %>">
+
+  <label for="id_query_installments">Id de la consulta de cuotas</label>
+  <input id="id_query_installments" value="<%= @resp.id_query_installments %>">
+
+  <label for="deferred_period_index">Indice de periodo diferido</label>
+  <select id="deferred_period_index" name="deferred_period_index">
+     <%= @resp.deferred_periods.each_with_index do |per, idx| %>
+      <% if idx == 0 %>
+        <option value="<%= per.period %>" selected="selected">
+          <%= per.period %>
+        </option>
+      <% else %>
+        <option value="<%= per.period %>">
+          <%= per.period %>
+        </option>
+      <% end %>
+    <% end %>
+  </select>
+
+  <label for="grace_period">Periodo de gracia</label>
+  <select id="grace_period" name="grace_period">
+    <option value="true">true</option>
+    <option value="false" selected="selected">false</option>
+  </select>
+
+  <button type="submit">Enviar</button>
+
+</form>

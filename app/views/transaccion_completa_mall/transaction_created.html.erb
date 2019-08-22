@@ -12,8 +12,27 @@
   <span>Token: <%= @resp.token %></span>
   <input type="hidden" name="token" value="<%= @resp.token %>">
 
-  <label for="installments_number">Número de cuotas</label>
-  <select id="installments_number" name="installments_number">
+
+
+  <h3>Detalles</h3>
+  <hr>
+
+  <label for="details_commerce_code">Detalles de transacción 1</label>
+  <input id="details_commerce_code" name="detail[details][][commerce_code]"  value="<%= @details.first['commerce_code'] %>">
+<!--    <option selected="selected" value="<%#= @req['detailfirst %>"> Comercio 1 - Codigo <%#= @child_commerce_codes.first %></option>-->
+<!--    <option value="<%#= @child_commerce_codes.second %>">Comercio 2 - Codigo <%#= @child_commerce_codes.second %></option>-->
+<!--        <option selected"> <%#= @details.first['commerce_code'] %></option>-->
+<!--  </select>-->
+
+
+  <label for="details_buy_order">Orden de compra (comercio hijo)</label>
+  <input id="details_buy_order" name="detail[details][][buy_order]" value="<%= @details.first['buy_order'] %>"/>
+
+  <label for="details_amount">Monto</label>
+  <input id="details_amount" name="detail[details][][amount]" value="<%= @details.first['amount'] %>"/>
+
+  <label for="details_installments_number">Número de cuotas</label>
+  <select id="datials_installments_number" name="detail[details][][installments_number]">
     <option>2</option>
     <option selected="selected">3</option>
     <option>4</option>
@@ -26,38 +45,52 @@
     <option>11</option>
     <option>12</option>
   </select>
+  <hr>
 
-  <label for="child_commerce_code">Codigo de comercio (del hijo)</label>
-  <select id="child_commerce_code" name="child_commerce_code">
-    <% @req['details']['detail'].each_with_index do |det, idx| %>
-      <% if idx == 0 %>
-        <option value="<%= det['commerce_code'] %>" selected="true">
-          <%= det['commerce_code'] %>
-        </option>
-      <% else %>
-        <option value="<%= det['commerce_code'] %>">
-          <%= det['commerce_code'] %>
-        </option>
-      <% end %>
+  <label for="details_commerce_code">Detalles de transacción 2</label>
+  <input id="details_commerce_code" name="detail[details][][commerce_code]" value="<%= @details.second['commerce_code'] %>">
+<!--    <option value="<%#= @child_commerce_codes.first %>"> Comercio 1 - Codigo <%#= @child_commerce_codes.first %></option>-->
+<!--    <option selected="selected" value="<%#= @child_commerce_codes.second %>">Comercio 2 - Codigo <%#= @child_commerce_codes.second %></option>-->
+<!--  </select>-->
 
 
-    <% end %>
+  <label for="details_buy_order">Orden de compra (comercio hijo)</label>
+  <input id="details_buy_order" name="detail[details][][buy_order]" value="<%= @details.second['buy_order'] %>"/>
+
+  <label for="details_amount">Monto</label>
+  <input id="details_amount" name="detail[details][][amount]" value="<%= @details.second['amount'] %>"/>
+
+  <select id="datials_installments_number" name="detail[details][][installments_number]">
+    <option>2</option>
+    <option selected="selected">3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
   </select>
+<!--  <label for="child_commerce_codes">Codigo de comercio (del hijo)</label>
+  <select multiple id="child_commerce_codes" name="child_commerce_codes">
+    <%# @details.each do |det| %>
+        <option value="<%#= det['commerce_code'] %>" selected>
+          <%#= det['commerce_code'] %>
+        </option>
+    <%# end %>
+  </select>
+xº
 
   <label for="child_buy_order">Orden de compra (del hijo)</label>
-  <select id="child_buy_order" name="child_buy_order">
-    <% @req['details']['detail'].each_with_index do |det, idx| %>
-      <% if idx == 0 %>
-        <option value="<%= det['buy_order'] %>" selected="true">
-          <%= det['buy_order'] %>
+  <select multiple id="child_buy_orders" name="child_buy_orders">
+    <%# @details.each do |det| %>
+        <option value="<%#= det['buy_order'] %>" selected>
+          <%#= det['buy_order'] %>
         </option>
-      <% else %>
-        <option value="<%= det['buy_order'] %>">
-          <%= det['buy_order'] %>
-        </option>
-      <% end %>
-    <% end %>
-  </select>
+    <%# end %>
+  </select>-->
 
 
   <button type="submit">Enviar</button>

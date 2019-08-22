@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 578dce02e6a991a65711c5a08d1536b9a8a9126e
+  revision: a388400ff61f19b5a711d5b936000c6fd1fdb678
   branch: feat/add-transaccion-completa-mall
   specs:
     transbank-sdk (1.1.0)

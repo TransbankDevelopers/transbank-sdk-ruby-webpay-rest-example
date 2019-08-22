@@ -8,12 +8,13 @@ class TransaccionCompletaMallController < ApplicationController
 
   def send_create
     @req = params.as_json
+    @commerce_code = Transbank::TransaccionCompleta::Base::DEFAULT_MALL_COMMERCE_CODE
+
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
     @card_number = @req['card_number']
     @card_expiration_date = @req['card_expiration_date']
     @details = @req['detail']['details']
-    binding.pry
     @resp = Transbank::TransaccionCompleta::MallTransaction::create(
       buy_order: @buy_order,
       session_id: @session_id,
@@ -27,14 +28,22 @@ class TransaccionCompletaMallController < ApplicationController
   def installments
     @req = params.as_json
     @token = @req['token']
-    @installments_number = @req['installments_number']
-    @child_buy_order = @req['child_buy_order']
-    @child_commerce_code = @req['child_commerce_code']
+   # @installments_number = @req['installments_number']
+    # @child_buy_order = @req['child_buy_order']
+    # @child_commerce_code = @req['child_commerce_code']
+    # @buy_order = @req['buy_order']
+    # @commerce_code = @req['commerce_code']
+    @details = @req['detail']['details']
 
-    @resp = Transbank::TransaccionCompleta::MallTransaction::installments(token: @token,
-                                                                          installments_number: @installments_number,
-                                                                          child_buy_order: @child_buy_order,
-                                                                          child_commerce_code: @child_commerce_code)
+    @resp = Transbank::TransaccionCompleta::MallTransaction::installments(
+                                                                          token: @token,
+                                                                         # installments_number: @installments_number,
+                                                                          details: @details
+                                                                          # buy_order: @buy_order,
+                                                                          # commerce_code: @commerce_code
+                                                                          # child_buy_order: @child_buy_order,
+                                                                          # child_commerce_code: @child_commerce_code
+                                                                          )
     render 'installments_queried'
   end
 
@@ -42,18 +51,10 @@ class TransaccionCompletaMallController < ApplicationController
     @req = params.as_json
     @token = @req['token']
 
-    @child_commerce_code = @req['child_commerce_code']
-    @child_buy_order = @req['child_buy_order']
-    @id_query_installments = @req['id_query_installments']
-    @deferred_period_index = @req['deferred_period_index']
-    @grace_period = @req['grace_period'] != 'false'
+    @details = @req['detail']['details']
 
     @resp = Transbank::TransaccionCompleta::MallTransaction::commit(token: @token,
-                                                                child_commerce_code: @child_commerce_code,
-                                                                child_buy_order: @buy_order,
-                                                                id_query_installments: @id_query_installments,
-                                                                deferred_period_index:@deferred_period_index,
-                                                                grace_period: @grace_period)
+                                                                    details: @details)
     render 'transaction_committed'
   end
 

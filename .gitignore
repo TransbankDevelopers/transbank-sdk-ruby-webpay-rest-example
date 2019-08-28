@@ -14,7 +14,8 @@
 !/tmp/.keep
 /.idea/*
 .DS_Store
-
+.generators
+.rakeTasks
 /node_modules
 /yarn-error.log
 

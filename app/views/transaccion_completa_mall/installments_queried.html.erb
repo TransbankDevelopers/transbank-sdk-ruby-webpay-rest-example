@@ -10,9 +10,13 @@
 <h1>Confirmar transacción</h1>
 <form class="transaccion_completa_form" action="/transaccion_completa/mall/commit" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
 
+  <label for="token">Token</label>
   <input name="token" value="<%= @req['token']%>">
 
-  <label for="etails_commerce_code_1">Orden de compra (comercio hijo)</label>
+  <h3>Comercio 1</h3>
+  <hr>
+
+  <label for="etails_commerce_code_1">Codigo de comercio (comercio hijo)</label>
   <input id="details_commerce_code_1" name="detail[details][][commerce_code]" value="<%= @details.first['commerce_code'] %>">
 
   <label for="details_buy_order_1">Orden de compra (comercio hijo)</label>
@@ -29,14 +33,17 @@
     <% end %>
   </select>
 
-
   <label for="grace_period_1">Periodo de gracia</label>
   <select name="detail[details][][grace_period]">
     <option value="true">true</option>
     <option selected value="false">false</option>
   </select>
 
-  <input id="details_commerce_code" name="detail[details][][commerce_code]" value="<%= @details.second['commerce_code'] %>">
+  <h3>Comercio 2</h3>
+  <hr>
+
+  <label for="etails_commerce_code_2">Codigo de comercio (comercio hijo)</label>
+  <input id="details_commerce_code_2" name="detail[details][][commerce_code]" value="<%= @details.second['commerce_code'] %>">
 
   <label for="details_buy_order_2">Orden de compra (comercio hijo)</label>
   <input id="details_buy_order_2" name="detail[details][][buy_order]" value="<%= @details.second['buy_order'] %>"/>

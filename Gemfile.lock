@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: a388400ff61f19b5a711d5b936000c6fd1fdb678
+  revision: 7a3cca6edc94b0b060acf0bef07dda1f056d8642
   branch: feat/add-transaccion-completa-mall
   specs:
     transbank-sdk (1.1.0)
@@ -93,7 +93,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    nio4r (2.4.0)
+    nio4r (2.5.0)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)

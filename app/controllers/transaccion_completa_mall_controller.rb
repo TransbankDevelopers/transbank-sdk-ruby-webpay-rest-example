@@ -28,21 +28,11 @@ class TransaccionCompletaMallController < ApplicationController
   def installments
     @req = params.as_json
     @token = @req['token']
-   # @installments_number = @req['installments_number']
-    # @child_buy_order = @req['child_buy_order']
-    # @child_commerce_code = @req['child_commerce_code']
-    # @buy_order = @req['buy_order']
-    # @commerce_code = @req['commerce_code']
     @details = @req['detail']['details']
 
     @resp = Transbank::TransaccionCompleta::MallTransaction::installments(
                                                                           token: @token,
-                                                                         # installments_number: @installments_number,
                                                                           details: @details
-                                                                          # buy_order: @buy_order,
-                                                                          # commerce_code: @commerce_code
-                                                                          # child_buy_order: @child_buy_order,
-                                                                          # child_commerce_code: @child_commerce_code
                                                                           )
     render 'installments_queried'
   end

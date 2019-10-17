@@ -1,0 +1,16 @@
+<h1>Patpass comercio Inscription status</h1>
+<h2>Request</h2>
+<%= @req %>
+
+<h2> Response </h2>
+<%= @resp.inspect %>
+
+<%- if @resp.authorized == true %>
+  <h2>Continuar con inscripción</h2>
+  <form action="<%= @resp.voucher_url %>" method="post">
+
+    <label for="token">Token: <%= @req['j_token'] %></label>
+    <input type="hidden" value="<%= @req['j_token'] %>" name="tokenComercio">
+    <button type="submit">Enviar datos</button>
+  </form>
+<% end %>

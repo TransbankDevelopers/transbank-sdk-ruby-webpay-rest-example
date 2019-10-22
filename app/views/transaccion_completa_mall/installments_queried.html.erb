@@ -28,7 +28,7 @@
   <label for="deferred_period_index_1">Deferred period index</label>
   <select name="detail[details][][deferred_period_index]" id="deferred_period_index_1">
     <option value="" selected></option>
-    <%= @resp.second.deferred_periods.each do |per| %>
+    <%= @resp.first.deferred_periods.each do |per| %>
       <option selected value="<%= per %>"><%= per %></option>
     <% end %>
   </select>

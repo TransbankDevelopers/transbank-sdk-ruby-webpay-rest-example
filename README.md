@@ -1,24 +1,21 @@
-# README
+# Proyecto de ejemplo para uso de Webpay REST con el SDK de Transbank para Ruby
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+El siguiente proyecto es un simple sitio web el cual permite utilizar los diferentes productos y modalidades de Webpay disponibles en el
+SDK de Transbank para Ruby.
 
-Things you may want to cover:
+## Requerimientos
+Para ejecutar el proyecto es necesario tener: 
+ ```docker``` y ```docker-compose``` ([como instalar Docker](https://docs.docker.com/install/))
 
-* Ruby version
+## Ejecutar ejemplo
+Con el código fuente del proyecto en tu computador, puedes ejecutar en la raíz del proyecto el comando para construir el contenedor docker, si es la primera vez que ejecutas el proyecto:
 
-* System dependencies
+Correr el proyecto de ejemplo e instalar las dependencias
+```
+make
+```
 
-* Configuration
+El proyecto se ejecutará en http://localhost:3000 (y fallará en caso de que el puerto 3000 no esté disponible)
 
-* Database creation
+Este proyecto está hecho en Ruby 2.5.1 utilizando Rails 5.1.7
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

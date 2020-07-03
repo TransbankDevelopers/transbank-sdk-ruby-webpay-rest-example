@@ -8,7 +8,7 @@
         image: redis:3.2.9
         ports:
           - "6379"
-      web: &web
+      web:
         tty: true
         stdin_open: true
         build:
@@ -21,10 +21,3 @@
           - "3000:3000"
         depends_on:
           - postgres
-        volumes_from:
-          - bundle_cache
-
-      bundle_cache:
-        image: ruby:2.5.1 # Should be the same as the app Dockerfile.dev base image
-        volumes:
-          - /usr/local/bundle

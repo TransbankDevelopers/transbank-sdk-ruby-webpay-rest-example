@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 8d037e759f95c6750c037ae93b05e7834ad675a2
-  branch: feat/add-rest-support
+  revision: c76dc39881afc500fb60b663f797795b53d79831
+  branch: feat/restore-rest-products
   specs:
-    transbank-sdk (1.1.0)
+    transbank-sdk (1.2.0)
 
 GEM
   remote: https://rubygems.org/

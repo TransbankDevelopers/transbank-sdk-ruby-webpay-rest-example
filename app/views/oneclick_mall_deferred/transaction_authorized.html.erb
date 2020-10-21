@@ -1,0 +1,50 @@
+<h1>Oneclick mall transacción autorizada</h1>
+<h1>Request</h1>
+<%= @req %>
+
+
+<h1>Response</h1>
+<%= @resp.inspect %>
+
+
+<h2>Estado de la transacción</h2>
+<form method="post" action="/oneclick/mall_deferred/status" >
+  <label>Buy order: <%= @resp.buy_order %></label>
+  <input type="hidden" name="buy_order" value="<%= @resp.buy_order %>">
+
+  <button type="submit">Enviar datos</button>
+</form>
+
+<h2>Captura de la transacción</h2>
+<% @resp.details.each do |detail| %>
+  <form method="post" action="/oneclick/mall_deferred/capture">
+    <label>Código de comercio</label>
+    <input name="commerce_code" value="<%= detail.commerce_code %>">
+    <label>Orden de Compra</label>
+    <input name="buy_order" value="<%= detail.buy_order %>">
+    <label>Monto de captura</label>
+    <input name="capture_amount" value="<%= detail.amount %>">
+    <label>Código de autorización</label>
+    <input name="authorization_code" value="<%= detail.authorization_code %>">
+    <input type="submit" value="Capturar">
+  </form>
+<% end %>
+
+
+
+<h2>Reembolso de la transacción</h2>
+<form method="post" action="/oneclick/mall_deferred/refund">
+  <label>Buy order padre</label>
+  <input name="parent_buy_order" value="<%= @resp.buy_order %>">
+
+  <label>Commerce code hijo</label>
+  <input name="child_commerce_code" value="<%= @resp.details.first['commerce_code'] %>">
+
+  <label>Buy order hijo</label>
+  <input name="child_buy_order" value="<%= @resp.details.first['buy_order'] %>">
+
+  <label>Monto</label>
+  <input name="amount" value="<%= @resp.details.first['amount'] %>"/>
+
+  <button type="submit">Enviar</button>
+</form>

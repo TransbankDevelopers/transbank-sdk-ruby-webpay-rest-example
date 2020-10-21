@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Transbank SDK
-gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'feat/add-rest-support'
+gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'feat/restore-rest-products'
 
 gem 'rails', '~> 5.1.7'
 gem 'pg', '>= 0.18', '< 2.0'

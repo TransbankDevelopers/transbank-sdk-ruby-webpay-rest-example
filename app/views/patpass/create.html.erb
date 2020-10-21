@@ -11,7 +11,7 @@
   <input id="amount" name="amount" value="1000"/>
 
   <label for="return_url">URL de retorno</label>
-  <input id="return_url" name="return_url" value="http://0.0.0.0:3000/patpass/patpass_by_webpay/return_url"/>
+  <input id="return_url" name="return_url" value="<%= "#{root_url}patpass/patpass_by_webpay/return_url" %>" />
 
   <label for="session_id_wpm_details">Session ID</label>
   <input type="text" name="wpm_detail[service_id]" id="session_id_wpm_details" value="<%= "123345567" + Time.zone.now.to_i.to_s %>">

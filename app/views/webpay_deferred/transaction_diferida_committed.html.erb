@@ -18,7 +18,7 @@
 
   <h2>Obtener status de la transacción</h2>
 
-  <form method="get" action="/webpayplus/diferido/status/" + <%= @req['token_ws'] %>>
+  <form method="get" action=<%= "/webpayplus/diferido/status/" + @req['token_ws']%>>
     <input type="hidden"
            value=<%= @req['token_ws'] %>
     name="token">

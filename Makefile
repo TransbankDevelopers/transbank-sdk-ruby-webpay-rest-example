@@ -1,32 +1,22 @@
-SHELL := /bin/bash
-
-all: build run
-
-run: build
-	docker-compose run --service-ports web
-
-build: .built .bundled
-
-.built: Dockerfile
+build tmp/.built:
 	docker-compose build
-	touch .built
+	docker-compose run web bundle 
+	docker-compose run web yarn install --check-files
+	docker-compose run web rails db:setup
+	docker-compose stop
+	touch tmp/.built
 
-.bundled: Gemfile Gemfile.lock
-	docker-compose run --rm web bundle
-	touch .bundled
+start: tmp/.built
+	docker-compose up --exit-code-from=web
+
+start-headless: tmp/.built
+	docker-compose up -d
+	@echo "Rails server launched, wait a moment for it to start. Visit http://localhost:3000"
 
 stop:
 	docker-compose stop
 
-restart: build
-	docker-compose restart web
-
-clean: stop
-	rm -f tmp/pids/*
-	docker-compose rm -f -v bundle_cache
-	rm -f .bundled
-	docker-compose rm -f
-	rm -f .built
-
-logs:
-	docker-compose logs
+clean:
+	docker-compose down
+	docker-compose rm -s -f
+	rm -f tmp/.built

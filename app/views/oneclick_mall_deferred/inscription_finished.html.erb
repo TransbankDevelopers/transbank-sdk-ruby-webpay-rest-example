@@ -24,7 +24,6 @@
     <option value="<%= @child_commerce_codes.second %>">Comercio 2 - Codigo <%= @child_commerce_codes.second %></option>
   </select>
 
-
   <label for="details_buy_order">Orden de compra (comercio hijo)</label>
   <input id="details_buy_order" name="detail[details][][buy_order]" value="<%= 'abcdef' + Time.zone.now.to_i.to_s %>"/>
 
@@ -54,6 +53,4 @@
   <input name="tbk_user" value="<%= @resp.tbk_user %>"/>
 
   <button type="submit">Enviar</button>
-
-
 </form>

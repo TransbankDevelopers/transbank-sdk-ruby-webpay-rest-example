@@ -18,5 +18,7 @@
 .rakeTasks
 /node_modules
 /yarn-error.log
+.built
+.bundled
 
 .byebug_history

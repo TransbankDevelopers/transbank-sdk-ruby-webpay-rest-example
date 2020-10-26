@@ -3,7 +3,7 @@
 <form class="patpass_form" action="/patpass/patpass_comercio/inscription" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
 
   <label for="url">URL</label>
-  <input id="url" name="url" value="http://0.0.0.0:3000/patpass/patpass_comercio/inscription/status">
+  <input id="url" name="url" value="<%= "#{root_url}patpass/patpass_comercio/inscription/status" %>">
 
   <label for="name">Nombre</label>
   <input id="name" name="name" value="Pepito">
@@ -21,7 +21,7 @@
   <input name="service_id" name="service_id" value="<%= "1234" + Time.zone.now.to_i.to_s %>" type="text">
 
   <label for="final_url">URL final</label>
-  <input id="final_url" name="final_url" value="http://0.0.0.0:3000/patpass/patpass_comercio/final_url" type="text">
+  <input id="final_url" name="final_url" value="<%= "#{root_url}patpass/patpass_comercio/final_url" %>" type="text">
 
   <label for="max_amount">Monto maximo</label>
   <input id="max_amount" name="max_amount" value="20000" type="text">

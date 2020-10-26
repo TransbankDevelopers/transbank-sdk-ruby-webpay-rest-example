@@ -1,30 +1,22 @@
-    version: "2"
-    services:
-      postgres:
-        image: mdillon/postgis:9.6
-        ports:
-          - "5432"
-      redis:
-        image: redis:3.2.9
-        ports:
-          - "6379"
-      web: &web
-        tty: true
-        stdin_open: true
-        build:
-          context: .
-          dockerfile: Dockerfile
-        command: bundle exec rails s -p 3000 -b '0.0.0.0'
-        volumes:
-          - .:/app
-        ports:
-          - "3000:3000"
-        depends_on:
-          - postgres
-        volumes_from:
-          - bundle_cache
-
-      bundle_cache:
-        image: ruby:2.5.1 # Should be the same as the app Dockerfile.dev base image
-        volumes:
-          - /usr/local/bundle
+version: '3'
+services:
+  postgres:
+    image: postgres:12.1
+    ports:
+      - 5432
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+      - bundle_cache:/bundle
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgres://postgres@postgres
+volumes:
+  bundle_cache:

@@ -38,7 +38,6 @@ class OneclickMallDeferredController < ApplicationController
   end
 
   def authorize
-    console
     @req = params.as_json
     @username = @req['username']
     @tbk_user = @req['tbk_user']
@@ -95,6 +94,4 @@ class OneclickMallDeferredController < ApplicationController
       amount: @amount
     )
   end
-
-
 end

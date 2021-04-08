@@ -1,14 +1,14 @@
-class TransaccionCompletaMallController < ApplicationController
+class TransaccionCompletaMallDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :configure_sdk
+  before_action :params_to_json, except: :create
 
   def create
-    Transbank::TransaccionCompleta::Base.commerce_code = '597055555573'
-    @child_commerce_codes = Transbank::TransaccionCompleta::Base::DEFAULT_MALL_CHILD_COMMERCE_CODES
+    @child_commerce_codes = %w[597055555577 597055555578].freeze
   end
 
   def send_create
-    @req = params.as_json
-    @commerce_code = Transbank::TransaccionCompleta::Base::DEFAULT_MALL_COMMERCE_CODE
+    @commerce_code = '597055555576'
 
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
@@ -20,13 +20,13 @@ class TransaccionCompletaMallController < ApplicationController
       session_id: @session_id,
       card_number: @card_number,
       card_expiration_date: @card_expiration_date,
+      cvv: @req['cvv'],
       details: @details
     )
     render 'transaction_created'
   end
 
   def installments
-    @req = params.as_json
     @token = @req['token']
     @details = @req['detail']['details']
 
@@ -38,8 +38,8 @@ class TransaccionCompletaMallController < ApplicationController
   end
 
   def commit
-    @req = params.as_json
     @token = @req['token']
+    @child_commerce_codes = %w[597055555577 597055555578].freeze
 
     @details = @req['detail']['details']
 
@@ -48,14 +48,24 @@ class TransaccionCompletaMallController < ApplicationController
     render 'transaction_committed'
   end
 
+  def capture
+    puts @req
+    @resp = Transbank::TransaccionCompleta::MallTransaction.capture(
+      token: @req['token'],
+      commerce_code: @req['child_commerce_code'],
+      buy_order: @req['buy_order'],
+      authorization_code: @req['authorization_code'],
+      capture_amount: @req['amount']
+    )
+    render 'transaction_captured'
+  end
+
   def status
-    @req = params.as_json
     @token = @req['token']
     @resp =  Transbank::TransaccionCompleta::MallTransaction.status(token: @token)
   end
 
   def refund
-    @req = params.as_json
     @token = @req['token']
     @amount = @req['amount']
     @child_buy_order = @req['child_buy_order']
@@ -68,5 +78,15 @@ class TransaccionCompletaMallController < ApplicationController
       amount: @amount
     )
     render 'transaction_refunded'
+  end
+
+  private
+
+  def configure_sdk
+    Transbank::TransaccionCompleta::Base.commerce_code = '597055555576'
+  end
+
+  def params_to_json
+    @req = params.as_json
   end
 end

@@ -1,0 +1,40 @@
+
+<body>
+<h1>Ejemplo Transaccion completa</h1>
+
+<form class="transaccion_completa_form" action="/transaccion_completa_deferred/create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <label for="buy_order">
+    Orden de compra
+  </label>
+  <input id="buy_order" name="buy_order" value="<%='buyorder' + Time.zone.now.to_i.to_s %>"/>
+
+  <label for="session_id">
+    Id de sesión
+  </label>
+  <input id="session_id" name="session_id" value="<%='session' + Time.zone.now.to_i.to_s %>" />
+
+  <label for="amount">
+    Monto
+  </label>
+  <input id="amount" name="amount" value="1000"/>
+
+  <label for="card_number">
+    Numero de tarjeta
+  </label>
+  <input id="card_number" name="card_number" value="4051885600446623"/>
+
+  <label for="cvv">
+    CVV
+  </label>
+  <input id="cvv" name="cvv" value="123"/>
+
+  <label for="card_expiration_date">
+    Fecha de expiracion (AA/MM)
+  </label>
+  <input id="card_expiration_date" name="card_expiration_date" value="<%= Date.new(Time.now.year + 5, Time.now.month, Time.now.day).strftime("%y/%m")
+  %>"/>
+
+  <button type="submit">Aceptar</button>
+</form>
+
+</body>

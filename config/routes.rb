@@ -13,14 +13,13 @@ Rails.application.routes.draw do
   post 'webpayplus/diferido/return_url', to: 'webpay_deferred#commit'
   post 'webpayplus/diferido/capture', to: 'webpay_deferred#capture'
   get 'webpayplus/diferido/status/:token', to: 'webpay_deferred#status'
-  post "/webpayplus/diferido/refund", to: 'webpay_deferred#refund'
+  post '/webpayplus/diferido/refund', to: 'webpay_deferred#refund'
 
   get '/webpayplus/mall/create', to: 'webpay#mall_create'
   post '/webpayplus/mall/create', to: 'webpay#send_mall_create'
   post '/webpayplus/mall/return_url', to: 'webpay#mall_commit'
   get '/webpayplus/mall/status/:token', to: 'webpay#mall_status'
   post '/webpayplus/mall/refund', to: 'webpay#mall_refund'
-
 
   get '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#create'
   post '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#send_create'
@@ -65,6 +64,14 @@ Rails.application.routes.draw do
   get  '/transaccion_completa/status/:token', to: 'transaccion_completa#status'
   post '/transaccion_completa/refund', to: 'transaccion_completa#refund'
 
+  get '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#create'
+  post '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#send_create'
+  post '/transaccion_completa_deferred/installments', to: 'transaccion_completa_deferred#installments'
+  post '/transaccion_completa_deferred/commit', to: 'transaccion_completa_deferred#commit'
+  post '/transaccion_completa_deferred/capture', to: 'transaccion_completa_deferred#capture'
+  get  '/transaccion_completa_deferred/status/:token', to: 'transaccion_completa_deferred#status'
+  post '/transaccion_completa_deferred/refund', to: 'transaccion_completa_deferred#refund'
+
   get '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#create'
   post '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#send_create'
   post '/transaccion_completa/mall/installments', to: 'transaccion_completa_mall#installments'
@@ -72,5 +79,11 @@ Rails.application.routes.draw do
   get  '/transaccion_completa/mall/status/:token', to: 'transaccion_completa_mall#status'
   post '/transaccion_completa/mall/refund', to: 'transaccion_completa_mall#refund'
 
-
+  get '/transaccion_completa/mall_deferred/create', to: 'transaccion_completa_mall_deferred#create'
+  post '/transaccion_completa/mall_deferred/create', to: 'transaccion_completa_mall_deferred#send_create'
+  post '/transaccion_completa/mall_deferred/installments', to: 'transaccion_completa_mall_deferred#installments'
+  post '/transaccion_completa/mall_deferred/commit', to: 'transaccion_completa_mall_deferred#commit'
+  post '/transaccion_completa/mall_deferred/capture', to: 'transaccion_completa_mall_deferred#capture'
+  get  '/transaccion_completa/mall_deferred/status/:token', to: 'transaccion_completa_mall_deferred#status'
+  post '/transaccion_completa/mall_deferred/refund', to: 'transaccion_completa_mall_deferred#refund'
 end

@@ -1,12 +1,11 @@
-class TransaccionCompletaController < ApplicationController
+class TransaccionCompletaDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :configure_sdk
+  before_action :params_to_json, except: :create
 
-  def create
-    Transbank::TransaccionCompleta::Base.commerce_code = '597055555530'
-  end
+  def create; end
 
   def send_create
-    @req = params.as_json
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
     @amount = @req['amount']
@@ -26,7 +25,6 @@ class TransaccionCompletaController < ApplicationController
   end
 
   def installments
-    @req = params.as_json
     @token = @req['token']
     @installments_number = @req['installments_number']
     @resp = Transbank::TransaccionCompleta::Transaction.installments(
@@ -37,7 +35,6 @@ class TransaccionCompletaController < ApplicationController
   end
 
   def commit
-    @req = params.as_json
     @token = @req['token']
     @id_query_installments = @req['id_query_installments']
     @deferred_period_index = @req['deferred_period_index']
@@ -50,17 +47,35 @@ class TransaccionCompletaController < ApplicationController
     render 'transaction_committed'
   end
 
+  def capture
+    @resp = Transbank::TransaccionCompleta::Transaction.capture(
+      token: @req['token'],
+      buy_order: @req['buy_order'],
+      authorization_code: @req['authorization_code'],
+      capture_amount: @req['amount']
+    )
+    render 'transaction_captured'
+  end
+
   def status
-    @req = params.as_json
     @token = @req['token']
     @resp =  Transbank::TransaccionCompleta::Transaction.status(token: @token)
   end
 
   def refund
-    @req = params.as_json
     @token = @req['token']
     @amount = @req['amount']
     @resp = Transbank::TransaccionCompleta::Transaction.refund(token: @token, amount: @amount)
     render 'transaction_refunded'
+  end
+
+  private
+
+  def params_to_json
+    @req = params.as_json
+  end
+
+  def configure_sdk
+    Transbank::TransaccionCompleta::Base.commerce_code = '597055555531'
   end
 end

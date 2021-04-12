@@ -1,0 +1,71 @@
+<h1>Ejemplo transaccion completa Mall cuotas consultadas</h1>
+
+<h2>Request</h2>
+<%= @req %>
+
+<h2>Response</h2>
+<%= @resp.inspect %>
+
+
+<h1>Confirmar transacción</h1>
+<form class="transaccion_completa_form" action="/transaccion_completa/mall_deferred/commit" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+
+  <label for="token">Token</label>
+  <input name="token" value="<%= @req['token']%>">
+
+  <h3>Comercio 1</h3>
+  <hr>
+
+  <label for="etails_commerce_code_1">Codigo de comercio (comercio hijo)</label>
+  <input id="details_commerce_code_1" name="detail[details][][commerce_code]" value="<%= @details.first['commerce_code'] %>">
+
+  <label for="details_buy_order_1">Orden de compra (comercio hijo)</label>
+  <input id="details_buy_order_1" name="detail[details][][buy_order]" value="<%= @details.first['buy_order'] %>"/>
+
+  <label for="id_query_installments_1">Id query installments</label>
+  <input id="id_query_installments_1" name="detail[details][][id_query_installments]" value="<%= @resp.first.id_query_installments %>">
+
+  <label for="deferred_period_index_1">Deferred period index</label>
+  <select name="detail[details][][deferred_period_index]" id="deferred_period_index_1">
+    <option value="" selected></option>
+    <%= @resp.second.deferred_periods.each do |per| %>
+      <option selected value="<%= per %>"><%= per %></option>
+    <% end %>
+  </select>
+
+  <label for="grace_period_1">Periodo de gracia</label>
+  <select name="detail[details][][grace_period]">
+    <option value="true">true</option>
+    <option selected value="false">false</option>
+  </select>
+
+  <h3>Comercio 2</h3>
+  <hr>
+
+  <label for="etails_commerce_code_2">Codigo de comercio (comercio hijo)</label>
+  <input id="details_commerce_code_2" name="detail[details][][commerce_code]" value="<%= @details.second['commerce_code'] %>">
+
+  <label for="details_buy_order_2">Orden de compra (comercio hijo)</label>
+  <input id="details_buy_order_2" name="detail[details][][buy_order]" value="<%= @details.second['buy_order'] %>"/>
+
+
+  <label for="id_query_installments">Id query installments</label>
+  <input id="id_query_installments_2" name="detail[details][][id_query_installments]" value="<%= @resp.second.id_query_installments %>">
+
+  <label for="deferred_period_index_2">Deferred period index</label>
+  <select name="detail[details][][deferred_period_index]" id="deferred_period_index_2">
+    <option value="" selected></option>
+    <% @resp.second.deferred_periods.each do |per| %>
+      <option selected value="<%= per %>"><%= per %></option>
+    <% end %>
+  </select>
+
+  <label for="grace_period_2">Periodo de gracia</label>
+  <select id="grace_period_2" name="detail[details][][grace_period]">
+    <option value="true">true</option>
+    <option selected value="false">false</option>
+  </select>
+
+  <button type="submit">Enviar</button>
+
+</form>

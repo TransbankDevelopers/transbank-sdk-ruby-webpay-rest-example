@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 241756eb55b6f7d536e00c0ae04eba2aca31e575
-  branch: feat/restore-rest-products
-  specs:
-    transbank-sdk (1.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,6 +66,7 @@ GEM
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.13.1)
+    ffi (1.13.1-x64-mingw32)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.5)
@@ -95,7 +89,10 @@ GEM
     nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    nokogiri (1.10.10-x64-mingw32)
+      mini_portile2 (~> 2.4.0)
     pg (1.2.3)
+    pg (1.2.3-x64-mingw32)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -170,6 +167,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2021.5)
+      tzinfo (>= 1.0.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     web-console (3.7.0)
@@ -185,6 +184,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   byebug
@@ -201,8 +201,8 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  transbank-sdk!
   turbolinks (~> 5)
+  tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 

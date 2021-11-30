@@ -23,12 +23,12 @@
   <input id="details_buy_order_1" name="detail[details][][buy_order]" value="<%= @details.first['buy_order'] %>"/>
 
   <label for="id_query_installments_1">Id query installments</label>
-  <input id="id_query_installments_1" name="detail[details][][id_query_installments]" value="<%= @resp.first.id_query_installments %>">
+  <input id="id_query_installments_1" name="detail[details][][id_query_installments]" value="<%= @resp.first["id_query_installments"] %>">
 
   <label for="deferred_period_index_1">Deferred period index</label>
   <select name="detail[details][][deferred_period_index]" id="deferred_period_index_1">
     <option value="" selected></option>
-    <%= @resp.second.deferred_periods.each do |per| %>
+    <%= @resp.second["deferred_periods"].each do |per| %>
       <option selected value="<%= per %>"><%= per %></option>
     <% end %>
   </select>
@@ -50,12 +50,12 @@
 
 
   <label for="id_query_installments">Id query installments</label>
-  <input id="id_query_installments_2" name="detail[details][][id_query_installments]" value="<%= @resp.second.id_query_installments %>">
+  <input id="id_query_installments_2" name="detail[details][][id_query_installments]" value="<%= @resp.second["id_query_installments"] %>">
 
   <label for="deferred_period_index_2">Deferred period index</label>
   <select name="detail[details][][deferred_period_index]" id="deferred_period_index_2">
     <option value="" selected></option>
-    <% @resp.second.deferred_periods.each do |per| %>
+    <% @resp.second["deferred_periods"].each do |per| %>
       <option selected value="<%= per %>"><%= per %></option>
     <% end %>
   </select>

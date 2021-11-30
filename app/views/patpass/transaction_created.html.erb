@@ -2,14 +2,14 @@
 <h1>Patpass by Webpay Transaction creada exitosamente</h1>
 
 <h2>Request</h2>
-<%= @request %>
+<%= @req %>
 
 
 <h2>Response</h2>
-<%=  @response.to_json %>
+<%=  @resp.to_json %>
 <hr>
-<form method="post" action="<%= @response.url %>">
-  <input name="token_ws" value="<%= @response.token %>" size="70"/>
+<form method="post" action="<%= @resp["url"] %>">
+  <input name="token_ws" value="<%= @resp["token"] %>" size="70"/>
 
   <button type="submit" style="background-color: #CCC; border: solid #CCC 0px; font-size: 14px; width: 150px; padding: 10px">Commit transaction</button>
 </form>

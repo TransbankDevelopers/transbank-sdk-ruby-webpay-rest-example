@@ -1,6 +1,12 @@
 class OneclickMallDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def initialize
+    super
+    @inscription = Transbank::Webpay::Oneclick::MallInscription.new(::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED)
+    @tx = Transbank::Webpay::Oneclick::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED)
+  end
+
   def inscription; end
 
   def start_inscription
@@ -11,20 +17,19 @@ class OneclickMallDeferredController < ApplicationController
     session[:user_name] = @user_name
     session[:email] = @email
 
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::start(
-      user_name: @user_name,
-      email: @email,
-      response_url: @response_url
-    )
+    @resp = @inscription.start(@user_name, @email, @response_url)  
+
     render 'inscription_started'
   end
 
   def finish_inscription
     @req = params.as_json
     @token = @req["TBK_TOKEN"]
-    @child_commerce_codes = ::Transbank::Webpay::Oneclick::Base::DEFAULT_ONECLICK_MALL_DEFERRED_CHILD_COMMERCE_CODES
+    @child_commerce_codes = [::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED_CHILD2]
     @user_name = session[:user_name]
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::finish(token: @token)
+    
+    @resp = @inscription.finish(@token)  
+
     render 'inscription_finished'
   end
 
@@ -32,8 +37,9 @@ class OneclickMallDeferredController < ApplicationController
     @req = params.as_json
     @user_name = @req['user_name']
     @tbk_user = @req['tbk_user']
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::delete(user_name: @user_name,
-                                                                 tbk_user: @tbk_user)
+
+    @resp = @inscription.delete(@tbk_user, @user_name)
+
     render 'inscription_deleted'
   end
 
@@ -53,10 +59,9 @@ class OneclickMallDeferredController < ApplicationController
         installments_number: det['installments_number']
       }
     end
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::authorize(username: @username,
-                                                                    tbk_user: @tbk_user,
-                                                                    parent_buy_order: @buy_order,
-                                                                    details: @details)
+    
+    @resp = @tx.authorize(@username, @tbk_user, @buy_order, @details)
+
     render 'transaction_authorized'
   end
 
@@ -64,20 +69,21 @@ class OneclickMallDeferredController < ApplicationController
     # This one is for the status request
     @parent_buy_order = params[:parent_buy_order]
 
-    @commerce_code = params[:commerce_code]
-    @buy_order = params[:buy_order]
-    @capture_amount = params[:capture_amount]
+    @child_commerce_code = params[:commerce_code]
+    @child_buy_order = params[:buy_order]
+    @amount = params[:capture_amount]
     @authorization_code = params[:authorization_code]
-    @response = Transbank::Webpay::Oneclick::MallDeferredTransaction::capture(
-      child_commerce_code: @commerce_code, child_buy_order: @buy_order,
-      amount: @capture_amount, authorization_code: @authorization_code
-    )
+    
+    @resp = @tx.capture(@child_commerce_code, @child_buy_order, @authorization_code, @amount)
+
   end
 
   def status
     @req = params.as_json
     @buy_order = @req['buy_order']
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::status(buy_order: @buy_order)
+
+    @resp = @tx.status(@buy_order)
+
   end
 
   def refund
@@ -87,11 +93,7 @@ class OneclickMallDeferredController < ApplicationController
     @child_buy_order = @req['child_buy_order']
     @amount= @req['amount']
 
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::refund(
-      buy_order: @buy_order,
-      child_commerce_code: @child_commerce_code,
-      child_buy_order: @child_buy_order,
-      amount: @amount
-    )
+    @resp = @tx.refund(@buy_order, @child_commerce_code, @child_buy_order, @amount)
+
   end
 end

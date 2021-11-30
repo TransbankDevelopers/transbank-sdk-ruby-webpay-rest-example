@@ -11,8 +11,8 @@
     <%= @resp.inspect %>
 </pre>
 
-<form method="post" action=<%= @resp.url %>>
-  <input name="token_ws" value=<%= @resp.token %>>
+<form method="post" action=<%= @resp["url"] %>>
+  <input name="token_ws" value=<%= @resp["token"] %>>
 
   <button type="submit">Enviar datos</button>
 </form>

@@ -21,13 +21,13 @@
     <input type="hidden" name="token" value="<%= @req['token_ws'] %>">
 
     <label for="buy_order_1">Buy Order</label>
-    <input id="buy_order_1" name="buy_order" value="<%= @resp.details[0]['buy_order'] %>" >
+    <input id="buy_order_1" name="buy_order" value="<%= @resp["details"][0]['buy_order'] %>" >
 
     <label for="child_commerce_code_1">Commerce Code hijo</label>
-    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp.details[0]['commerce_code'] %>">
+    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp["details"][0]['commerce_code'] %>">
 
     <label for="child_amount_1">Monto 1</label>
-    <input id="child_amount_1" name="amount" value="<%= @resp.details[0]['amount'] %>" >
+    <input id="child_amount_1" name="amount" value="<%= @resp["details"][0]['amount'] %>" >
 
     <button type="submit">Enviar</button>
   </form>
@@ -37,13 +37,13 @@
     <input type="hidden" name="token" value="<%= @req['token_ws'] %>">
 
     <label for="buy_order_1">Buy Order</label>
-    <input id="buy_order_1" name="buy_order" value="<%= @resp.details[1]['buy_order'] %>" >
+    <input id="buy_order_1" name="buy_order" value="<%= @resp["details"][1]['buy_order'] %>" >
 
     <label for="child_commerce_code_1">Commerce Code hijo</label>
-    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp.details[1]['commerce_code'] %>" >
+    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp["details"][1]['commerce_code'] %>" >
 
     <label for="child_amount_1">Monto 2</label>
-    <input id="child_amount_1" name="amount" value="<%= @resp.details[1]['amount'] %>"  >
+    <input id="child_amount_1" name="amount" value="<%= @resp["details"][1]['amount'] %>"  >
     <button type="submit">Enviar</button>
   </form>
 

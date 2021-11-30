@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Transbank SDK
-gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'master'
+#gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'master'
 
 gem 'rails', '~> 5.1.7'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -19,7 +19,8 @@ gem 'jbuilder', '~> 2.5'
 
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug' 
+  gem 'tzinfo-data', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'pry'

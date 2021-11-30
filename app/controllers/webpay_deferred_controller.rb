@@ -9,12 +9,10 @@ class WebpayDeferredController < ApplicationController
     amount = params[:amount]
     return_url = params[:return_url]
     @req = params.as_json
-    @resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::create(
-      buy_order: buy_order,
-      session_id: session_id,
-      amount: amount,
-      return_url: return_url
-    )
+
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_DEFERRED)
+    @resp = tx.create(buy_order, session_id, amount, return_url)  
+
     render 'transaction_diferida_created'
   end
 
@@ -22,7 +20,10 @@ class WebpayDeferredController < ApplicationController
     @req = params.as_json
 
     @token = params[:token_ws]
-    @resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::commit(token: @token)
+    
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_DEFERRED)
+    @resp = tx.commit(@token)
+
     render 'transaction_diferida_committed'
   end
 
@@ -30,14 +31,17 @@ class WebpayDeferredController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @buy_order = params[:buy_order]
-    @auth_code = params[:authorization_code]
+    @authorization_code = params[:authorization_code]
     @amount = params[:capture_amount]
     @commerce_code = 597055555540
 
-    @resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::capture(token: @token,
-                                                                buy_order: @buy_order,
-                                                                authorization_code: @auth_code,
-                                                                capture_amount: @amount)
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_DEFERRED)
+    @resp = tx.capture(@token, @buy_order, @authorization_code, @amount)  
+
+    #@resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::capture(token: @token,
+    #                                                            buy_order: @buy_order,
+    #                                                            authorization_code: @auth_code,
+    #                                                            capture_amount: @amount)
     render 'transaction_diferida_captured'
   end
 
@@ -45,14 +49,20 @@ class WebpayDeferredController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @amount = params[:amount]
-    @resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::refund(token: @token, amount: @amount)
+    
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_DEFERRED)
+    @resp = tx.refund(@token, @amount)
+
     render 'transaction_diferida_refunded'
   end
 
   def status
     @req = params.as_json
     @token = params[:token]
-    @resp = Transbank::Webpay::WebpayPlus::DeferredTransaction::status(token: @token)
+    
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_DEFERRED)
+    @resp = tx.status(@token)
+
     render 'transaction_diferida_status'
   end
 

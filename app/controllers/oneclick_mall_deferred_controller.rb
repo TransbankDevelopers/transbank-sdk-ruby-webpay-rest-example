@@ -1,5 +1,6 @@
 class OneclickMallDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :new_transaction
 
   def inscription; end
 
@@ -11,20 +12,16 @@ class OneclickMallDeferredController < ApplicationController
     session[:user_name] = @user_name
     session[:email] = @email
 
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::start(
-      user_name: @user_name,
-      email: @email,
-      response_url: @response_url
-    )
+    @resp = @inscription.start(@user_name, @email, @response_url)
     render 'inscription_started'
   end
 
   def finish_inscription
     @req = params.as_json
     @token = @req["TBK_TOKEN"]
-    @child_commerce_codes = ::Transbank::Webpay::Oneclick::Base::DEFAULT_ONECLICK_MALL_DEFERRED_CHILD_COMMERCE_CODES
+    @child_commerce_codes = ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED_CHILD_COMMERCE_CODES
     @user_name = session[:user_name]
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::finish(token: @token)
+    @resp = @inscription.finish(@token)
     render 'inscription_finished'
   end
 
@@ -32,8 +29,7 @@ class OneclickMallDeferredController < ApplicationController
     @req = params.as_json
     @user_name = @req['user_name']
     @tbk_user = @req['tbk_user']
-    @resp = Transbank::Webpay::Oneclick::MallDeferredInscription::delete(user_name: @user_name,
-                                                                 tbk_user: @tbk_user)
+    @resp = @inscription.delete(@user_name, @tbk_user)
     render 'inscription_deleted'
   end
 
@@ -53,10 +49,7 @@ class OneclickMallDeferredController < ApplicationController
         installments_number: det['installments_number']
       }
     end
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::authorize(username: @username,
-                                                                    tbk_user: @tbk_user,
-                                                                    parent_buy_order: @buy_order,
-                                                                    details: @details)
+    @resp = @transaction.authorize(@username, @tbk_user, @buy_order, @details)
     render 'transaction_authorized'
   end
 
@@ -68,16 +61,13 @@ class OneclickMallDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @capture_amount = params[:capture_amount]
     @authorization_code = params[:authorization_code]
-    @response = Transbank::Webpay::Oneclick::MallDeferredTransaction::capture(
-      child_commerce_code: @commerce_code, child_buy_order: @buy_order,
-      amount: @capture_amount, authorization_code: @authorization_code
-    )
+    @response = @transaction.capture( @commerce_code, @buy_order, @authorization_code, @capture_amount)
   end
 
   def status
     @req = params.as_json
     @buy_order = @req['buy_order']
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::status(buy_order: @buy_order)
+    @resp = @transaction.status(@buy_order)
   end
 
   def refund
@@ -87,11 +77,12 @@ class OneclickMallDeferredController < ApplicationController
     @child_buy_order = @req['child_buy_order']
     @amount= @req['amount']
 
-    @resp = Transbank::Webpay::Oneclick::MallDeferredTransaction::refund(
-      buy_order: @buy_order,
-      child_commerce_code: @child_commerce_code,
-      child_buy_order: @child_buy_order,
-      amount: @amount
-    )
+    @resp = @transaction.refund(@buy_order, @child_commerce_code, @child_buy_order, @amount)
   end
+
+  def new_transaction
+    @inscription = Transbank::Webpay::Oneclick::MallInscription.new(commerce_code=Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED)
+    @transaction = Transbank::Webpay::Oneclick::MallTransaction.new(commerce_code=Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED)
+  end
+
 end

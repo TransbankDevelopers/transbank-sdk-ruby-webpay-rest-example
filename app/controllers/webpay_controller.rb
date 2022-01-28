@@ -1,7 +1,9 @@
 
 class WebpayController < ApplicationController
-
   skip_before_action :verify_authenticity_token
+
+  before_action :new_transaction, except: %i[index]
+
   def index
   end
 
@@ -14,20 +16,15 @@ class WebpayController < ApplicationController
     amount = params[:amount]
     return_url = params[:return_url]
     @req = params.as_json
-    @resp = Transbank::Webpay::WebpayPlus::Transaction::create(
-                                                       buy_order: buy_order,
-                                                       session_id: session_id,
-                                                       amount: amount,
-                                                       return_url: return_url
-                                                      )
+    @resp = @transaction.create(buy_order, session_id, amount,return_url)
     render 'transaction_created'
   end
 
   def commit
     @req = params.as_json
-
+    #controlar lueguito
     @token = params[:token_ws]
-    @resp = Transbank::Webpay::WebpayPlus::Transaction::commit(token: @token)
+    @resp = @transaction.commit(@token)
     render 'transaction_committed'
   end
 
@@ -35,13 +32,13 @@ class WebpayController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @amount = params[:amount]
-    @resp = Transbank::Webpay::WebpayPlus::Transaction::refund(token: @token, amount: @amount)
+    @resp = @transaction.refund(@token, @amount)
   end
 
   def status
     @req = params.as_json
     @token = params[:token]
-    @resp = Transbank::Webpay::WebpayPlus::Transaction::status(token: @token)
+    @resp = @transaction.status(@token)
   end
 
   def mall_create
@@ -54,25 +51,20 @@ class WebpayController < ApplicationController
     @session_id = params[:session_id]
     @return_url = params[:return_url]
     @details = params[:detail][:details].map(&:to_h)
-    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::create(
-      buy_order: @buy_order,
-      session_id: @session_id,
-      return_url: @return_url,
-      details: @details
-    )
+    @resp = @mall_transaction.create(@buy_order, @session_id, @return_url, @details)
     render 'mall_transaction_created'
   end
 
   def mall_commit
     @req = params.as_json
-    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::commit(token: @req['token_ws'])
+    @resp = @mall_transaction.commit(@req['token_ws'])
 
     render 'mall_transaction_committed'
   end
 
   def mall_status
     @token = params[:token]
-    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::status(token: @token)
+    @resp = @mall_transaction.status(@token)
     render 'webpay/mall_transaction_status'
   end
 
@@ -81,11 +73,14 @@ class WebpayController < ApplicationController
     @child_commerce_code = params[:commerce_code]
     @child_buy_order = params[:buy_order]
     @child_amount = params[:amount]
-    @resp = Transbank::Webpay::WebpayPlus::MallTransaction::refund(token: @token,
-                                                                   buy_order: @child_buy_order,
-                                                                   child_commerce_code: @child_commerce_code,
-                                                                   amount: @child_amount)
+    @resp =  @mall_transaction.refund(@token, @child_buy_order, @child_commerce_code, @child_amount)
     render 'webpay/mall_transaction_refunded'
+  end
+
+  private
+  def new_transaction
+    @mall_transaction = Transbank::Webpay::WebpayPlus::MallTransaction.new
+    @transaction = Transbank::Webpay::WebpayPlus::Transaction.new
   end
 
 end

@@ -1,4 +1,4 @@
-¡<h1>Transacción diferida confirmada</h1>
+<h1>Transacción diferida confirmada</h1>
 
 <div>
 
@@ -10,9 +10,9 @@
 
   <form method="post" action="/webpayplus/diferido/capture">
     <input type="hidden" name="token" value=<%= @req["token_ws"] %>>
-    <input type="hidden" name="buy_order" value=<%= @resp.buy_order %>>
-    <input type="hidden" name="authorization_code" value=<%= @resp.authorization_code %>>
-    <input type="hidden" name="capture_amount" value=<%= @resp.amount %>>
+    <input type="hidden" name="buy_order" value=<%= @resp["buy_order"] %>>
+    <input type="hidden" name="authorization_code" value=<%= @resp["authorization_code"] %>>
+    <input type="hidden" name="capture_amount" value=<%= @resp["amount"] %>>
     <button type="submit">Capturar</button>
   </form>
 

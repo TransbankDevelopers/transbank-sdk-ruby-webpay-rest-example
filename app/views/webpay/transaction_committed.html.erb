@@ -21,7 +21,7 @@
         <div> Token:  <%= @req["token_ws"] %></div>
 
         <label>Monto</label>
-        <input value="<%= @resp.amount %>" name="amount" />
+        <input value="<%= @resp["amount"] %>" name="amount" />
         <button type="submit">Reembolsar</button>
 
     </form>

@@ -1,6 +1,6 @@
 class PatpassController < ApplicationController
   skip_before_action :verify_authenticity_token
-
+  before_action :new_transaction
 
   def create
   end
@@ -16,13 +16,7 @@ class PatpassController < ApplicationController
     return_url = params[:return_url]
     details = params[:wpm_detail]
 
-    @response = Transbank::Patpass::PatpassByWebpay::Transaction::create(
-        buy_order: buy_order,
-        session_id: session_id,
-        amount: amount,
-        return_url: return_url,
-        details: details
-    )
+    @response = @transaction.create(buy_order, session_id, amount, return_url, details)
     render 'transaction_created'
   end
 
@@ -30,13 +24,17 @@ class PatpassController < ApplicationController
     @req = params.as_json
     @token = @req['token_ws']
 
-    @resp = Transbank::Patpass::PatpassByWebpay::Transaction::commit(token: @token)
+    @resp = @transaction.commit(@token)
   end
 
   def status
     @req = params.as_json
     @token = @req['token']
-    @resp = Transbank::Patpass::PatpassByWebpay::Transaction::status(token: @token)
+    @resp = @transaction.status(@token)
   end
 
+  private
+  def new_transaction
+    @transaction = Transbank::Patpass::PatpassByWebpay::Transaction.new
+  end
 end

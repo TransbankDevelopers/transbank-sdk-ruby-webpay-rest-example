@@ -1,27 +1,20 @@
 class TransaccionCompletaMallController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :new_transaction
 
   def create
-    Transbank::TransaccionCompleta::Base.commerce_code = '597055555573'
-    @child_commerce_codes = Transbank::TransaccionCompleta::Base::DEFAULT_MALL_CHILD_COMMERCE_CODES
+    @child_commerce_codes = Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_CHILD
   end
 
   def send_create
     @req = params.as_json
-    @commerce_code = Transbank::TransaccionCompleta::Base::DEFAULT_MALL_COMMERCE_CODE
 
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
     @card_number = @req['card_number']
     @card_expiration_date = @req['card_expiration_date']
     @details = @req['detail']['details']
-    @resp = Transbank::TransaccionCompleta::MallTransaction.create(
-      buy_order: @buy_order,
-      session_id: @session_id,
-      card_number: @card_number,
-      card_expiration_date: @card_expiration_date,
-      details: @details
-    )
+    @resp = @transaction.create(@buy_order, @session_id, @card_number, @card_expiration_date, @details, "123")
     render 'transaction_created'
   end
 
@@ -30,10 +23,7 @@ class TransaccionCompletaMallController < ApplicationController
     @token = @req['token']
     @details = @req['detail']['details']
 
-    @resp = Transbank::TransaccionCompleta::MallTransaction.installments(
-      token: @token,
-      details: @details
-    )
+    @resp = @transaction.installments(@token, @details)
     render 'installments_queried'
   end
 
@@ -43,15 +33,14 @@ class TransaccionCompletaMallController < ApplicationController
 
     @details = @req['detail']['details']
 
-    @resp = Transbank::TransaccionCompleta::MallTransaction.commit(token: @token,
-                                                                   details: @details)
+    @resp = @transaction.commit(@token, @details)
     render 'transaction_committed'
   end
 
   def status
     @req = params.as_json
     @token = @req['token']
-    @resp =  Transbank::TransaccionCompleta::MallTransaction.status(token: @token)
+    @resp =  @transaction.status(@token)
   end
 
   def refund
@@ -61,12 +50,12 @@ class TransaccionCompletaMallController < ApplicationController
     @child_buy_order = @req['child_buy_order']
     @child_commerce_code = @req['child_commerce_code']
 
-    @resp = Transbank::TransaccionCompleta::MallTransaction.refund(
-      token: @token,
-      child_buy_order: @child_buy_order,
-      child_commerce_code: @child_commerce_code,
-      amount: @amount
-    )
+    @resp = @transaction.refund(@token, @child_buy_order, @child_commerce_code, @amount)
     render 'transaction_refunded'
+  end
+
+  private
+  def new_transaction
+    @transaction = Transbank::Webpay::TransaccionCompleta::MallTransaction.new(Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL)
   end
 end

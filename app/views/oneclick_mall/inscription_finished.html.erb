@@ -13,7 +13,7 @@
   <input id="username" name="username" value="<%= @user_name %>"/>
 
   <label for="tbk_user">Codigo de usuario</label>
-  <input id="tbk_user" name="tbk_user" value="<%= @resp.tbk_user %>"/>
+  <input id="tbk_user" name="tbk_user" value="<%= @resp["tbk_user"] %>"/>
 
   <label for="parent_buy_order">Orden de compra (comercio padre)</label>
   <input id="parent_buy_order" name="buy_order" value="<%='12345' + Time.now.to_i.to_s %>"/>
@@ -51,7 +51,7 @@
   <input name="user_name" value="<%= @user_name %>"/>
 
   <label>Id de usuario</label>
-  <input name="tbk_user" value="<%= @resp.tbk_user %>"/>
+  <input name="tbk_user" value="<%= @resp["tbk_user"] %>"/>
 
   <button type="submit">Enviar</button>
 

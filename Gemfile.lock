@@ -1,9 +1,10 @@
 GIT
   remote: https://github.com/TransbankDevelopers/transbank-sdk-ruby.git
-  revision: 241756eb55b6f7d536e00c0ae04eba2aca31e575
-  branch: feat/restore-rest-products
+  revision: db6245fd3a4c2c4600ee2d87d89e2faee3f0ec41
+  branch: master
   specs:
-    transbank-sdk (1.2.0)
+    transbank-sdk (2.0.0)
+      json (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -79,6 +80,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    json (2.6.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -104,7 +106,7 @@ GEM
       pry (~> 0.13.0)
     public_suffix (4.0.6)
     puma (3.12.6)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.1.7)

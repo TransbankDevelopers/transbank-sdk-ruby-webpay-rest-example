@@ -1,8 +1,14 @@
 class PatpassComercioController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def initialize
+    super
+    @inscription = Transbank::Patpass::PatpassComercio::Inscription.new()
+  end
+
   def inscription
   end
+
 
   def start_inscription
     @req = params.as_json
@@ -22,30 +28,49 @@ class PatpassComercioController < ApplicationController
     @address = @req['address']
     @city = @req['city']
 
-    @resp  = Transbank::Patpass::PatpassComercio::Inscription::start(
-                                                        url: @url,
-                                                        name: @name,
-                                                        first_last_name: @first_last_name,
-                                                        second_last_name: @second_last_name,
-                                                        rut: @rut,
-                                                        service_id: @service_id,
-                                                        final_url: @final_url,
-                                                        max_amount: @max_amount,
-                                                        phone_number: @phone_number,
-                                                        mobile_number: @mobile_number,
-                                                        patpass_name: @patpass_name,
-                                                        person_email: @person_email,
-                                                        commerce_email: @commerce_email,
-                                                        address: @address,
-                                                        city: @city
-                                                        )
+    @resp = @inscription::start(
+      @url,
+      @name,
+      @first_last_name,
+      @second_last_name,
+      @rut,
+      @service_id,
+      @final_url,
+      @max_amount,
+      @phone_number,
+      @mobile_number,
+      @patpass_name,
+      @person_email,
+      @commerce_email,
+      @address,
+      @city
+    )
+
+    #@resp  = Transbank::Patpass::PatpassComercio::Inscription::start(
+    #                                                    url: @url,
+    #                                                    name: @name,
+    #                                                    first_last_name: @first_last_name,
+    #                                                    second_last_name: @second_last_name,
+    #                                                    rut: @rut,
+    #                                                    service_id: @service_id,
+    #                                                    final_url: @final_url,
+    #                                                    max_amount: @max_amount,
+    #                                                    phone_number: @phone_number,
+    #                                                    mobile_number: @mobile_number,
+    #                                                    patpass_name: @patpass_name,
+    #                                                    person_email: @person_email,
+    #                                                    commerce_email: @commerce_email,
+    #                                                    address: @address,
+    #                                                    city: @city
+    #                                                    )
     render 'inscription_started'
   end
 
   def inscription_status
     @req = params.as_json
     @token = @req['j_token']
-    @resp = Transbank::Patpass::PatpassComercio::Inscription::status(token: @token)
+    #@resp = Transbank::Patpass::PatpassComercio::Inscription::status(token: @token)
+    @resp = @inscription::status(@token)
     render 'inscription_status'
   end
 

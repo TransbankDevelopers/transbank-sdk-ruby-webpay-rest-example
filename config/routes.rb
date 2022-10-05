@@ -4,26 +4,26 @@ Rails.application.routes.draw do
 
   get 'webpayplus/create', to: 'webpay#create'
   post 'webpayplus/create', to: 'webpay#send_create'
-  post '/webpayplus/return_url', to: 'webpay#commit'
+  get '/webpayplus/return_url', to: 'webpay#commit'
   post '/webpayplus/refund', to: 'webpay#refund'
   get '/webpayplus/status/:token', to: 'webpay#status'
 
   get 'webpayplus/diferido/create', to: 'webpay_deferred#create'
   post 'webpayplus/diferido/create', to: 'webpay_deferred#send_create'
-  post 'webpayplus/diferido/return_url', to: 'webpay_deferred#commit'
+  get 'webpayplus/diferido/return_url', to: 'webpay_deferred#commit'
   post 'webpayplus/diferido/capture', to: 'webpay_deferred#capture'
   get 'webpayplus/diferido/status/:token', to: 'webpay_deferred#status'
   post '/webpayplus/diferido/refund', to: 'webpay_deferred#refund'
 
   get '/webpayplus/mall/create', to: 'webpay#mall_create'
   post '/webpayplus/mall/create', to: 'webpay#send_mall_create'
-  post '/webpayplus/mall/return_url', to: 'webpay#mall_commit'
+  get '/webpayplus/mall/return_url', to: 'webpay#mall_commit'
   get '/webpayplus/mall/status/:token', to: 'webpay#mall_status'
   post '/webpayplus/mall/refund', to: 'webpay#mall_refund'
 
   get '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#create'
   post '/webpayplus/mall/diferido/create', to: 'webpay_mall_deferred#send_create'
-  post '/webpayplus/mall/diferido/return_url', to: 'webpay_mall_deferred#commit'
+  get '/webpayplus/mall/diferido/return_url', to: 'webpay_mall_deferred#commit'
   post 'webpayplus/mall/diferido/capture', to: 'webpay_mall_deferred#capture'
   get '/webpayplus/mall/diferido/status/:token', to: 'webpay_mall_deferred#status'
   post '/webpayplus/mall/diferido/refund', to: 'webpay_mall_deferred#refund'
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   post '/oneclick/mall/inscription/start', to: 'oneclick_mall#start_inscription'
   post '/oneclick/mall/inscription/finish', to: 'oneclick_mall#finish_inscription'
   delete '/oneclick/mall/inscription', to: 'oneclick_mall#delete_inscription'
-  post '/oneclick/inscription/response_url', to: 'oneclick_mall#finish_inscription'
+  get '/oneclick/inscription/response_url', to: 'oneclick_mall#finish_inscription'
   post '/oneclick/mall/authorize', to: 'oneclick_mall#authorize'
   post '/oneclick/mall/status', to: 'oneclick_mall#status'
   post '/oneclick/mall/refund', to: 'oneclick_mall#refund'
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   post '/oneclick/mall_deferred/inscription/start', to: 'oneclick_mall_deferred#start_inscription'
   post '/oneclick/mall_deferred/inscription/finish', to: 'oneclick_mall_deferred#finish_inscription'
   delete '/oneclick/mall_deferred/inscription', to: 'oneclick_mall_deferred#delete_inscription'
-  post '/oneclick/mall_deferred/inscription/response_url', to: 'oneclick_mall_deferred#finish_inscription'
+  get '/oneclick/mall_deferred/inscription/response_url', to: 'oneclick_mall_deferred#finish_inscription'
   post '/oneclick/mall_deferred/capture', to: 'oneclick_mall_deferred#capture'
   post '/oneclick/mall_deferred/authorize', to: 'oneclick_mall_deferred#authorize'
   post '/oneclick/mall_deferred/status', to: 'oneclick_mall_deferred#status'
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   get '/patpass/patpass_by_webpay/create', to: 'patpass#create'
   post '/patpass/patpass_by_webpay/create', to: 'patpass#send_create', as: :send_create
-  post '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
+  get '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
   get '/patpass/patpass_by_webpay/status/:token', to: 'patpass#status'
 
   get '/patpass/patpass_comercio/inscription', to: 'patpass_comercio#inscription'

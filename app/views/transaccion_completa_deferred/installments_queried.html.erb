@@ -13,11 +13,11 @@
   <input id="token" name="token" value="<%= @req['token'] %>">
 
   <label for="id_query_installments">Id de la consulta de cuotas</label>
-  <input id="id_query_installments" value="<%= @resp.id_query_installments %>">
+  <input id="id_query_installments" value="<%= @resp["id_query_installments"] %>">
 
   <label for="deferred_period_index">Indice de periodo diferido</label>
   <select id="deferred_period_index" name="deferred_period_index">
-     <%= @resp.deferred_periods.each_with_index do |per, idx| %>
+     <%= @resp["deferred_periods"].each_with_index do |per, idx| %>
       <% if idx == 0 %>
         <option value="<%= per.period %>" selected="selected">
           <%= per.period %>

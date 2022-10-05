@@ -9,8 +9,8 @@
 
 <h1>Consultar installments</h1>
 <form class="transaccion_completa_form" action="/transaccion_completa/mall/installments" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <span>Token: <%= @resp.token %></span>
-  <input type="hidden" name="token" value="<%= @resp.token %>">
+  <span>Token: <%= @resp["token"] %></span>
+  <input type="hidden" name="token" value="<%= @resp["token"] %>">
 
   <h3>Detalles</h3>
   <hr>

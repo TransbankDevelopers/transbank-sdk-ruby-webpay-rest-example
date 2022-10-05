@@ -12,16 +12,16 @@
   <input type="text" name="token" id="token" value="<%= @req['token'] %>">
 
   <label for="child_commerce_code">Código de Comercio</label>
-  <input type="text" name="child_commerce_code" id="child_commerce_code" value="<%= @resp.details[0]['commerce_code'] %>">
+  <input type="text" name="child_commerce_code" id="child_commerce_code" value="<%= @resp["details"]['commerce_code'] %>">
 
   <label for="buy_order">Orden de Compra</label>
-  <input type="text" name="buy_order" value="<%= @resp.details[0]['buy_order'] %>">
+  <input type="text" name="buy_order" value="<%= @resp["details"][0]['buy_order'] %>">
 
   <label for="authorization_code">Código de autorización</label>
-  <input type="text" name="authorization_code" value="<%= @resp.details[0]['authorization_code'] %>">
+  <input type="text" name="authorization_code" value="<%= @resp["details"][0]['authorization_code'] %>">
 
   <label for="amount">Monto</label>
-  <input type="text" name="amount" value="<%= @resp.details[0]['amount'] %>">
+  <input type="text" name="amount" value="<%= @resp["details"][0]['amount'] %>">
 
   <button type="submit">Capturar transacción</button>
 </form>
@@ -40,13 +40,13 @@
   <input name="token" id="token" value="<%= @req['token'] %>">
 
   <label for="child_commerce_code">Codigo de comercio (hijo)</label>
-  <input name="child_commerce_code" value="<%= @resp.details.first['commerce_code'] %>">
+  <input name="child_commerce_code" value="<%= @resp["details"].first['commerce_code'] %>">
 
   <label for="child_buy_order">Codigo de comercio (hijo)</label>
-  <input name="child_buy_order" value="<%= @resp.details.first['buy_order'] %>">
+  <input name="child_buy_order" value="<%= @resp["details"].first['buy_order'] %>">
 
   <label for="amount">Monto</label>
-  <input name="amount" id="amount" value="<%= @resp.details.first['amount'] %>">
+  <input name="amount" id="amount" value="<%= @resp["details"].first['amount'] %>">
 
 
   <button type="submit">Solicitar reembolso</button>
@@ -59,13 +59,13 @@
   <input name="token" id="token" value="<%= @req['token'] %>">
 
   <label for="child_commerce_code">Codigo de comercio (hijo)</label>
-  <input name="child_commerce_code" value="<%= @resp.details.second['commerce_code'] %>">
+  <input name="child_commerce_code" value="<%= @resp["details"].second['commerce_code'] %>">
 
   <label for="child_buy_order">Codigo de comercio (hijo)</label>
-  <input name="child_buy_order" value="<%= @resp.details.second['buy_order'] %>">
+  <input name="child_buy_order" value="<%= @resp["details"].second['buy_order'] %>">
 
   <label for="amount">Monto</label>
-  <input name="amount" id="amount" value="<%= @resp.details.second['amount'] %>">
+  <input name="amount" id="amount" value="<%= @resp["details"].second['amount'] %>">
 
 
   <button type="submit">Solicitar reembolso</button>

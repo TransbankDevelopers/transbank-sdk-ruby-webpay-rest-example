@@ -9,7 +9,7 @@
 <h2>Reembolso</h2>
 <form method="post" action="/webpayplus/mall/diferido/refund">
   <input name="token" type="hidden" value=<%= @req['token'] %>>
-  <input name="amount" type="hidden" value=<%= @resp.captured_amount %>>
+  <input name="amount" type="hidden" value=<%= @resp['captured_amount'] %>>
   <input name="buy_order" type="hidden" value=<%= @buy_order %>>
   <input name="commerce_code" type="hidden" value=<%= @child_commerce_code %>>
   <button type="submit">Reembolsar transacción </button>
@@ -19,7 +19,7 @@
 <h2>Estado de la transacción</h2>
 
 <form method="get" action=<%= "/webpayplus/mall/diferido/status/" + @req['token']%>>
-  <input name="amount" type="hidden" value=<%= @resp.captured_amount %>>
+  <input name="amount" type="hidden" value=<%= @resp['captured_amount'] %>>
   <input name="token" type="hidden" value=<%= @req['token'] %>>
   <button type="submit">Ver estado</button>
 

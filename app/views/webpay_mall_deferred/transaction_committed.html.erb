@@ -26,16 +26,16 @@
     <input value="<%= @req['token_ws'] %>" name="token">
 
     <label for="child_commerce_code_1">Commerce Code hijo</label>
-    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp.details[0]['commerce_code'] %>" >
+    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp['details'][0]['commerce_code'] %>" >
 
     <label for="buy_order_1">Buy Order</label>
-    <input id="buy_order_1" name="buy_order" value="<%= @resp.details[0]['buy_order'] %>">
+    <input id="buy_order_1" name="buy_order" value="<%= @resp['details'][0]['buy_order'] %>">
 
     <label for="authorization_code_1">Authorization code</label>
-    <input id="authorization_code_1" name="authorization_code" value="<%= @resp.details[0]['authorization_code'] %>"  >
+    <input id="authorization_code_1" name="authorization_code" value="<%= @resp['details'][0]['authorization_code'] %>"  >
 
     <label for="child_amount_1">Monto 1</label>
-    <input id="child_amount_1" name="capture_amount" value="<%= @resp.details[0]['amount'] %>"  >
+    <input id="child_amount_1" name="capture_amount" value="<%= @resp['details'][0]['amount'] %>"  >
 
     <button type="submit">Enviar</button>
   </form>
@@ -47,16 +47,16 @@
     <input value="<%= @req['token_ws'] %>"name="token">
 
     <label for="child_commerce_code_2">Commerce Code hijo</label>
-    <input id="child_commerce_code_2" name="commerce_code" value="<%= @resp.details[1]['commerce_code'] %>" >
+    <input id="child_commerce_code_2" name="commerce_code" value="<%= @resp['details'][1]['commerce_code'] %>" >
 
     <label for="buy_order_2">Buy Order</label>
-    <input id="buy_order_2" name="buy_order" value="<%= @resp.details[1]['buy_order'] %>" >
+    <input id="buy_order_2" name="buy_order" value="<%= @resp['details'][1]['buy_order'] %>" >
 
     <label for="authorization_code_2">Authorization code</label>
-    <input id="authorization_code_2" name="authorization_code" value="<%= @resp.details[1]['authorization_code'] %>" >
+    <input id="authorization_code_2" name="authorization_code" value="<%= @resp['details'][1]['authorization_code'] %>" >
 
     <label for="child_amount_2">Monto 2</label>
-    <input id="child_amount_2" name="capture_amount" value="<%= @resp.details[1]['amount'] %>" >
+    <input id="child_amount_2" name="capture_amount" value="<%= @resp['details'][1]['amount'] %>" >
 
     <button type="submit">Enviar</button>
   </form>
@@ -69,13 +69,13 @@
     <input type="hidden" name="token" value="<%= @req['token_ws'] %>">
 
     <label for="buy_order_1">Buy Order</label>
-    <input id="buy_order_1" name="buy_order" value="<%= @resp.details[0]['buy_order'] %>" >
+    <input id="buy_order_1" name="buy_order" value="<%= @resp['details'][0]['buy_order'] %>" >
 
     <label for="child_commerce_code_1">Commerce Code hijo</label>
-    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp.details[0]['commerce_code'] %>">
+    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp['details'][0]['commerce_code'] %>">
 
     <label for="child_amount_1">Monto 1</label>
-    <input id="child_amount_1" name="amount" value="<%= @resp.details[0]['amount'] %>" >
+    <input id="child_amount_1" name="amount" value="<%= @resp['details'][0]['amount'] %>" >
 
     <button type="submit">Enviar</button>
   </form>
@@ -85,13 +85,13 @@
     <input type="hidden" name="token" value="<%= @req['token_ws'] %>">
 
     <label for="buy_order_1">Buy Order</label>
-    <input id="buy_order_1" name="buy_order" value="<%= @resp.details[1]['buy_order'] %>" >
+    <input id="buy_order_1" name="buy_order" value="<%= @resp['details'][1]['buy_order'] %>" >
 
     <label for="child_commerce_code_1">Commerce Code hijo</label>
-    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp.details[1]['commerce_code'] %>" >
+    <input id="child_commerce_code_1" name="commerce_code" value="<%= @resp['details'][1]['commerce_code'] %>" >
 
     <label for="child_amount_1">Monto 2</label>
-    <input id="child_amount_1" name="amount" value="<%= @resp.details[1]['amount'] %>"  >
+    <input id="child_amount_1" name="amount" value="<%= @resp['details'][1]['amount'] %>"  >
     <button type="submit">Enviar</button>
   </form>
 

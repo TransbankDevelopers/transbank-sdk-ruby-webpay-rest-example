@@ -1,0 +1,27 @@
+.mb-40 {
+  margin-bottom: $space-big;
+}
+
+.mb-30 {
+  margin-bottom: $space-xxl;
+}
+
+.my-40 {
+  margin-bottom: $space-big;
+  margin-top: $space-big;
+}
+
+.j-self-start {
+  justify-self: flex-start;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.break-word {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}

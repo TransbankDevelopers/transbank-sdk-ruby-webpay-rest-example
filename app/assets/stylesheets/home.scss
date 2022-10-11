@@ -1,0 +1,54 @@
+.TBK-info {
+  background-color: $cyan;
+  padding: $space-xl;
+  margin-bottom: $space-large;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12),
+    0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+
+  .TBK-info_text {
+    color: $white;
+    margin: 0;
+  }
+}
+
+.TBK-operation-link {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray-light;
+  list-style-type: none;
+}
+
+.TBK-operation-link_href {
+  padding: $space-s $space-l;
+  border-bottom: 1px solid $gray-light;
+  color: $darken;
+  text-decoration: none;
+  transition: background-color 0.5s linear;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $gray;
+  }
+}
+
+.TBK-section-container {
+  display: grid;
+  grid-template-columns: 366px 1fr;
+  column-gap: 60px;
+  align-items: center;
+  margin-bottom: $space-big;
+}
+
+.TBK-section-container-rev {
+  display: grid;
+  grid-template-columns: 1fr 366px;
+  column-gap: 60px;
+  align-items: center;
+  margin-bottom: $space-big;
+}

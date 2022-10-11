@@ -6,32 +6,29 @@ class WebpayController < ApplicationController
   end
 
   def create
+    @req = params.as_json
+    @buy_order = "12345#{rand(1000)}"
+    @session_id = "session12345#{rand(1000)}"
+    @amount = 1000
+    @return_url = "#{root_url}webpayplus/commit"
+    
+    tx = Transbank::Webpay::WebpayPlus::Transaction.new()
+    @resp = tx.create(@buy_order, @session_id, @amount, @return_url)                       
+    puts @resp
   end
 
   def send_create
-    @req = params.as_json
-
-    buy_order = params[:buy_order]
-    session_id = params[:session_id]
-    amount = params[:amount]
-    return_url = params[:return_url]
-    
-    tx = Transbank::Webpay::WebpayPlus::Transaction.new()
-    @resp = tx.create(buy_order, session_id, amount, return_url)  
-                           
-    puts @resp                                              
-    render 'transaction_created'
+   
   end
 
   def commit
     @req = params.as_json
-
     @token = params[:token_ws]
     tx = Transbank::Webpay::WebpayPlus::Transaction.new()
     @resp = tx.commit(@token)
-
+    # puts @resp
+    Pry::ColorPrinter.pp(@resp)
     #@resp = Transbank::Webpay::WebpayPlus::Transaction::commit(token: @token)
-    render 'transaction_committed'
   end
 
   def refund
@@ -41,17 +38,17 @@ class WebpayController < ApplicationController
 
     tx = Transbank::Webpay::WebpayPlus::Transaction.new()
     @resp = tx.refund(@token, @amount)
+    Pry::ColorPrinter.pp(@resp)
     #@resp = Transbank::Webpay::WebpayPlus::Transaction::refund(token: @token, amount: @amount)
   end
 
   def status
     @req = params.as_json
     @token = params[:token]
-    
-
+  
     tx = Transbank::Webpay::WebpayPlus::Transaction.new()
     @resp = tx.status(@token)
-
+    Pry::ColorPrinter.pp(@resp)
     #@resp = Transbank::Webpay::WebpayPlus::Transaction::status(token: @token)
   end
 

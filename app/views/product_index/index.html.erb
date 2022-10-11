@@ -1,117 +1,52 @@
-<div class="main_content">
-  <h1 class="header">
-    Ejemplos Webpay
-  </h1>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transacción Simple
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="webpayplus/create">Webpay plus normal</a>
-    </span>
+<div class="TBK-container">
+  <div class='TBK-main-image'>
+    <%= image_tag "logo-header.png" , alt: "logo" %>
   </div>
 
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-      Transaction Plus Diferido
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-      <a href="/webpayplus/diferido/create">Webpay plus diferido</a>
-    </span>
+  <div class="TBK-info">
+    <p class="TBK-info_text">
+      Bienvenido al proyecto de prueba del SDK de Transbank para Ruby<br>En este proyecto podras
+      probar las diferentes modalidades de los productos que ofrece Transbank disponibles en el SDK
+    </p>
   </div>
 
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaction Mall
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="webpayplus/mall/create">Webpay plus mall</a>
-    </span>
+  <div class="TBK-section-container">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+      <div class="TBK-operation-link">
+        <a href="webpayplus/create" class="TBK-operation-link_href">Webpay plus</a>
+        <a href="/webpayplus/diferido/create" class="TBK-operation-link_href">Webpay plus diferido</a>
+        <a href="webpayplus/mall/create" class="TBK-operation-link_href">Webpay plus mall</a>
+        <a href="webpayplus/mall/diferido/create" class="TBK-operation-link_href">Webpay Plus Mall diferido</a>
+      </div>
   </div>
 
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaction Mall Diferido
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="webpayplus/mall/diferido/create">Webpay Plus Mall diferido</a>
-    </span>
+  <div class="TBK-section-container-rev">
+    <div class="TBK-operation-link">
+      <a href="oneclick/mall/inscription/start" class="TBK-operation-link_href">Oneclick Mall</a>
+      <a href="oneclick/mall_deferred/inscription/start" class="TBK-operation-link_href">Oneclick mall diferido</a>
+    </div>
+    <%= image_tag "oneclick.png" , alt: "one-click" , class:"adjusted-image" %>
   </div>
 
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Oneclick Mall
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="oneclick/mall/inscription/start">Inscribir</a>
-    </span>
+  <div class="TBK-section-container">
+    <%= image_tag "txcompleta.png" , alt: "transaction complete" , class:"adjusted-image" %>
+      <div class="TBK-operation-link">
+        <a href="/transaccion_completa/create" class="TBK-operation-link_href">Transaccion completa</a>
+        <a href="/transaccion_completa_deferred/create" class="TBK-operation-link_href">
+          Transaccion completaDiferida
+        </a>
+        <a href="/transaccion_completa/mall/create" class="TBK-operation-link_href">Transaccion completa Mall</a>
+        <a href="/transaccion_completa/mall_deferred/create" class="TBK-operation-link_href">
+          Transaccion completa Mall Diferida
+        </a>
+      </div>
   </div>
 
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-      Oneclick mall diferido
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-      <a href="oneclick/mall_deferred/inscription/start">Inscribir</a>
-    </span>
+  <div class="TBK-section-container-rev">
+    <div class="TBK-operation-link">
+      <a href="/patpass/patpass_comercio/inscription" class="TBK-operation-link_href">Patpass Comercio</a>
+      <a href="/patpass/patpass_by_webpay/create" class="TBK-operation-link_href">Patpass by Webpay</a>
+    </div>
+    <%= image_tag "patpass.png" , alt: "pat pass" , class:"adjusted-image" %>
   </div>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Patpass by Webpay
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/patpass/patpass_by_webpay/create">Crear Transacción</a>
-    </span>
-  </div>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Patpass Comercio
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/patpass/patpass_comercio/inscription">Crear Inscripción</a>
-    </span>
-  </div>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaccion completa
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/transaccion_completa/create">Crear Transacción</a>
-    </span>
-  </div>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaccion completa Diferida
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/transaccion_completa_deferred/create">Crear Transacción</a>
-    </span>
-  </div>
-
-  <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaccion completa Mall
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/transaccion_completa/mall/create">Crear Transacción</a>
-    </span>
-  </div>
-
-    <div class="examples_container" style="padding: 10px;">
-    <span class="operation_title" style="border: 1px solid black; padding: 5px">
-        Transaccion completa Mall Diferida
-    </span>
-    <span class="operation_link" style="border: 1px solid black; padding: 5px">
-        <a href="/transaccion_completa/mall_deferred/create">Crear Transacción</a>
-    </span>
-  </div>
-
 </div>

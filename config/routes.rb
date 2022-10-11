@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   root to: 'product_index#index'
 
   get 'webpayplus/create', to: 'webpay#create'
-  post 'webpayplus/create', to: 'webpay#send_create'
-  get '/webpayplus/return_url', to: 'webpay#commit'
+  # post 'webpayplus/create', to: 'webpay#send_create'
+  get '/webpayplus/commit', to: 'webpay#commit'
+  get '/webpayplus/status', to: 'webpay#status'
   post '/webpayplus/refund', to: 'webpay#refund'
-  get '/webpayplus/status/:token', to: 'webpay#status'
 
   get 'webpayplus/diferido/create', to: 'webpay_deferred#create'
   post 'webpayplus/diferido/create', to: 'webpay_deferred#send_create'

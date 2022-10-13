@@ -1,30 +1,82 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<body>
-<h1>Ejemplo Webpay Plus Transaccion diferida</h1>
+  <h2>Crear Transacción diferida</h2>
+  <p>
+    En este paso crearemos la transacción con el objetivo de obtener un identificador unico y
+    poder en el siguiente paso redirigir al Tarjetahabiente hacia el formulario de pago.
+  </p>
 
-<form class="webpay_form" action="/webpayplus/diferido/create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <label for="buy_order">
-    Orden de compra
-  </label>
-  <input id="buy_order" name="buy_order" value="<%='12345' + rand(1000).to_s %>"/>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>Para comenzar debes importar WebpayPlus y luego crear una transacción</p>
+    </div>
 
-  <label for="session_id">
-    Id de sesión
-  </label>
-  <input id="session_id" name="session_id" value="<%='session12345' + rand(1000).to_s %>" />
+    <%= render "/webpay_deferred/partials/webp-mark1" %>
+  </div>
 
-  <label for="amount">
-    Monto
-  </label>
-  <input id="amount" name="amount" value="1000"/>
+  <div class="TBK-content-right">
+    <%= render "/webpay_deferred/partials/webp-mark2" %>
 
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Una vez creada la transacción, estos serán los datos de respuesta</p>
+    </div>
+  </div>
 
-  <label for="return_url">
-    URL de retorno
-  </label>
-  <input id="return_url" name="return_url" value="<%= "#{root_url}webpayplus/diferido/return_url" %>" />
+  <div class="TBK-content-left">
+  <div>
+    <h3>Por último</h3>
+    <p>Debes utilizar estos datos para crear un formulario</p>
+  </div>
 
-  <button type="submit">Aceptar</button>
-</form>
+  <%= render "/webpay_deferred/partials/webp-mark3" %>
+  </div>
 
-</body>
+  <h2>Ejemplo</h2>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Creamos la transacción</h3>
+      <p>Usando los siguientes datos</p>
+      <div class="TBK-table">
+        <div class="TBK-table_cell">
+          <p class="text-head">Campo</p>
+          <p class="text-head">valor</p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Orden de compra(buyOrder)</p>
+          <p><%= @buy_order%></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text">ID de sesión (sessionid)</p>
+          <p><%= @session_id%></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Monto (amount)</p>
+          <p><%= @amount%></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> URL de retorno (returnUrl)</p>
+          <p class="break-word" title="dw"><%= @return_url%></p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Por último</h3>
+      <p>Con la respuesta del servicio creamos el formulario, para efectos del ejemplo haremos el campo token_ws visible</p>
+      <div class="TBK-card">
+        <p class="mb-40">Formulario de redirección</p>
+        <%= form_with url: @resp["url"], data: { remote: false }, method: :post do |form| %>
+          <%= form.label :token_ws, "Token", class:'asd' %>
+          <%= form.text_field :token_ws, value: @resp["token"], class: "TBK-input" %>
+          <%= form.submit "PAGAR", class: "TBK-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

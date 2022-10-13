@@ -11,10 +11,9 @@ class WebpayController < ApplicationController
     @session_id = "session12345#{rand(1000)}"
     @amount = 1000
     @return_url = "#{root_url}webpayplus/commit"
-    
+
     tx = Transbank::Webpay::WebpayPlus::Transaction.new()
-    @resp = tx.create(@buy_order, @session_id, @amount, @return_url)                       
-    puts @resp
+    @resp = tx.create(@buy_order, @session_id, @amount, @return_url)
   end
 
   def send_create
@@ -45,7 +44,7 @@ class WebpayController < ApplicationController
   def status
     @req = params.as_json
     @token = params[:token]
-  
+
     tx = Transbank::Webpay::WebpayPlus::Transaction.new()
     @resp = tx.status(@token)
     Pry::ColorPrinter.pp(@resp)
@@ -53,16 +52,23 @@ class WebpayController < ApplicationController
   end
 
   def mall_create
-  end
-
-  def send_mall_create
     params.permit!
     @req = params.as_json
-    @buy_order = params[:buy_order]
-    @session_id = params[:session_id]
-    @return_url = params[:return_url]
-    @details = params[:detail][:details].map(&:to_h)
-
+    @buy_order = "222333#{Time.now.to_i}"
+    @session_id = "123session_parent#{Time.now.to_i}"
+    @return_url = "#{root_url}webpayplus/mall/return_url"
+    @details =[
+      {
+        "amount"=>"1000",
+        "commerce_code"=>"597055555537",
+        "buy_order"=>"123buyorder1#{Time.now.to_i}"
+      },
+      {
+        "amount"=>"2000",
+        "commerce_code"=>"597055555536",
+        "buy_order"=>"123buyorder2#{Time.now.to_i}"
+      }
+    ]
     #@resp = Transbank::Webpay::WebpayPlus::MallTransaction::create(
     #  @buy_order,
     #  @session_id,
@@ -71,10 +77,11 @@ class WebpayController < ApplicationController
     #)
 
     tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL)
-    @resp = tx.create(@buy_order, @session_id, @return_url, @details)  
-
-    render 'mall_transaction_created'
+    @resp = tx.create(@buy_order, @session_id, @return_url, @details)
+    Pry::ColorPrinter.pp(@resp)
   end
+
+  def send_mall_create; end
 
   def mall_commit
     @req = params.as_json
@@ -102,11 +109,10 @@ class WebpayController < ApplicationController
     @child_buy_order = params[:buy_order]
     @child_amount = params[:amount]
 
-
     tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL)
     @resp = tx.refund(@token, @child_buy_order, @child_commerce_code,  @child_amount)
 
-    #@resp = Transbank::Webpay::WebpayPlus::MallTransaction::refund(token: @token,
+    # @resp = Transbank::Webpay::WebpayPlus::MallTransaction::refund(token: @token,
     #                                                               buy_order: @child_buy_order,
     #                                                               child_commerce_code: @child_commerce_code,
     #                                                               amount: @child_amount)

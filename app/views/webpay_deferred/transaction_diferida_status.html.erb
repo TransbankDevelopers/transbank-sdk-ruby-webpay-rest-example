@@ -1,9 +1,34 @@
-<h1>Webpay Plus Transaction diferida Status</h1>
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<h2>Request</h2>
-<%= @req %>
+  <h1>Estado de Transacción diferida</h1>
+  <p>
+    Puedes solicitar el estado de una transacción hasta 7 días despues de que haya sido realizada.
+    No hay limite de solicitudes de este tipo, sin embargo, una vez pasados los 7 días ya no podrás revisar su estado.
+  </p>
 
-<h2>Response</h2>
-<%=  @resp.inspect %>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>Necesitas el token de la transacción de la cual quieres obtener el estado y con ello llamar nuevamente a WebpayPlus::Transaction.</p>
+    </div>
+
+    <%= render "/webpay_deferred/partials/webp-status-mark1" %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render "/webpay_deferred/partials/webp-status-mark2" %>
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Transbank contestará con lo siguiente. Si no lo hiciste ya, 
+      debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+    </div>
+  </div>
+  <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
+</div>
 
 

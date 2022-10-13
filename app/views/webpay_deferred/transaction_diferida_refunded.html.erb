@@ -1,9 +1,38 @@
-<h1>Transacción Webpay Plus Diferida Refund exitoso</h1>
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h1>Reembolso de Transacción diferida</h1>
+  <p>
+    Podrás pedir el reembolso del dinero al tarjeta habiente,
+    dependiendo del monto y el tiempo transacurrido será una Reversa, Anulación o Anulación parcial.
+  </p>
 
-<div>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>
+        Necesitas el token de la transacción y el monto que quieres reversar,
+        si anulas el monto total puede ser una Reversa o Anulación dependiendo de ciertas condiciones
+        o una Anulación parcial si el monto es menor al total.
+        No es posible hacer ni Anulaciones ni Anulaciones parciales en tarjetas que no sean de crédito.
+        Tampoco es posible realizar reembolsos de compras en cuotas.
+      </p>
+    </div>
 
-  <h2>Request</h2>
-  <%= @req %>
-  <h2>Response</h2>
-  <%= @resp.inspect %>
+    <%= render "/webpay_deferred/partials/webp-refund-mark1" %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render "/webpay_deferred/partials/webp-refund-mark2" %>
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Transbank contestará con el resultado de la reversa o anulación.</p>
+    </div>
+  </div>
+  
+  <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
 </div>
+

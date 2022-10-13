@@ -1,0 +1,58 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+  <h1>Confirmar Transacción diferida</h1>
+	<p>
+		En este paso tenemos que confirmar la transacción con el objetivo de avisar a Transbank que
+    hemos recibido la transacción ha sido recibida exitosamente. En caso de que no se confirme la transacción, ésta será reversada.
+	</p>
+
+  <div class="TBK-content-left">
+		<div>
+			<h3>Datos recibidos</h3>
+			<p>Luego de que se termina el flujo en el formulario de pago recibiras un POST con lo siguiente</p>
+		</div>
+		<%= render "/webpay_deferred/partials/webp-comit-mark1" %>
+	</div>
+
+  <div class="TBK-content-right">
+		<%= render "/webpay_deferred/partials/webp-comit-mark2" %>
+		<div class="item-right">
+			<h3>Petición</h3>
+			<p>Usaras el token recibido para confirmar la transacción usando nuevamente WebpayPlus</p>
+		</div>
+	</div>
+
+  <div class="TBK-content-left">
+		<div>
+			<h3>Respuesta</h3>
+			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+		</div>
+		<%= render "/webpay_deferred/partials/webp-comit-mark3" %>
+	</div>
+
+  <h2>Casi listo !</h2>
+	<p class="mb-40">
+    Ya puedes mostrar al usuario una página de éxito de la transacción. Debes tener en cuenta que la transacción aun no ha sido capturada solo
+    ha sido retenido el saldo en la tarjeta del Tarjetahabiente. Luego de confirmar la transacción podemos:
+  </p>
+
+	<%= form_with url: "/webpayplus/diferido/capture", data: { remote: false }, class:'TBK-content-left', method: :post do |form| %>
+    <%= form.submit "CAPTURAR", class: "TBK-button j-self-start" %>
+    <div>
+      <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+      <%= form.hidden_field  :buy_order, value: @resp["buy_order"], class: "TBK-input" %>
+      <%= form.hidden_field  :authorization_code, value: @resp["authorization_code"], class: "TBK-input" %>
+      <%= form.hidden_field  :capture_amount, value: @resp["amount"], class: "TBK-input" %>
+      <%= form.label :amount, "Monto a capturar" %>
+      <%= form.text_field    :amount, value:  @resp["amount"], class: "TBK-input" %>
+    </div>
+	<% end %>
+
+  <div>
+		<%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+	</div>
+
+</div>

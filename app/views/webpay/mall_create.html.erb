@@ -1,41 +1,92 @@
-<h1>Ejemplo Webpay Plus Transaccion Mall</h1>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<form class="webpay_form" action='/webpayplus/mall/create' method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <h2>Crear Transacción Mall</h2>
+  <p>
+    En este paso crearemos la transacción con el objetivo de obtener un identificador unico y poder en el 
+    siguiente paso redirigir al Tarjetahabiente hacia el formulario de pago
+  </p>
 
-  <label for="merchant_1_amount">Monto comercio 1</label>
-  <input id="merchant_1_amount" name="detail[details][][amount]" value="1000">
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>Para comenzar debes importar WebpayPlus y luego crear una transacción</p>
+    </div>
 
-  <label for="merchant_1_commerce_code">Codigo comercio del comercio 1</label>
-  <input id="merchant_1_commerce_code" name="detail[details][][commerce_code]" value="597055555537">
+    <%= render "/webpay/partials/webp-mark1" %>
+  </div>
 
-  <label for="merchant_1_buy_order">Orden de compra comercio 1</label>
-  <input id="merchant_1_buy_order" name="detail[details][][buy_order]" value=<%= "123buyorder1" + Time.now.to_i.to_s  %>>
+  <div class="TBK-content-right">
+    <%= render "/webpay/partials/webp-mark2" %>
 
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Una vez creada la transacción, estos serán los datos de respuesta</p>
+    </div>
+  </div>
 
-  <label for="merchant_2_amount">Monto comercio 2</label>
-  <input id="merchant_2_amount" name="detail[details][][amount]" value="2000">
+   <div class="TBK-content-left">
+    <div>
+      <h3>Por último</h3>
+      <p>Debes utilizar estos datos para crear un formulario</p>
+    </div>
 
-  <label for="merchant_2_commerce_code">Codigo comercio del comercio 2</label>
-  <input id="merchant_2_commerce_code" name="detail[details][][commerce_code]" value="597055555536">
+    <%= render "/webpay/partials/webp-mark3" %>
+  </div>
 
-  <label for="merchant_2_buy_order">Orden de compra comercio 2</label>
-  <input id="merchant_2_buy_order" name="detail[details][][buy_order]" value=<%= "123buyorder2" + Time.now.to_i.to_s %>>
+  <h2>Ejemplo</h2>
 
-  <label for="parent_merchant_buy_order">Orden de compra comercio Padre</label>
-  <input id="parent_merchant_buy_order" name="buy_order" value=<%= '222333' + Time.now.to_i.to_s %>>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Creamos la transacción</h3>
+      <p>Usando los siguientes datos</p>
+      <div class="TBK-table">
+        <div class="TBK-table_cell">
+          <p class="text-head">Campo</p>
+          <p class="text-head">valor</p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Orden de compra(buyOrder)</p>
+          <p><%= @buy_order%></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text">ID de sesión (sessionid)</p>
+          <p><%= @session_id%></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Detalle (details)</p>
+          <div>
+          [
+            <% @details.each do |detail| %>
+            {
+               <p> ammount: <%=detail["amount"]%></p>
+               <p> commerce_code:<%=detail["commerce_code"]%></p>
+               <p> buy_order:<%=detail["buy_order"]%></p>
+            }
+            <%end%>
+          ]
+          </div>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> URL de retorno (returnUrl)</p>
+          <p class="break-word" title="dw"><%= @return_url%></p>
+        </div>
+      </div>
+    </div>
 
-  <label for="session_id_parent">
-    Session id comercio padre
-  </label>
-  <input id="session_id_parent" name="session_id" value=<%= '123session_parent' + Time.now.to_i.to_s %>>
-
-
-  <label for="return_url">
-    URL de retorno
-  </label>
-  <input id="return_url" name="return_url" value="<%= "#{root_url}webpayplus/mall/return_url" %>"/>
-
-  <button type="submit">Aceptar</button>
-</form>
-
-</body>
+    <div>
+      <h3>Por último</h3>
+      <p>Con la respuesta del servicio creamos el formulario, para efectos del ejemplo haremos el campo token_ws visible</p>
+      <div class="TBK-card">
+        <p class="mb-40">Formulario de redirección</p>
+        <%= form_with url: @resp["url"], data: { remote: false }, method: :post do |form| %>
+         <%= form.label :token_ws, "Token", class:'asd' %>
+          <%= form.text_field :token_ws, value: @resp["token"], class: "TBK-input" %>
+          <%= form.submit "PAGAR", class: "TBK-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

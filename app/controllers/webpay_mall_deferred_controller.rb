@@ -2,21 +2,33 @@ class WebpayMallDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
   def create
     @child_commerces = [::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_DEFERRED_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_DEFERRED_CHILD2]
+    
+    @req = params.as_json
+    @buy_order = "222333#{Time.now.to_i}"
+    @session_id = "123session_parent#{Time.now.to_i}"
+    @return_url = "#{root_url}webpayplus/mall/return_url"
+    @details =[
+      {
+        "amount"=>"1000",
+        "commerce_code"=> @child_commerces.first,
+        "buy_order"=>"123buyorder1#{Time.now.to_i}"
+      },
+      {
+        "amount"=>"2000",
+        "commerce_code"=> @child_commerces.first,
+        "buy_order"=>"123buyorder2#{Time.now.to_i}"
+      }
+    ]
+
+    tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_DEFERRED)
+    @resp = tx.create(@buy_order, @session_id, @return_url, @details)  
+    Pry::ColorPrinter.pp(params)
+    render 'transaction_created'
     #Transbank::Webpay::WebpayPlus::Base::DEFAULT_MALL_DEFERRED_CHILD_COMMERCE_CODES
   end
 
   def send_create
-    params.permit!
-    @req = params.as_json
-    @buy_order = params[:buy_order]
-    @session_id = params[:session_id]
-    @return_url = params[:return_url]
-    @details = params[:detail][:details].map(&:to_h)
-
-    tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL_DEFERRED)
-    @resp = tx.create(@buy_order, @session_id, @return_url, @details)  
-
-    render 'transaction_created'
+      params.permit!
   end
 
   def commit

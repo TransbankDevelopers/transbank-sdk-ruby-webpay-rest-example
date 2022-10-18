@@ -1,7 +1,35 @@
-<h1>Oneclick mall refund exitoso</h1>
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "oneclick" , class:"adjusted-image" %>
+  </div>
+  <h1>Reembolso de Transacción</h1>
+  <p>
+    Podrás pedir el reembolso del dinero al tarjeta habiente,
+    dependiendo del monto y el tiempo transacurrido será una Reversa, Anulación o Anulación parcial.
+  </p>
 
-<h1>Request</h1>
-<%= @req %>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>
+        Necesitas la orden de compra de la transacción, el monto que quieres reversar, el código de comercio de la tienda hijo y el orden de compra del detalle de la transacción, si anulas el monto total puede ser una Reversa o Anulación dependiendo de ciertas condiciones o una Anulación parcial si el monto es menor al total.
+        No es posible hacer ni Anulaciones ni Anulaciones parciales en tarjetas que no sean de crédito. Tampoco es posible realizar reembolsos de compras en cuotas.
+      </p>
+    </div>
 
-<h1>Response</h1>
-<%= @resp.inspect %>
+    <%= render "/oneclick_mall/partials/onec-refund1" %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render "/oneclick_mall/partials/onec-refund2" %>
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Transbank contestará con el resultado de la reversa o anulación. En el caso de que la transacción corresponda a una Reversa solo se retorna el parámetro type (REVERSED).</p>
+    </div>
+  </div>
+  
+  <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
+</div>
+

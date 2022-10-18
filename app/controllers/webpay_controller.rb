@@ -89,6 +89,7 @@ class WebpayController < ApplicationController
     #@resp = Transbank::Webpay::WebpayPlus::MallTransaction::commit(token: @req['token_ws'])
     tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL)
     @resp = tx.commit(@token)
+    
 
     render 'mall_transaction_committed'
   end
@@ -99,7 +100,8 @@ class WebpayController < ApplicationController
 
     tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL)
     @resp = tx.status(@token)
-
+    Pry::ColorPrinter.pp(@resp)
+    
     render 'webpay/mall_transaction_status'
   end
 
@@ -108,9 +110,10 @@ class WebpayController < ApplicationController
     @child_commerce_code = params[:commerce_code]
     @child_buy_order = params[:buy_order]
     @child_amount = params[:amount]
-
+    
     tx = Transbank::Webpay::WebpayPlus::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::WEBPAY_PLUS_MALL)
     @resp = tx.refund(@token, @child_buy_order, @child_commerce_code,  @child_amount)
+    Pry::ColorPrinter.pp(@resp)
 
     # @resp = Transbank::Webpay::WebpayPlus::MallTransaction::refund(token: @token,
     #                                                               buy_order: @child_buy_order,

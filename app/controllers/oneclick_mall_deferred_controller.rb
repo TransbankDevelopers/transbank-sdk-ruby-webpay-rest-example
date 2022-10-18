@@ -7,18 +7,19 @@ class OneclickMallDeferredController < ApplicationController
     @tx = Transbank::Webpay::Oneclick::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_DEFERRED)
   end
 
-  def inscription; end
-
-  def start_inscription
+  def inscription
     @req = params.as_json
-    @user_name = @req['user_name']
-    @email = @req['email']
-    @response_url = @req['response_url']
+    @user_name = 'nombre_de_usuario'
+    @email = 'example@example.com'
+    @response_url = "#{root_url}oneclick/mall_deferred/inscription/finish"
     session[:user_name] = @user_name
     session[:email] = @email
 
     @resp = @inscription.start(@user_name, @email, @response_url)  
+    Pry::ColorPrinter.pp(@resp)
+  end
 
+  def start_inscription
     render 'inscription_started'
   end
 
@@ -29,7 +30,7 @@ class OneclickMallDeferredController < ApplicationController
     @user_name = session[:user_name]
     
     @resp = @inscription.finish(@token)  
-
+     Pry::ColorPrinter.pp(@resp)
     render 'inscription_finished'
   end
 
@@ -39,7 +40,7 @@ class OneclickMallDeferredController < ApplicationController
     @tbk_user = @req['tbk_user']
 
     @resp = @inscription.delete(@tbk_user, @user_name)
-
+     Pry::ColorPrinter.pp(@resp)
     render 'inscription_deleted'
   end
 
@@ -61,21 +62,25 @@ class OneclickMallDeferredController < ApplicationController
     end
     
     @resp = @tx.authorize(@username, @tbk_user, @buy_order, @details)
-
+     Pry::ColorPrinter.pp(@resp)
     render 'transaction_authorized'
   end
 
   def capture
     # This one is for the status request
+    Pry::ColorPrinter.pp(params[:parent_buy_order])
+    Pry::ColorPrinter.pp(params[:commerce_code])
+    Pry::ColorPrinter.pp(params[:buy_order])
+    Pry::ColorPrinter.pp(params[:capture_amount])
+    Pry::ColorPrinter.pp(params[:authorization_code])
     @parent_buy_order = params[:parent_buy_order]
-
     @child_commerce_code = params[:commerce_code]
     @child_buy_order = params[:buy_order]
     @amount = params[:capture_amount]
     @authorization_code = params[:authorization_code]
     
     @resp = @tx.capture(@child_commerce_code, @child_buy_order, @authorization_code, @amount)
-
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def status
@@ -83,6 +88,7 @@ class OneclickMallDeferredController < ApplicationController
     @buy_order = @req['buy_order']
 
     @resp = @tx.status(@buy_order)
+    Pry::ColorPrinter.pp(@resp)
 
   end
 
@@ -94,6 +100,7 @@ class OneclickMallDeferredController < ApplicationController
     @amount= @req['amount']
 
     @resp = @tx.refund(@buy_order, @child_commerce_code, @child_buy_order, @amount)
+    Pry::ColorPrinter.pp(@resp)
 
   end
 end

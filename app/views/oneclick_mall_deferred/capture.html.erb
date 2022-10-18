@@ -1,4 +1,52 @@
-<h1>Oneclick Mall Diferido transacción capturada</h1>
-<h1>Response</h1>
-<%= @resp.inspect %>
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+	<h1>Capturar Transacción Mall diferida</h1>
+	<p>
+		En este paso debemos capturar la transacción para realmente capturar el dinero que habia sido previamente reservado al hacer la transacción
+	<div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Para capturar una transacción necesitaremos el Token, Orden de compra, Código de autorización y monto a capturar. Se hace de la siguiente manera.</p>
+		</div>
+
+		<%= render "/oneclick_mall_deferred/partials/onedef-capture1" %>
+	</div>
+
+	<div class="TBK-content-right">
+		<%= render "/oneclick_mall_deferred/partials/onedef-capture2" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+		</div>
+	</div>
+
+	<h2>Otras utilidades</h2>
+	<p class="mb-30">
+    Luego de autorizada la transacción puedes Reembolsar (reversar o anular) el pago dependiendo de ciertas condiciones comerciales. También puedes consultar el estado de la transacción hasta 7 días después de realizada.
+  </p>
+	
+	<div class="TBK-content-left">
+		<%= link_to "CONSULTAR ESTADO", oneclick_mall_deferred_status_path(buy_order: @parent_buy_order), class:"TBK-button j-self-start" %>
+
+		<%= form_with url: oneclick_mall_deferred_refund_path, data: { remote: false }, method: :post do |form| %>
+			<%= form.label :child_buy_order, "child comerce" %>
+			<%= form.text_field :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+			<%= form.label :child_commerce_code, "child comerce" %>
+			<%= form.text_field :child_commerce_code, value:  @child_commerce_code, class: "TBK-input" %>
+			<%= form.label :parent_buy_order, "parent buy order" %>
+			<%= form.text_field :parent_buy_order, value:  @parent_buy_order, class: "TBK-input" %>
+			<%= form.label :amount, "Monto" %>
+			<%= form.text_field :amount, value: @amount, class: "TBK-input" %>
+			<%= form.submit "REEMBOLSAR", class: "TBK-button" %>
+		<% end %>
+	</div>
+
+	<div>
+		<%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+	</div>
+
+</div>
 

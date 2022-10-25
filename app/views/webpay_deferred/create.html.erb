@@ -72,7 +72,7 @@
       <div class="TBK-card">
         <p class="mb-40">Formulario de redirección</p>
         <%= form_with url: @resp["url"], data: { remote: false }, method: :post do |form| %>
-          <%= form.label :token_ws, "Token", class:'asd' %>
+          <%= form.label :token_ws, "Token" %>
           <%= form.text_field :token_ws, value: @resp["token"], class: "TBK-input" %>
           <%= form.submit "PAGAR", class: "TBK-button" %>
         <% end %>

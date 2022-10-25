@@ -14,3 +14,9 @@
 //= require turbolinks
 //= require emd
 //= require_tree .
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  console.log("cesar pato")
+
+})

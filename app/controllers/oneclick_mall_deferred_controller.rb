@@ -68,11 +68,6 @@ class OneclickMallDeferredController < ApplicationController
 
   def capture
     # This one is for the status request
-    Pry::ColorPrinter.pp(params[:parent_buy_order])
-    Pry::ColorPrinter.pp(params[:commerce_code])
-    Pry::ColorPrinter.pp(params[:buy_order])
-    Pry::ColorPrinter.pp(params[:capture_amount])
-    Pry::ColorPrinter.pp(params[:authorization_code])
     @parent_buy_order = params[:parent_buy_order]
     @child_commerce_code = params[:commerce_code]
     @child_buy_order = params[:buy_order]

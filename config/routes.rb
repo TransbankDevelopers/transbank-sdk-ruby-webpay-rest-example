@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   post '/transaccion_completa/create', to: 'transaccion_completa#send_create'
   post '/transaccion_completa/installments', to: 'transaccion_completa#installments'
   post '/transaccion_completa/commit', to: 'transaccion_completa#commit'
-  get  '/transaccion_completa/status/:token', to: 'transaccion_completa#status'
+  get  '/transaccion_completa/status', to: 'transaccion_completa#status'
   post '/transaccion_completa/refund', to: 'transaccion_completa#refund'
 
   get '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#create'
@@ -69,14 +69,14 @@ Rails.application.routes.draw do
   post '/transaccion_completa_deferred/installments', to: 'transaccion_completa_deferred#installments'
   post '/transaccion_completa_deferred/commit', to: 'transaccion_completa_deferred#commit'
   post '/transaccion_completa_deferred/capture', to: 'transaccion_completa_deferred#capture'
-  get  '/transaccion_completa_deferred/status/:token', to: 'transaccion_completa_deferred#status'
+  get  '/transaccion_completa_deferred/status', to: 'transaccion_completa_deferred#status'
   post '/transaccion_completa_deferred/refund', to: 'transaccion_completa_deferred#refund'
 
   get '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#create'
   post '/transaccion_completa/mall/create', to: 'transaccion_completa_mall#send_create'
   post '/transaccion_completa/mall/installments', to: 'transaccion_completa_mall#installments'
   post '/transaccion_completa/mall/commit', to: 'transaccion_completa_mall#commit'
-  get  '/transaccion_completa/mall/status/:token', to: 'transaccion_completa_mall#status'
+  get  '/transaccion_completa/mall/status', to: 'transaccion_completa_mall#status'
   post '/transaccion_completa/mall/refund', to: 'transaccion_completa_mall#refund'
 
   get '/transaccion_completa/mall_deferred/create', to: 'transaccion_completa_mall_deferred#create'

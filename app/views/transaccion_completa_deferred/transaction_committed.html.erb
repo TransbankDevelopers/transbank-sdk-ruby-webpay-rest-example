@@ -1,43 +1,53 @@
-<h1>Ejemplo Transaccion Completa Transacciòn confirmada</h1>
+<div class="TBK-container">
+	<div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h2>Confirmar Transacción</h2>
+  <p>En este paso tenemos que confirmar la transacción con el objetivo de avisar a Transbank que hemos recibido la transacción ha sido recibida exitosamente. En caso de que no se confirme la transacción, ésta será reversada.</p>
 
-<h2>Request</h2>
-<%= @req %>
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>
+        Para poder confirmar la transacción debes enviar el token, y en caso de pago en cuotas debes también enviar el ID de la consulta de cuotas. En algunos casos tambien debes enviar el Indice del periodo diferido y un boolean indicando si se tomará el período de gracia.
+      </p>
+		</div>
 
-<h2>Response</h2>
-<%= @resp.inspect %>
+		<%= render "/transaccion_completa_deferred/partials/tc-commit-mark1" %>
+	</div>
 
-<h1>Capturar</h1>
-<form action="/transaccion_completa_deferred/capture" method='POST' class="transaccion_completa_form" style='display: flex; flex-direction:column; width:50%;font-size: 20px;'>
-  <label for="token">Token</label>
-  <input type="text" name="token" id="token" value="<%= @req['token'] %>">
+  <div class="TBK-content-right">
+		<%= render "/transaccion_completa_deferred/partials/tc-commit-mark2" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una vez confirmada la transacción recibirás la siguiente información.</p>
+		</div>
+	</div>
 
-  <label for="buy_order">Orden de Compra</label>
-  <input type="text" name="buy_order" value="<%= @resp["buy_order"] %>">
+  <h2 class="m-none">Casi listo !</h2>
+  <p class="mb-30">Ya puedes mostrar al usuario una página de éxito de la transacción. Debes tener en cuenta que la transacción aun no ha sido capturada solo ha sido retenido el saldo en la tarjeta del Tarjetahabiente. Luego de confirmar la transacción podemos:</p>
 
-  <label for="authorization_code">Código de autorización</label>
-  <input type="text" name="authorization_code" value="<%= @resp["authorization_code"] %>">
-
-  <label for="amount">Monto</label>
-  <input type="text" name="amount" value="<%= @resp["amount"] %>">
-
-  <button type="submit">Capturar transacción</button>
-</form>
-
-<h1>Obtener status de la transacción</h1>
-<form class="transaccion_completa_form" action="/transaccion_completa_deferred/status/<%= @req['token'] %>" method="get" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-
-  <button type="submit">Consultar estado</button>
-</form>
-
-<h1>Reembolso de la transacción</h1>
-<form class="transaccion_completa_form" action="/transaccion_completa_deferred/refund" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-
-  <label for="token">Token</label>
-  <input name="token" id="token" value="<%= @req['token'] %>">
-
-  <label for="amount">Monto</label>
-  <input name="amount" id="amount" value="<%= @resp["amount"] %>">
-
-
-  <button type="submit">Solicitar reembolso</button>
-</form>
+  <%= form_with url: transaccion_completa_deferred_capture_path, data: { remote: false }, method: :post do |form| %>
+    <%= form.hidden_field  :token, value: @req["token"], class: "TBK-input" %>
+    <%= form.hidden_field  :buy_order, value:  @resp["buy_order"], class: "TBK-input" %>
+    <%= form.hidden_field  :authorization_code, value:  @resp["authorization_code"], class: "TBK-input" %>
+    <div class="TBK-content-left">
+      <div>
+        <%= form.submit "CAPTURAR", class: "TBK-button" %>
+      </div>
+      <div class="TBK-order-rows">
+        <div>
+          <%= form.label :amount, "Monto" %>
+          <%= form.text_field    :amount, value:  @resp["amount"], class: "TBK-input" %>
+        </div>
+        <p>
+          Capturar la transacción para realmente capturar el dinero que habia sido previamente reservado.
+        </p>
+      </div>
+    </div>
+  <% end %>
+  
+	<div>
+		<%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+	</div>
+</div>

@@ -1,6 +1,5 @@
 ```ruby
     {
-      'vci': '<%= @resp["vci"] %>'
       'amount': '<%= @resp["amount"] %>'
       'status': '<%= @resp["status"] %>'
       'buy_order': '<%= @resp["buy_order"] %>'

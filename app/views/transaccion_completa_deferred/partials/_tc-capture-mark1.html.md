@@ -1,4 +1,4 @@
 ```ruby
     tx = Transbank::Webpay::TransaccionCompleta::Transaction.new(::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_DEFERRED)
-    @resp = @tx.commit(@token, @id_query_installments, @deferred_period_index, @grace_period) 
+    @resp = @tx.capture(@token,  @buy_order, @authorization_code, @amount) 
 ```

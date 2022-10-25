@@ -1,31 +1,46 @@
-<body>
-<h1>Ejemplo Transaccion completa: Transacción creada exitosamente</h1>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h2>Crear Transacción</h2>
+  <p>En este paso crearemos la transacción con el objetivo de obtener un identificador unico.</p>
 
-<h2>Request</h2>
-<%= @req %>
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Para comenzar debes hacer una instancia de TransaccionCompleta y luego crear una transacción</p>
+		</div>
 
-<h2>Response</h2>
-<%= @resp.inspect %>
+		<%= render "/transaccion_completa_deferred/partials/tc-mark1" %>
+	</div>
 
-<h1>Consultar installments</h1>
-<form class="transaccion_completa_form" action="/transaccion_completa_deferred/installments" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <span>Token: <%= @resp["token"] %></span>
-  <input type="hidden" name="token" value="<%= @resp["token"] %>">
+ <div class="TBK-content-right">
+		<%= render "/transaccion_completa_deferred/partials/tc-mark2" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una vez creada la transacción, estos serán los datos de respuesta</p>
+		</div>
+	</div>
 
-  <label for="installments_number">Número de cuotas</label>
-  <select id="installments_number" name="installments_number">
-    <option>2</option>
-    <option selected="selected">3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-  </select>
-  <button type="submit">Enviar</button>
-</form>
-</body>
+  <h2>Lo siguiente ...</h2>
+  <p>
+  Ahora que ya creamos la transacción tienes dos opciones, puedes hacer consultas de cuotas para pagar con ellas o puedes directamente confirmar la transacción
+  </p>
+
+  <div class="TBK-content-left">
+    <%= form_with url: transaccion_completa_deferred_commit_path, data: { remote: false }, method: :post do |form| %>
+      <%= form.hidden_field :token, value: @resp["token"] %>
+      <%= form.submit "CONFIRMAR", class: "TBK-button" %>
+    <% end %>
+ 
+    <%= form_with url: transaccion_completa_deferred_installments_path, data: { remote: false }, method: :post do |form| %>
+      <%= form.hidden_field :token, value: @resp["token"] %>
+      <%= form.label :installments_number, "cuotas"%>
+      <%= form.number_field  :installments_number, value: 2, class: "TBK-input" %>
+      <%= form.submit "HACER CONSULTA DE CUOTAS", class: "TBK-button" %>
+    <% end %>
+  </div>
+  <div>
+		<%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+	</div>
+</div>

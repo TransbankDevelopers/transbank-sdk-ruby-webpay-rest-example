@@ -48,15 +48,10 @@ class TransaccionCompletaController < ApplicationController
     @token = @req['token']
     @id_query_installments = @req['id_query_installments']
     @deferred_period_index = @req['deferred_period_index']
-   
     @grace_period = @req.key?("grace_period") ? @req['grace_period'] != 'false' : false
-    Pry::ColorPrinter.pp(@grace_period)
-  
     @resp = @tx.commit(@token, @id_query_installments, @deferred_period_index, @grace_period)  
-
+    Pry::ColorPrinter.pp(@resp)
   
-
-
     #@resp = Transbank::TransaccionCompleta::Transaction.commit(token: @token,
     #                                                           id_query_installments: @id_query_installments,
     #                                                           deferred_period_index: @deferred_period_index,

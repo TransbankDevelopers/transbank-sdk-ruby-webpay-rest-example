@@ -6,10 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 # Transbank SDK
-gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'master'
+#gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'master'
+gem "transbank-sdk"
 
 gem 'rails', '~> 5.1.7'
-# gem 'pg', '>= 0.18', '< 2.0'
 gem 'sqlite3'
 gem 'puma', '~> 4.3'
 gem 'coderay'

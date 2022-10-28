@@ -1,61 +1,70 @@
 
-<body>
-<h1>Ejemplo Transaccion completa mall</h1>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<form class="transaccion_completa_form" action="/transaccion_completa/mall/create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <label for="buy_order">
-    Orden de compra
-  </label>
-  <input id="buy_order" name="buy_order" value="<%='buyorder' + Time.zone.now.to_i.to_s %>"/>
+  <h2>Formulario</h2>
+  <p>Para poder comenzar con la transacción primero necesitas obtener los datos de la tarjeta de crédito del tarjetahabiente.</p>
 
-  <label for="session_id">
-    Id de sesión
-  </label>
-  <input id="session_id" name="session_id" value="<%='session' + Time.zone.now.to_i.to_s %>" />
+  <div class="TBK-content-left">
+    <div>
+      <h3>Formulario de pago</h3>
+      <p>Para comenzar debes obtener los datos de la tarjeta sobre la cual se desea generar una transacción.</p>
+    </div>
 
-  <label for="card_number">
-    Numero de tarjeta
-  </label>
-  <input id="card_number" name="card_number" value="4051885600446623"/>
+    <div class="TBK-card">
+      <div>
+        <%= form_with url: transaccion_completa_mall_create_path, data: { remote: false }, id:"card", method: :post do |form| %>
+          <div class="card-wrapper mb-30">
+          </div>
+          <%= form.hidden_field :buy_order, value: "buyorder#{Time.zone.now.to_i}", class: "TBK-input" %>
+          <%= form.hidden_field :session_id, value: "session_id#{Time.zone.now.to_i}", class: "TBK-input" %>
+          <%= form.label :number, "Numedo de tarjeta" %>
+          <%= form.text_field :number, value: "", placeholder:"1234 1234 1234 1234",  class: "TBK-input" %>
 
-  <label for="card_expiration_date">
-    Fecha de expiracion (AA/MM)
-  </label>
-  <input id="card_expiration_date" name="card_expiration_date" value="<%= Date.new(Time.now.year + 5, Time.now.month, Time.now.day).strftime("%y/%m")
-  %>"/>
+          <div class="TBK-input-group">
+            <div>
+              <%= form.label :expiry_month, "Mes" %>
+              <%= form.text_field :expiry_month, value: "", class: "TBK-input" %>
+            </div>
+            <div>
+              <%= form.label :expiry_year, "Año", placeholder:"MM" %>
+              <%= form.text_field :expiry_year, value:"", class: "TBK-input" %>
+            </div>
+            <div>
+              <%= form.label :cvc, "CVV", placeholder:"YY" %>
+              <%= form.text_field :cvc, value: "", class: "TBK-input" %>
+            </div>
+          </div>
 
-  <h2>Detalles</h2>
-  <hr>
+          <%= form.label :amount, "monto" %>
+          <%= form.text_field :amount, value: "1000", class: "TBK-input" %>
+          <%= form.submit "PAGAR", class: "TBK-button" %>
+        <% end %>
+      </div>
+    </div>
+    <div>
+      <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+    </div>
+  </div>
 
-  <label for="details_commerce_code">Detalles de transacción 1</label>
-  <select id="details_commerce_code" name="detail[details][][commerce_code]">
-    <option selected="selected" value="<%= @child_commerce_codes.first %>"> Comercio 1 - Codigo <%= @child_commerce_codes.first %></option>
-    <option value="<%= @child_commerce_codes.second %>">Comercio 2 - Codigo <%= @child_commerce_codes.second %></option>
-  </select>
+  <script>
+    var card = new Card({
+      form: 'form#card',
+      container: '.card-wrapper',
+      messages: {
+        monthYear: 'mm/yy',
+      },
+      placeholders: {
+        name: '**** ****'
+      },
+      formSelectors: {
+        expiryInput: 'input[name=expiry_month], input[name=expiry_year]', // optional — default input[name="expiry"]
+      },
+      debug: true
+    });
+  </script>
 
+</div>
 
-  <label for="details_buy_order">Orden de compra (comercio hijo)</label>
-  <input id="details_buy_order" name="detail[details][][buy_order]" value="<%= 'abcdef' + Time.zone.now.to_i.to_s %>"/>
-
-  <label for="details_amount">Monto</label>
-  <input id="details_amount" name="detail[details][][amount]" value="1000"/>
-
-  <hr>
-
-  <label for="details_commerce_code">Detalles de transacción 2</label>
-  <select id="details_commerce_code" name="detail[details][][commerce_code]">
-    <option value="<%= @child_commerce_codes.first %>"> Comercio 1 - Codigo <%= @child_commerce_codes.first %></option>
-    <option selected="selected" value="<%= @child_commerce_codes.second %>">Comercio 2 - Codigo <%= @child_commerce_codes.second %></option>
-  </select>
-
-
-  <label for="details_buy_order">Orden de compra (comercio hijo)</label>
-  <input id="details_buy_order" name="detail[details][][buy_order]" value="<%= 'vwxyz' + Time.zone.now.to_i.to_s %>"/>
-
-  <label for="details_amount">Monto</label>
-  <input id="details_amount" name="detail[details][][amount]" value="2000"/>
-
-  <button type="submit">Aceptar</button>
-</form>
-
-</body>

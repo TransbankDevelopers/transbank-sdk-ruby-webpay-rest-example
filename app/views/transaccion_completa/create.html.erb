@@ -8,12 +8,12 @@
   <p>Para poder comenzar con la transacción primero necesitas obtener los datos de la tarjeta de crédito del tarjetahabiente.</p>
 
   <div class="TBK-content-left">
+    <div>
+      <h3>Formulario de pago</h3>
+      <p>Para comenzar debes obtener los datos de la tarjeta sobre la cual se desea generar una transacción.</p>
+    </div>
 
     <div class="TBK-card">
-      <div>
-        <h3>Formulario de pago</h3>
-        <p>Para comenzar debes obtener los datos de la tarjeta sobre la cual se desea generar una transacción.</p>
-      </div>
       <div>
         <%= form_with url: transaccion_completa_create_path, data: { remote: false }, id:"card", method: :post do |form| %>
           <div class="card-wrapper mb-30">

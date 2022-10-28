@@ -1,7 +1,12 @@
 class TransaccionCompletaMallDeferredController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :configure_sdk
+  # before_action :configure_sdk
   before_action :params_to_json, except: :create
+
+  def initialize
+    super
+    @tx = Transbank::Webpay::TransaccionCompleta::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_DEFERRED_SIN_CVV_CHILD)
+  end
 
   def create
     @child_commerce_codes = %w[597055555577 597055555578].freeze
@@ -82,9 +87,9 @@ class TransaccionCompletaMallDeferredController < ApplicationController
 
   private
 
-  def configure_sdk
-    Transbank::TransaccionCompleta::Base.commerce_code = '597055555576'
-  end
+  # def configure_sdk
+  #   Transbank::TransaccionCompleta::Base.commerce_code = '597055555576'
+  # end
 
   def params_to_json
     @req = params.as_json

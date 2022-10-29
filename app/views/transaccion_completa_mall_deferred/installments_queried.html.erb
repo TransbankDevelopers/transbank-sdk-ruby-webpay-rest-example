@@ -1,71 +1,81 @@
-<h1>Ejemplo transaccion completa Mall cuotas consultadas</h1>
-
-<h2>Request</h2>
-<%= @req %>
-
-<h2>Response</h2>
-<%= @resp.inspect %>
-
-
-<h1>Confirmar transacción</h1>
-<form class="transaccion_completa_form" action="/transaccion_completa/mall_deferred/commit" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-
-  <label for="token">Token</label>
-  <input name="token" value="<%= @req['token']%>">
-
-  <h3>Comercio 1</h3>
-  <hr>
-
-  <label for="etails_commerce_code_1">Codigo de comercio (comercio hijo)</label>
-  <input id="details_commerce_code_1" name="detail[details][][commerce_code]" value="<%= @details.first['commerce_code'] %>">
-
-  <label for="details_buy_order_1">Orden de compra (comercio hijo)</label>
-  <input id="details_buy_order_1" name="detail[details][][buy_order]" value="<%= @details.first['buy_order'] %>"/>
-
-  <label for="id_query_installments_1">Id query installments</label>
-  <input id="id_query_installments_1" name="detail[details][][id_query_installments]" value="<%= @resp.first["id_query_installments"] %>">
-
-  <label for="deferred_period_index_1">Deferred period index</label>
-  <select name="detail[details][][deferred_period_index]" id="deferred_period_index_1">
-    <option value="" selected></option>
-    <%= @resp.second["deferred_periods"].each do |per| %>
-      <option selected value="<%= per %>"><%= per %></option>
-    <% end %>
-  </select>
-
-  <label for="grace_period_1">Periodo de gracia</label>
-  <select name="detail[details][][grace_period]">
-    <option value="true">true</option>
-    <option selected value="false">false</option>
-  </select>
-
-  <h3>Comercio 2</h3>
-  <hr>
-
-  <label for="etails_commerce_code_2">Codigo de comercio (comercio hijo)</label>
-  <input id="details_commerce_code_2" name="detail[details][][commerce_code]" value="<%= @details.second['commerce_code'] %>">
-
-  <label for="details_buy_order_2">Orden de compra (comercio hijo)</label>
-  <input id="details_buy_order_2" name="detail[details][][buy_order]" value="<%= @details.second['buy_order'] %>"/>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h2>Consulta de cuotas</h2>
+  <p>En este paso haremos una consulta de cuotas para poder saber sus condiciones. Este paso es opcional, se utiliza solo en el caso de que quieras utilizar cuotas</p>
 
 
-  <label for="id_query_installments">Id query installments</label>
-  <input id="id_query_installments_2" name="detail[details][][id_query_installments]" value="<%= @resp.second["id_query_installments"] %>">
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Para hacer la consulta de cuotas debemos enviar los siguientes datos.</p>
+		</div>
 
-  <label for="deferred_period_index_2">Deferred period index</label>
-  <select name="detail[details][][deferred_period_index]" id="deferred_period_index_2">
-    <option value="" selected></option>
-    <% @resp.second["deferred_periods"].each do |per| %>
-      <option selected value="<%= per %>"><%= per %></option>
-    <% end %>
-  </select>
+		<%= render "/transaccion_completa_mall_deferred/partials/tc-installments-mark1" %>
+	</div>
 
-  <label for="grace_period_2">Periodo de gracia</label>
-  <select id="grace_period_2" name="detail[details][][grace_period]">
-    <option value="true">true</option>
-    <option selected value="false">false</option>
-  </select>
+  <div class="TBK-content-right">
+		<%= render "/transaccion_completa_mall_deferred/partials/tc-installments-mark2" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una hecha la consulta de cuotas, estos serán los datos de respuesta</p>
+		</div>
+	</div>
 
-  <button type="submit">Enviar</button>
+  <h2>Lo siguiente...</h2>
+  <div class="TBK-content-left">
+		<div class="aling-s-baseline">
+			<h3>Confirmar transacción</h3>
+			<p>Para confirmar una transacción debemos pasar los siguentes datos.</p>
+		</div>
+    
+    <div class="TBK-card">
+      <%= form_with url: transaccion_completa_mall_deferred_commit_path, data: { remote: false }, method: :post do |form| %>
 
-</form>
+        <%= form.label :token, "Token"%>
+        <%= form.text_field :token, value: @token, class: "TBK-input" %>
+
+        <h2>  COMERCIO HIJO 1</h2>
+        
+        <%= form.label "details_commerce_code_1", "Codigo de comercio (comercio hijo)"%>
+        <%= form.text_field  "detail[details][][commerce_code]", value:  @details.first['commerce_code'], class: "TBK-input" %>
+        
+        <%= form.label "id_query_installments_1", "ID de consulta de cuotas (Opcional)"%>
+        <%= form.text_field  "detail[details][][id_query_installments]", value:  @resp.first["id_query_installments"], class: "TBK-input" %>
+
+        <%= form.label "details_buy_order_1", "ID de consulta de cuotas (Opcional)"%>
+        <%= form.text_field  "detail[details][][buy_order]", value:  @details.first['buy_order'], class: "TBK-input" %>
+
+        <%= form.label "deferred_period_index_1", "Indice de periodo diferido (Opcional)"%>
+        <%= form.select("detail[details][][deferred_period_index]", @resp.first["deferred_periods"], {selected: @resp.first["deferred_periods"][0]}, {class: "TBK-input"})%>
+      
+        <%= form.label "deferred_period_index_1", "Periodo de gracia (Opcional)"%>
+        <%= form.select("detail[details][][grace_period]", ["true", "false"], {selected: "false"}, {class: "TBK-input"}) %>
+
+        <h2>  COMERCIO HIJO 2</h2>
+
+        <%= form.label "details_commerce_code_1", "Codigo de comercio (comercio hijo)"%>
+        <%= form.text_field  "detail[details][][commerce_code]", value:  @details.second['commerce_code'], class: "TBK-input" %>
+        
+        <%= form.label "id_query_installments_1", "ID de consulta de cuotas (Opcional)"%>
+        <%= form.text_field  "detail[details][][id_query_installments]", value:  @resp.second["id_query_installments"], class: "TBK-input" %>
+
+        <%= form.label "details_buy_order_1", "ID de consulta de cuotas (Opcional)"%>
+        <%= form.text_field  "detail[details][][buy_order]", value:  @details.second['buy_order'], class: "TBK-input" %>
+
+        <%= form.label "deferred_period_index_1", "Indice de periodo diferido (Opcional)"%>
+        <%= form.select("detail[details][][deferred_period_index]", @resp.second["deferred_periods"], {selected: @resp.second["deferred_periods"][0]}, {class: "TBK-input"})%>
+      
+        <%= form.label "deferred_period_index_1", "Periodo de gracia (Opcional)"%>
+        <%= form.select("detail[details][][grace_period]", ["true", "false"], {selected: "false"}, {class: "TBK-input"}) %>
+
+        <%= form.submit "CONFIRMAR TRANSACCION", class: "TBK-button" %>
+      <% end %>
+    </div>
+	</div>
+
+  <div>
+		<%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+	</div>
+</div>

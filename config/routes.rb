@@ -84,6 +84,6 @@ Rails.application.routes.draw do
   post '/transaccion_completa/mall_deferred/installments', to: 'transaccion_completa_mall_deferred#installments'
   post '/transaccion_completa/mall_deferred/commit', to: 'transaccion_completa_mall_deferred#commit'
   post '/transaccion_completa/mall_deferred/capture', to: 'transaccion_completa_mall_deferred#capture'
-  get  '/transaccion_completa/mall_deferred/status/:token', to: 'transaccion_completa_mall_deferred#status'
+  get  '/transaccion_completa/mall_deferred/status', to: 'transaccion_completa_mall_deferred#status'
   post '/transaccion_completa/mall_deferred/refund', to: 'transaccion_completa_mall_deferred#refund'
 end

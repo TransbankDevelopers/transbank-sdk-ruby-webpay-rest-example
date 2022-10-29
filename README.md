@@ -3,7 +3,19 @@
 El siguiente proyecto es un simple sitio web el cual permite utilizar los diferentes productos y modalidades de Webpay disponibles en el
 SDK de Transbank para Ruby.
 
-## Requerimientos
+## Instalar dependencias en local
+
+```
+bundle install
+```
+
+## Correr en local
+
+```
+rails s
+```
+
+## Requerimientos con Docker
 Para ejecutar el proyecto es necesario tener: 
  ```docker``` y ```docker-compose``` ([como instalar Docker](https://docs.docker.com/install/))
 
@@ -12,35 +24,13 @@ Para ejecutar el proyecto es necesario tener:
 El siguiente comando invocará lo necesario para levantar el entorno
 
 ```
-make start
+docker compose up
 ```
 
-### Otros comandos
-
-#### Generar un build
+#### Dar de baja con Docker
 
 ```
-make build
-```
-
-#### Levantar servidor
-
-```
-make start
-// O iniciarlo en modo headless
-make start-headless
-```
-
-#### Detener
-
-```
-make stop
-```
-
-#### Dar de baja
-
-```
-make clean
+docker compose down
 ```
 
 El proyecto se ejecutará en http://localhost:3000 (y fallará en caso de que el puerto 3000 no esté disponible)
@@ -49,3 +39,5 @@ El proyecto se ejecutará en http://localhost:3000 (y fallará en caso de que el
 
 Este proyecto está hecho en Ruby `2.5.1` utilizando Rails `5.1.7`
 
+## Notas
+Se debe eliminar el archivo 'Gemfile.lock' si existen problemas

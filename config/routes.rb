@@ -47,10 +47,10 @@ Rails.application.routes.draw do
   get '/oneclick/mall_deferred/status', to: 'oneclick_mall_deferred#status'
   post '/oneclick/mall_deferred/refund', to: 'oneclick_mall_deferred#refund'
 
-  get '/patpass/patpass_by_webpay/create', to: 'patpass#create'
-  post '/patpass/patpass_by_webpay/create', to: 'patpass#send_create', as: :send_create
-  get '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
-  get '/patpass/patpass_by_webpay/status/:token', to: 'patpass#status'
+  # get '/patpass/patpass_by_webpay/create', to: 'patpass#create'
+  # post '/patpass/patpass_by_webpay/create', to: 'patpass#send_create', as: :send_create
+  # get '/patpass/patpass_by_webpay/return_url', to: 'patpass#commit'
+  # get '/patpass/patpass_by_webpay/status/:token', to: 'patpass#status'
 
   get '/patpass/patpass_comercio/inscription', to: 'patpass_comercio#inscription'
   post '/patpass/patpass_comercio/inscription', to: 'patpass_comercio#start_inscription'

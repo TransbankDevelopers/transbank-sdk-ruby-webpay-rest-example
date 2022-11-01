@@ -1,16 +1,61 @@
-<h1>Patpass comercio Inscription status</h1>
-<h2>Request</h2>
-<%= @req %>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "patpass.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<h2> Response </h2>
-<%= @resp.inspect %>
+  <h2>Confirmar Registro</h2>
+  <p>Es necesario confirmar el registro, este solo se puede hacer una sola vez o retornara error.</p>
 
-<%- if @resp["authorized"] == true %>
-  <h2>Continuar con inscripción</h2>
-  <form action="<%= @resp["voucher_url"] %>" method="post">
+  <div class="TBK-content-left">
+    <div>
+      <h3>Datos recibidos</h3>
+      <p>
+        Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente
+      </p>
+    </div>
+    <%= render "/patpass_comercio/partials/pat-status-mark1" %>
+  </div>
 
-    <label for="token">Token: <%= @req['j_token'] %></label>
-    <input type="hidden" value="<%= @req['j_token'] %>" name="tokenComercio">
-    <button type="submit">Enviar datos</button>
-  </form>
-<% end %>
+   <div class="TBK-content-right">
+    <%= render "/patpass_comercio/partials/pat-status-mark2" %>
+    <div class="item-right">
+      <h3>Petición</h3>
+      <p>Usaras el token recibido para confirmar la inscripción usando nuevamente PatpassComercio</p>
+    </div>
+  </div>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Respuesta</h3>
+      <p>
+        Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que el atributo authorized sea igual a true.
+      </p>
+    </div>
+    <%= render "/patpass_comercio/partials/pat-status-mark3" %>
+  </div>
+
+  <h3>Otras utilidades</h3>
+  <p>Luego de realizar la inscripcion puedes visualizar el voucher</p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Datos recibidos</h3>
+      <p>
+        Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente
+      </p>
+    </div>
+    <%= render "/patpass_comercio/partials/pat-status-mark4" %>
+  </div>
+
+  <div class="TBK-card">
+    <p class="mb-40">Formulario de redirección al voucher</p>
+    <%= form_with url: @resp["voucherUrl"], data: { remote: false }, method: :post do |form| %>
+      <%= form.label :tokenComercio, "Token" %>
+      <%= form.text_field :tokenComercio, value: @token, class: "TBK-input" %>
+      <%= form.submit "VER VOUCHER", class: "TBK-button" %>
+    <% end %>
+  </div>
+   <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
+</div>

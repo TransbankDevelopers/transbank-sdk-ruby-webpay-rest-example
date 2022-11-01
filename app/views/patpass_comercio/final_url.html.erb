@@ -1,5 +1,24 @@
-<h1>Patpass comercio final URL (POST) </h1>
-<p>Inscripción realizada exitosamente!</p>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "patpass.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<h2>Request</h2>
-<%= @req %>
+  <h2>Inscripción finalizada</h2>
+  <p>La inscripción ya se encuentra finalizada.</p>
+
+  <h2>Otras utilidades</h2>
+  <p>Luego de realizar la inscripcion puedes visualizar el voucher.</p>
+
+
+  <div class="TBK-card">
+    <p class="mb-40">Formulario de redirección al voucher</p>
+    <%= form_with url: @resp["voucherUrl"], data: { remote: false }, method: :post do |form| %>
+      <%= form.label :tokenComercio, "Token" %>
+      <%= form.text_field :tokenComercio, value: @token, class: "TBK-input" %>
+      <%= form.submit "VER VOUCHER", class: "TBK-button" %>
+    <% end %>
+  </div>
+   <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
+</div>

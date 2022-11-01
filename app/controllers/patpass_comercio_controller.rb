@@ -6,27 +6,23 @@ class PatpassComercioController < ApplicationController
     @inscription = Transbank::Patpass::PatpassComercio::Inscription.new()
   end
 
-  def inscription
-  end
-
-
-  def start_inscription
-    @req = params.as_json
-    @url = @req['url']
-    @name = @req['name']
-    @first_last_name = @req['first_last_name']
-    @second_last_name = @req['second_last_name']
-    @rut = @req['rut']
-    @service_id = @req['service_id']
-    @final_url = @req['final_url']
-    @max_amount = @req['max_amount']
-    @phone_number = @req['phone_number']
-    @mobile_number = @req['mobile_number']
-    @patpass_name = @req['patpass_name']
-    @person_email = @req['person_email']
-    @commerce_email = @req['commerce_email']
-    @address = @req['address']
-    @city = @req['city']
+  def inscription 
+    
+    @url = "#{root_url}patpass/patpass_comercio/inscription/status"
+    @name = "pepito"
+    @first_last_name = "Continuum"
+    @second_last_name = "Perez"
+    @rut = "11111111-1"
+    @service_id = "1234#{Time.zone.now.to_i.to_s}"
+    @final_url = "#{root_url}patpass/patpass_comercio/final_url"
+    @max_amount = "20000"
+    @phone_number = "121334567"
+    @mobile_number = "121334599"
+    @patpass_name = "nombrepatpass"
+    @person_email = "info@continuum.cl"
+    @commerce_email = "info@comercio.cl"
+    @address = "General Bustamante 24, Oficina N"
+    @city = "Santiago"
 
     @resp = @inscription::start(
       @url,
@@ -45,7 +41,7 @@ class PatpassComercioController < ApplicationController
       @address,
       @city
     )
-
+    Pry::ColorPrinter.pp(@resp)
     #@resp  = Transbank::Patpass::PatpassComercio::Inscription::start(
     #                                                    url: @url,
     #                                                    name: @name,
@@ -63,18 +59,29 @@ class PatpassComercioController < ApplicationController
     #                                                    address: @address,
     #                                                    city: @city
     #                                                    )
-    render 'inscription_started'
+
   end
+
+
+  # def start_inscription
+  # end
 
   def inscription_status
     @req = params.as_json
     @token = @req['j_token']
     #@resp = Transbank::Patpass::PatpassComercio::Inscription::status(token: @token)
     @resp = @inscription::status(@token)
+    Pry::ColorPrinter.pp(@resp)
+    Pry::ColorPrinter.pp("++++++++++")
     render 'inscription_status'
   end
 
   def final_url
     @req = params.as_json
+    @token = @req['j_token']
+    @resp = @inscription::status(@token)
+    Pry::ColorPrinter.pp(@req)
+    Pry::ColorPrinter.pp("----------")
+    Pry::ColorPrinter.pp(@resp)
   end
 end

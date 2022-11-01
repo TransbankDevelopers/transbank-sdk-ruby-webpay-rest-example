@@ -1,51 +1,135 @@
-<h1>Patpass comercio Inscripción</h1>
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "patpass.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<form class="patpass_form" action="/patpass/patpass_comercio/inscription" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
+  <h2>Inscribir Servicio</h2>
+  <p>
+    En este paso inscribiremos una tarjeta con el objetivo de obtener un identificador unico y poder en el siguiente paso redirigir al Tarjetahabiente hacia el formulario de inscripción
+  </p>
 
-  <label for="url">URL</label>
-  <input id="url" name="url" value="<%= "#{root_url}patpass/patpass_comercio/inscription/status" %>">
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>
+        Para comenzar debes importar PatpassComercio y luego comenzar una inscripción <br>
 
-  <label for="name">Nombre</label>
-  <input id="name" name="name" value="Pepito">
+        Tener en cuenta que actualmente el ambiente de integración no soporta direcciones locales (como localhost, 127.0.0.1, 192.168.*.*) en los atributos en los atributos 'url' y 'finalUrl'.
+      </p>
+    </div>
 
-  <label for="first_last_name">Primer Apellido</label>
-  <input id=first_last_name" name="first_last_name" value="Continuum">
-  
-  <label for="second_last_name">Segundo Apellido</label>
-  <input id="second_last_name" name="second_last_name" type="text" value="Perez">
-  
-  <label for="rut">RUT</label>
-  <input id="rut" name="rut" value="11111111-1" type="text">
+    <%= render "/patpass_comercio/partials/pat-mark1" %>
+  </div>
 
-  <label for="service_id">Id de servicio</label>
-  <input name="service_id" name="service_id" value="<%= "1234" + Time.zone.now.to_i.to_s %>" type="text">
+  <div class="TBK-content-right">
+    <%= render "/patpass_comercio/partials/pat-mark2" %>
 
-  <label for="final_url">URL final</label>
-  <input id="final_url" name="final_url" value="<%= "#{root_url}patpass/patpass_comercio/final_url" %>" type="text">
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Una vez iniciada la inscripción, estos serán los datos de respuesta</p>
+    </div>
+  </div>
 
-  <label for="max_amount">Monto maximo</label>
-  <input id="max_amount" name="max_amount" value="20000" type="text">
+  <div class="TBK-content-left">
+    <div>
+      <h3>Por último</h3>
+      <p>
+        Debes utilizar estos datos para crear un formulario
+      </p>
+    </div>
 
-  <label for="phone_number">Numero de telefono</label>
-  <input id="phone_number" name="phone_number" value="121334567" type="text">
+    <%= render "/patpass_comercio/partials/pat-mark3" %>
+  </div>
 
-  <label for="mobile_number">Numero celular</label>
-  <input id="mobile_number" name="mobile_number" value="121334599" type="text">
+  <h2>Ejemplo</h2>
 
-  <label for="patpass_name">Nombre Patpass</label>
-  <input id="patpass_name" name="patpass_name" value="nombrepatpass" type="text">
+  <div class="TBK-content-left">
+    <div>
+      <h3>Iniciamos la inscripción</h3>
+      <p>Usando los siguientes datos</p>
+      <div class="TBK-table">
+        <div class="TBK-table_cell">
+          <p class="text-head">Campo</p>
+          <p class="text-head">valor</p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Url de retorno luego de realizar la inscripción (url)</p>
+          <p class="break-word"><%= @url %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text">Nombre (name)</p>
+          <p><%= @name %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Primer apellido (first_last_name)</p>
+          <p><%= @first_last_name  %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Segundo apellido (first_last_name )</p>
+          <p><%= @second_last_name %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Rut </p>
+          <p><%= @rut %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> ID del servicio (service_id) </p>
+          <p><%= @service_id %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Url de redirección luego de generar el voucher(final_url) </p>
+          <p class="break-word"><%= @final_url %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Monto máximo de pago(max_amount) </p>
+          <p><%= @max_amount %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Teléfono del contacto(phone_number) </p>
+          <p><%= @phone_number %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Celular del contacto(mobile_number) </p>
+          <p><%= @mobile_number %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Nombre de la inscripción en Patpass(patpass_name) </p>
+          <p><%= @patpass_name %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Correo del contacto(person_email) </p>
+          <p><%= @person_email %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Correo del comercio(commerce_email) </p>
+          <p><%= @commerce_email %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Direccion del contacto(address) </p>
+          <p><%= @address %></p>
+        </div>
+        <div class="TBK-table_cell">
+          <p class="main-text"> Ciudad del contacto(city) </p>
+          <p><%= @city %></p>
+        </div>
+      </div>
+    </div>
 
-  <label for="person_email">Email del cliente</label>
-  <input id="person_email" name="person_email" value="info@continuum.cl" type="text">
+    <div class="aling-s-baseline">
+      <h3>Por último</h3>
+      <p>Con la respuesta del servicio creamos el formulario, para efectos del ejemplo haremos el campo tokenComercio visible</p>
+      <div class="TBK-card">
+        <p class="mb-40">Formulario de redirección</p>
+        <%= form_with url: @resp["url"], data: { remote: false }, method: :post do |form| %>
+         <%= form.label :tokenComercio, "Token" %>
+          <%= form.text_field :tokenComercio, value: @resp["token"], class: "TBK-input" %>
+          <%= form.submit "INSCRIBIR", class: "TBK-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-  <label for="commerce_email">Email del comercio</label>
-  <input id="commerce_email" name="commerce_email" value="info@comercio.cl" type="text">
-
-  <label for="address">Direccion</label>
-  <input id="address" name="address" value="General Bustamante 24, Oficina N" type="text">
-
-  <label for="city">Ciudad</label>
-  <input id="city" name="city" value="Santiago" type="text">
-
-  <button type="submit">Crear Inscripción</button>
-</form>
+  <div>
+    <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+  </div>
+</div>

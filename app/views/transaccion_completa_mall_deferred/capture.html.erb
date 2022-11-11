@@ -1,0 +1,48 @@
+<div class="TBK-container">
+	<div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h2>Capturar Transacción Mall diferida</h2>
+  <p>En este paso debemos capturar la transacción para realmente capturar el dinero que habia sido previamente reservado al hacer la transacción</p>
+
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>
+        Para capturar una transacción necesitaremos el código de comercio de la tienda hija, Token, Orden de compra, Código de autorización y monto a capturar. Se hace de la siguiente manera.
+      </p>
+		</div>
+
+		<%= render "/transaccion_completa_mall_deferred/partials/capture-mark1" %>
+	</div>
+
+  <div class="TBK-content-right">
+    <%= render "/shared/resp_to_json" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+		</div>
+	</div>
+
+  <div class="TBK-content-left">
+    <div class="aling-s-baseline">
+		  <%= link_to "CONSULTAR ESTADO", transaccion_completa_mall_deferred_status_path(token: @token), class:"TBK-button aling-s-baseline" %>
+    </div>
+    <div>
+      <%= form_with url: transaccion_completa_mall_deferred_refund_path, data: { remote: false }, method: :post do |form| %>
+        <%= form.hidden_field  :token, value: @req["token"], class: "TBK-input" %>
+        
+        <%= form.label :child_commerce_code, "Codigo de comercio (hijo)" %>
+        <%= form.text_field    :child_commerce_code, value:  @child_commerce_code, class: "TBK-input" %>
+        <%= form.label :child_buy_order, "Orden de compra" %>
+        <%= form.text_field    :child_buy_order, value:  @buy_order, class: "TBK-input" %>
+        <%= form.label :amount, "Monto" %>
+        <%= form.text_field    :amount, value:  @amount, class: "TBK-input" %>
+
+        <%= form.submit "REEMBOLSAR", class: "TBK-button mb-30" %>
+      <% end %>
+
+    </div>
+	</div>
+
+</div>

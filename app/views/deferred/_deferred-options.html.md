@@ -1,0 +1,114 @@
+<%= form_with url: "capture", data: { remote: false }, method: :post do |form| %>
+  <table style="width:100%">
+    <tr>
+      <td style="width:20%"> 
+          <%= form.submit "CAPTURAR", class: "TBK-button j-self-start" %>
+      </td>
+      <td style="width:20%"> 
+        <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+        <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+        <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+        <%= form.label :amount, "Monto a capturar" %>
+        <%= form.text_field    :amount, value: @amount, class: "TBK-input" %>
+      </td>
+      <td >
+          <p class="mb-40" style="margin: 0.5rem 0 1rem 2rem;">
+            Capturar la transacción para realmente capturar el dinero que habia sido previamente reservado.
+          </p>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<%= form_with url: "increase_amount", data: { remote: false }, method: :post do |form| %>
+  <table style="width:100%">
+    <tr>
+      <td style="width:20%"> 
+          <%= form.submit "AUMENTAR MONTO", class: "TBK-button j-self-start" %>
+      </td>
+      <td style="width:20%"> 
+        <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+        <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+        <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+        <%= form.label :amount, "Monto a aumentar" %>
+        <%= form.text_field    :amount, value:  1000, class: "TBK-input" %>
+      </td>
+      <td >
+          <p class="mb-40" style="margin: 0.5rem 0 1rem 2rem;">
+            Aumentar el monto previamente pre-autorizado (todas las veces que se necesite).
+          </p>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<%= form_with url: "increase_date", data: { remote: false }, method: :post do |form| %>
+  <table style="width:100%">
+    <tr>
+      <td style="width:20%"> 
+          <%= form.submit "AUMENTAR PLAZO", class: "TBK-button j-self-start" %>
+      </td>
+      <td > 
+        <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+        <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+        <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+        <%= form.hidden_field  :amount, value: @amount, class: "TBK-input" %>
+        <p style="margin: 0.5rem 0 1rem 0;">
+          Aumentar el plazo pre-autorizado (todas las veces que se necesite). 
+          El plazo de captura en VISA y MASTERCARD para los Rent-a-car y los hoteles son 30 días, y en AMEX solo 7 días (no tiene posiblidad de aumento de fecha y de monto).
+        </p>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<%= form_with url: "reverse", data: { remote: false }, method: :post do |form| %>
+  <table style="width:100%">
+    <tr>
+      <td style="width:20%"> 
+          <%= form.submit "REVERSAR MONTO", class: "TBK-button j-self-start" %>
+      </td>
+      <td style="width:20%"> 
+        <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+        <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+        <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+        <%= form.label :amount, "Monto a reversar" %>
+        <%= form.text_field    :amount, value:  @amount, class: "TBK-input" %>
+      </td>
+      <td >
+          <p class="mb-40" style="margin: 0.5rem 0 1rem 2rem;">
+            Reversar el monto previamente pre-autorizado (todas las veces que se necesite).
+          </p>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+<%= form_with url: "history", data: { remote: false }, method: :post do |form| %>
+  <table style="width:100%">
+    <tr>
+      <td style="width:20%"> 
+          <%= form.submit "HISTORIAL CAPTURA DIFERIDA", class: "TBK-button j-self-start" %>
+      </td>
+      <td > 
+        <%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+        <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+        <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :child_buy_order, value: @child_buy_order, class: "TBK-input" %>
+        <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+        <%= form.hidden_field  :amount, value: @amount, class: "TBK-input" %>
+        <p style="margin: 0.5rem 0 1rem 0;">
+          Retorna el historial de operaciones ejecutadas sobre una pre-autorización de captura diferida.
+        </p>
+      </td>
+    </tr>
+  </table>
+<% end %>

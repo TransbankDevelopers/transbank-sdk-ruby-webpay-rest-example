@@ -1,0 +1,49 @@
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+	<h1>Confirmar Transacción</h1>
+	<p>
+		En este paso tenemos que confirmar la transacción con el objetivo de
+		avisar a Transbank que hemos recibido la transacción ha sido recibida exitosamente.
+		En caso de que no se confirme la transacción, ésta será reversada.
+	</p>
+	<div class="TBK-content-left">
+		<div>
+			<h3>Datos recibidos</h3>
+			<p>Luego de que se termina el flujo en el formulario de pago recibiras un POST con lo siguiente</p>
+		</div>
+
+		<%= render "/webpay_plus_mall_deferred/partials/commit-mark1" %>
+	</div>
+
+	<div class="TBK-content-right">
+		<%= render "/webpay_plus_mall_deferred/partials/commit-mark2" %>
+		<div class="item-right">
+			<h3>Petición</h3>
+			<p>Usaras el token recibido para confirmar la transacción usando nuevamente WebpayPlus</p>
+		</div>
+
+	</div>
+
+	<div class="TBK-content-left">
+		<div>
+			<h3>Respuesta</h3>
+			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+		</div>
+
+		<%= render "/shared/resp_to_json" %>
+	</div>
+
+	<h2>Casi listo !</h2>
+		<p class="mb-40">
+		Ya puedes mostrar al usuario una página de éxito de la transacción. Debes tener en cuenta que la transacción aun no ha sido capturada solo
+		ha sido retenido el saldo en la tarjeta del Tarjetahabiente. Luego de confirmar la transacción podemos:
+	</p>
+
+	<%= render "/deferred/deferred-options" %>
+
+
+
+</div>

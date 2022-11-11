@@ -1,40 +1,44 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h2>Crear Transacción</h2>
+  <p>En este paso crearemos la transacción con el objetivo de obtener un identificador unico.</p>
 
-<body>
-<h1>Ejemplo Transaccion completa</h1>
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Para comenzar debes hacer una instancia de TransaccionCompleta y luego crear una transacción</p>
+		</div>
 
-<form class="transaccion_completa_form" action="/transaccion_completa_deferred/create" method="post" style="display: flex; flex-direction:column; width:50%;font-size: 20px;">
-  <label for="buy_order">
-    Orden de compra
-  </label>
-  <input id="buy_order" name="buy_order" value="<%='buyorder' + Time.zone.now.to_i.to_s %>"/>
+		<%= render "/transaccion_completa_deferred/partials/create-mark1" %>
+	</div>
 
-  <label for="session_id">
-    Id de sesión
-  </label>
-  <input id="session_id" name="session_id" value="<%='session' + Time.zone.now.to_i.to_s %>" />
+ <div class="TBK-content-right">
+    <%= render "/shared/resp_to_json" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una vez creada la transacción, estos serán los datos de respuesta</p>
+		</div>
+	</div>
 
-  <label for="amount">
-    Monto
-  </label>
-  <input id="amount" name="amount" value="1000"/>
+  <h2>Lo siguiente ...</h2>
+  <p>
+  Ahora que ya creamos la transacción tienes dos opciones, puedes hacer consultas de cuotas para pagar con ellas o puedes directamente confirmar la transacción
+  </p>
 
-  <label for="card_number">
-    Numero de tarjeta
-  </label>
-  <input id="card_number" name="card_number" value="4051885600446623"/>
+  <div class="TBK-content-left">
+    <%= form_with url: transaccion_completa_deferred_commit_path, data: { remote: false }, method: :post do |form| %>
+      <%= form.hidden_field :token, value: @resp["token"] %>
+      <%= form.submit "CONFIRMAR", class: "TBK-button" %>
+    <% end %>
+ 
+    <%= form_with url: transaccion_completa_deferred_installments_path, data: { remote: false }, method: :post do |form| %>
+      <%= form.hidden_field :token, value: @resp["token"] %>
+      <%= form.label :installments_number, "cuotas"%>
+      <%= form.number_field  :installments_number, value: 2, class: "TBK-input" %>
+      <%= form.submit "HACER CONSULTA DE CUOTAS", class: "TBK-button" %>
+    <% end %>
+  </div>
 
-  <label for="cvv">
-    CVV
-  </label>
-  <input id="cvv" name="cvv" value="123"/>
-
-  <label for="card_expiration_date">
-    Fecha de expiracion (AA/MM)
-  </label>
-  <input id="card_expiration_date" name="card_expiration_date" value="<%= Date.new(Time.now.year + 5, Time.now.month, Time.now.day).strftime("%y/%m")
-  %>"/>
-
-  <button type="submit">Aceptar</button>
-</form>
-
-</body>
+</div>

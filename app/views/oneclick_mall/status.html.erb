@@ -1,7 +1,27 @@
-<h1>Oneclick Mall Transaction Status</h1>
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
 
-<h1>Request</h1>
-<%= @req %>
+  <h1>Estado de Transacción</h1>
+  <p>
+    Con esta operación podemos solicitar el estado de una transacción
+  </p>
 
-<h1>Response</h1>
-<%= @resp.inspect %>
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>Necesitas el token de la transacción de la cual quieres obtener el estado y con ello llamar nuevamente a WebpayPlus::Transaction.</p>
+    </div>
+
+    <%= render "/oneclick_mall/partials/status-mark1" %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render "/shared/resp_to_json" %>
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>Transbank contestará con lo siguiente. Si no lo hiciste ya, debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+    </div>
+  </div>
+</div>

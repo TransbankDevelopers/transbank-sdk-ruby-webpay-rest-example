@@ -1,0 +1,46 @@
+.mb-40 {
+  margin-bottom: $space-big;
+}
+
+.mb-30 {
+  margin-bottom: $space-xxl;
+}
+
+.mb-20 {
+  margin-bottom: $space-l;
+}
+
+.my-40 {
+  margin-bottom: $space-big;
+  margin-top: $space-big;
+}
+
+.m-none {
+  margin: 0;
+}
+
+.j-self-start {
+  justify-self: flex-start;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.break-word {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.separed {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.aling-s-baseline {
+  align-self: baseline;
+}

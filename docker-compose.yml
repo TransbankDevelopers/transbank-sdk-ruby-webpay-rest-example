@@ -1,22 +1,9 @@
-version: '3'
+version: "3.9"
 services:
-  postgres:
-    image: postgres:12.1
-    ports:
-      - 5432
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/app
-      - bundle_cache:/bundle
+      - .:/myapp
     ports:
-      - '3000:3000'
-    depends_on:
-      - postgres
-    environment:
-      - DATABASE_URL=postgres://postgres@postgres
-volumes:
-  bundle_cache:
+      - "3000:3000"

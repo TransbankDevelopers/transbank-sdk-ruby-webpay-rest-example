@@ -1,0 +1,35 @@
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+	<h1>Autorizar transacción</h1>
+	<p>
+		En este paso autorizaremos una transacción en la tarjeta inscrita.
+	<div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Una vez que ya tenemos el username y el tbk_user podemos autorizar transacciones en la tarjeta inscrita.</p>
+		</div>
+
+		<%= render "/oneclick_mall_deferred/partials/authorize-mark1" %>
+	</div>
+
+	<div class="TBK-content-right">
+		<%= render "/shared/resp_to_json" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una vez autorizada la transacción, estos serán los datos de respuesta</p>
+		</div>
+	</div>
+
+
+	<h2>Casi listo !</h2>
+		<p class="mb-40">
+		Ya puedes mostrar al usuario una página de éxito de la transacción. Debes tener en cuenta que la transacción aun no ha sido capturada solo
+		ha sido retenido el saldo en la tarjeta del Tarjetahabiente. Luego de confirmar la transacción podemos:
+	</p>
+
+	<%= render "/deferred/deferred-options" %>
+
+</div>

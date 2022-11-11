@@ -3,30 +3,28 @@ class PatpassComercioController < ApplicationController
 
   def initialize
     super
-    @inscription = Transbank::Patpass::PatpassComercio::Inscription.new()
+    @inscription = Transbank::Patpass::PatpassComercio::Inscription.new(
+      ::Transbank::Common::IntegrationCommerceCodes::PATPASS_COMERCIO, 
+      ::Transbank::Common::IntegrationApiKeys::PATPASS_COMERCIO, :integration)
   end
 
-  def inscription
-  end
-
-
-  def start_inscription
-    @req = params.as_json
-    @url = @req['url']
-    @name = @req['name']
-    @first_last_name = @req['first_last_name']
-    @second_last_name = @req['second_last_name']
-    @rut = @req['rut']
-    @service_id = @req['service_id']
-    @final_url = @req['final_url']
-    @max_amount = @req['max_amount']
-    @phone_number = @req['phone_number']
-    @mobile_number = @req['mobile_number']
-    @patpass_name = @req['patpass_name']
-    @person_email = @req['person_email']
-    @commerce_email = @req['commerce_email']
-    @address = @req['address']
-    @city = @req['city']
+  def start 
+    #root_url = "http://mvargas:3000/"
+    @url = "#{root_url}patpass_comercio/commit"
+    @name = "Isaac"
+    @first_last_name = "Newton"
+    @second_last_name = "Gonzales"
+    @rut = "11111111-1"
+    @service_id = "Service_#{Time.zone.now.to_i.to_s}"
+    @final_url = "#{root_url}patpass_comercio/voucher_return"
+    @max_amount = "20000"
+    @phone_number = "121334567"
+    @mobile_number = "121334599"
+    @patpass_name = "nombrepatpass"
+    @person_email = "info@continuum.cl"
+    @commerce_email = "info@comercio.cl"
+    @address = "General Bustamante 24, Oficina N"
+    @city = "Santiago"
 
     @resp = @inscription::start(
       @url,
@@ -45,36 +43,21 @@ class PatpassComercioController < ApplicationController
       @address,
       @city
     )
-
-    #@resp  = Transbank::Patpass::PatpassComercio::Inscription::start(
-    #                                                    url: @url,
-    #                                                    name: @name,
-    #                                                    first_last_name: @first_last_name,
-    #                                                    second_last_name: @second_last_name,
-    #                                                    rut: @rut,
-    #                                                    service_id: @service_id,
-    #                                                    final_url: @final_url,
-    #                                                    max_amount: @max_amount,
-    #                                                    phone_number: @phone_number,
-    #                                                    mobile_number: @mobile_number,
-    #                                                    patpass_name: @patpass_name,
-    #                                                    person_email: @person_email,
-    #                                                    commerce_email: @commerce_email,
-    #                                                    address: @address,
-    #                                                    city: @city
-    #                                                    )
-    render 'inscription_started'
+    Pry::ColorPrinter.pp(@resp)
   end
 
-  def inscription_status
+  def commit
     @req = params.as_json
     @token = @req['j_token']
-    #@resp = Transbank::Patpass::PatpassComercio::Inscription::status(token: @token)
     @resp = @inscription::status(@token)
-    render 'inscription_status'
+    @voucher_url = @resp['voucherUrl']
+    Pry::ColorPrinter.pp(@resp)
   end
 
-  def final_url
+  def voucher_return
     @req = params.as_json
+    @token = @req['j_token']
+    @voucher_url = 'https://pagoautomaticocontarjetasint.transbank.cl/nuevo-ic-rest/tokenVoucherLogin'
+    Pry::ColorPrinter.pp(@resp)
   end
 end

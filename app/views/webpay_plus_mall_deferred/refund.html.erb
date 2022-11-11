@@ -1,0 +1,36 @@
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h1>Reembolso de Transacción Mall</h1>
+  <p>
+    Podrás pedir el reembolso del dinero al tarjeta habiente,
+    dependiendo del monto y el tiempo transacurrido será una Reversa, Anulación o Anulación parcial.
+  </p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Petición</h3>
+      <p>
+        Necesitas el token de la transacción y el monto que quieres reversar,
+        si anulas el monto total puede ser una Reversa o Anulación dependiendo de ciertas condiciones
+        o una Anulación parcial si el monto es menor al total.
+        No es posible hacer ni Anulaciones ni Anulaciones parciales en tarjetas que no sean de crédito.
+        Tampoco es posible realizar reembolsos de compras en cuotas.
+      </p>
+    </div>
+
+    <%= render "/webpay_plus_mall_deferred/partials/refund-mark1" %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render "/shared/resp_to_json" %>
+    <div class="item-right">
+      <h3>Respuesta</h3>
+      <p>En el caso de que la transacción corresponda a una Reversa solo se retorna el parámetro type (REVERSED).</p>
+    </div>
+  </div>
+  
+
+</div>
+

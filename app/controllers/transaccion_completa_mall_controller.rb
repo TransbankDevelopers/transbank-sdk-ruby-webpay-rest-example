@@ -3,65 +3,64 @@ class TransaccionCompletaMallController < ApplicationController
 
   def initialize
     super
-    @tx = Transbank::Webpay::TransaccionCompleta::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_SIN_CVV)
+    @tx = Transbank::Webpay::TransaccionCompleta::MallTransaction.new(
+      ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL,
+      ::Transbank::Common::IntegrationApiKeys::WEBPAY, :integration)
+  end
+
+  def form
+    @child_commerce_codes = [::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_CHILD2]
   end
 
   def create
-    @child_commerce_codes = [::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_SIN_CVV_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_SIN_CVV_CHILD2]
-  end
-
-  def send_create
     @req = params.as_json
 
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
-    @card_number = @req['card_number']
-    @card_expiration_date = @req['card_expiration_date']
-    @details = @req['detail']['details']
-
-    @resp = @tx.create(@buy_order, @session_id, @card_number, @card_expiration_date, @details)  
-
+    @card_number = @req['number'].delete(' ')
+    expiry_year = @req['expiry_year']
+    expiry_month = @req['expiry_month']
+    @cvv = @req['cvc']
+    @card_expiration_date ="#{expiry_year}/#{expiry_month}"
+    @details =  [
+      {
+        "commerce_code": ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_CHILD1,
+        "buy_order": "childBuyOrder1_#{rand(1000)}",
+        "amount": "1000"
+      },
+      {
+        "commerce_code": ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA_MALL_CHILD2,
+        "buy_order": "childBuyOrder2_#{rand(1000)}",
+        "amount": "2000"
+      }
+    ]
     
-    #@resp = Transbank::TransaccionCompleta::MallTransaction.create(
-    #  buy_order: @buy_order,
-    #  session_id: @session_id,
-    #  card_number: @card_number,
-    #  card_expiration_date: @card_expiration_date,
-    #  details: @details
-    #)
-    render 'transaction_created'
+
+    @resp = @tx.create(@buy_order, @session_id, @card_number, @card_expiration_date, @details, @cvv)  
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def installments
     @req = params.as_json
     @token = @req['token']
     @details = @req['detail']['details']
-
-    #@resp = Transbank::TransaccionCompleta::MallTransaction.installments(
-    #  token: @token,
-    #  details: @details
-    #)
     @resp = @tx.installments(@token, @details)  
-    render 'installments_queried'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def commit
     @req = params.as_json
     @token = @req['token']
-
     @details = @req['detail']['details']
     @resp = @tx.commit(@token, @details)  
-    #@resp = Transbank::TransaccionCompleta::MallTransaction.commit(token: @token,
-    #                                                               details: @details)
-
-    render 'transaction_committed'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def status
     @req = params.as_json
     @token = @req['token']
-    #@resp =  Transbank::TransaccionCompleta::MallTransaction.status(token: @token)
     @resp = @tx.status(@token)  
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def refund
@@ -71,12 +70,6 @@ class TransaccionCompletaMallController < ApplicationController
     @child_buy_order = @req['child_buy_order']
     @child_commerce_code = @req['child_commerce_code']
     @resp = @tx.refund(@token, @child_buy_order, @child_commerce_code, @amount)  
-    #@resp = Transbank::TransaccionCompleta::MallTransaction.refund(
-    #  token: @token,
-    #  child_buy_order: @child_buy_order,
-    #  child_commerce_code: @child_commerce_code,
-    #  amount: @amount
-    #)
-    render 'transaction_refunded'
   end
+
 end

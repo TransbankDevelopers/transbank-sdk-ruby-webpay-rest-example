@@ -3,41 +3,33 @@ class TransaccionCompletaController < ApplicationController
 
   def initialize
     super
-    @tx = Transbank::Webpay::TransaccionCompleta::Transaction.new()
+    @tx = Transbank::Webpay::TransaccionCompleta::Transaction.new(
+      ::Transbank::Common::IntegrationCommerceCodes::TRANSACCION_COMPLETA, 
+      ::Transbank::Common::IntegrationApiKeys::WEBPAY, :integration)
+  end
+
+  def form
   end
 
   def create
-
-  end
-
-  def send_create
     @req = params.as_json
     @buy_order = @req['buy_order']
     @session_id = @req['session_id']
     @amount = @req['amount']
-    @card_number = @req['card_number']
-    @cvv = @req['cvv']
-    @card_expiration_date = @req['card_expiration_date']
-
+    @card_number = @req['number'].delete(' ')
+    @cvv = @req['cvc']
+    expiry_year = @req['expiry_year']
+    expiry_month = @req['expiry_month']
+    @card_expiration_date ="#{expiry_year}/#{expiry_month}"
     @resp = @tx.create(@buy_order, @session_id, @amount, @cvv, @card_number, @card_expiration_date)  
-
-    render 'transaction_created'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def installments
     @req = params.as_json
     @token = @req['token']
     @installments_number = @req['installments_number']
-
     @resp = @tx.installments(@token, @installments_number)  
-
-
-    #@resp = Transbank::TransaccionCompleta::Transaction.installments(
-    #  token: @token,
-    #  installments_number: @installments_number
-    #)
-
-    render 'installments_queried'
   end
 
   def commit
@@ -45,16 +37,9 @@ class TransaccionCompletaController < ApplicationController
     @token = @req['token']
     @id_query_installments = @req['id_query_installments']
     @deferred_period_index = @req['deferred_period_index']
-    @grace_period = @req['grace_period'] != 'false'
-
+    @grace_period = @req.key?("grace_period") ? @req['grace_period'] != 'false' : false
     @resp = @tx.commit(@token, @id_query_installments, @deferred_period_index, @grace_period)  
-
-    #@resp = Transbank::TransaccionCompleta::Transaction.commit(token: @token,
-    #                                                           id_query_installments: @id_query_installments,
-    #                                                           deferred_period_index: @deferred_period_index,
-    #                                                           grace_period: @grace_period)
-
-    render 'transaction_committed'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def status
@@ -67,10 +52,7 @@ class TransaccionCompletaController < ApplicationController
     @req = params.as_json
     @token = @req['token']
     @amount = @req['amount']
-    #@resp = Transbank::TransaccionCompleta::Transaction.refund(token: @token, amount: @amount)
-
     @resp = @tx.refund(@token, @amount)  
-
-    render 'transaction_refunded'
   end
+
 end

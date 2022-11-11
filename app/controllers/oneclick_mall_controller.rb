@@ -3,86 +3,78 @@ class OneclickMallController < ApplicationController
 
   def initialize
     super
-    @inscription = Transbank::Webpay::Oneclick::MallInscription.new()
-    @tx = Transbank::Webpay::Oneclick::MallTransaction.new()
+    @inscription = Transbank::Webpay::Oneclick::MallInscription.new(::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL, ::Transbank::Common::IntegrationApiKeys::WEBPAY, :integration)
+    @tx = Transbank::Webpay::Oneclick::MallTransaction.new(::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL, ::Transbank::Common::IntegrationApiKeys::WEBPAY, :integration)
+    @ctrl = "oneclick_mall"
   end
 
-  def inscription
-  end
-
-  def start_inscription
+  def start
     @req = params.as_json
-    @user_name = @req['user_name']
-    @email = @req['email']
-    @response_url = @req['response_url']
+    @user_name = "User-#{rand(1000)}"
+    @email = "user.#{rand(1000)}@example.com"
+    @response_url = "#{root_url}#{@ctrl}/finish"
     session[:user_name] = @user_name
     session[:email] = @email
-
-   @resp = @inscription.start(@user_name, @email, @response_url)  
-
-   render 'inscription_started'
+    @resp = @inscription.start(@user_name, @email, @response_url)  
+    Pry::ColorPrinter.pp(@resp)
   end
 
-  def finish_inscription
+  def finish
     @req = params.as_json
     @token = @req["TBK_TOKEN"]
     @child_commerce_codes = [::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD2]
     @user_name = session[:user_name]
-
     @resp = @inscription.finish(@token)  
-
-    render 'inscription_finished'
+    Pry::ColorPrinter.pp(@resp)
   end
 
-  def delete_inscription
+  def delete
     @req = params.as_json
+    Pry::ColorPrinter.pp(@req)
+    #binding.pry
     @user_name = @req['user_name']
     @tbk_user = @req['tbk_user']
-
     @resp = @inscription.delete(@tbk_user, @user_name)
-    
-    render 'inscription_deleted'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def authorize
     @req = params.as_json
-    @username = @req['username']
+    @username = session[:user_name]
     @tbk_user = @req['tbk_user']
-    @buy_order = @req['buy_order']
-
-    details = @req['detail']['details']
-
-    @details = details.map do |det|
+    @buy_order = "buyOrder_#{rand(1000)}"
+    @details =[
       {
-        commerce_code: det['commerce_code'],
-        buy_order: det['buy_order'],
-        amount: det['amount'],
-        installments_number: det['installments_number']
+        commerce_code: ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD1,
+        buy_order: "childBuyOrder1_#{rand(1000)}",
+        amount: 1000,
+        installments_number: 1
+      },
+      {
+        commerce_code: ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD2,
+        buy_order: "childBuyOrder2_#{rand(1000)}",
+        amount: 2000,
+        installments_number: 1
       }
-    end
-
+    ]
     @resp = @tx.authorize(@username, @tbk_user, @buy_order, @details)
-
-    render 'transaction_authorized'
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def status
     @req = params.as_json
-    @buy_order = @req['buy_order']
-
+    @buy_order = params[:buy_order]
     @resp = @tx.status(@buy_order)
-
+    Pry::ColorPrinter.pp(@resp)
   end
 
   def refund
     @req = params.as_json
-    @buy_order = @req['parent_buy_order']
-    @child_commerce_code = @req['child_commerce_code']
-    @child_buy_order = @req['child_buy_order']
-    @amount= @req['amount']
-
+    @buy_order = params[:parent_buy_order] 
+    @child_commerce_code = params[:child_commerce_code] 
+    @child_buy_order = params[:child_buy_order] 
+    @amount = params[:amount] 
     @resp = @tx.refund(@buy_order, @child_commerce_code, @child_buy_order, @amount)
+    Pry::ColorPrinter.pp(@resp)
   end
-
-
 end

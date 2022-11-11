@@ -1,0 +1,67 @@
+
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "txcompleta.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+  <h2>Formulario</h2>
+  <p>Para poder comenzar con la transacción primero necesitas obtener los datos de la tarjeta de crédito del tarjetahabiente.</p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Formulario de pago</h3>
+      <p>Para comenzar debes obtener los datos de la tarjeta sobre la cual se desea generar una transacción.</p>
+    </div>
+    <div class="TBK-card">
+      
+      <div>
+        <%= form_with url: transaccion_completa_deferred_create_path, data: { remote: false }, id:"card", method: :post do |form| %>
+          <div class="card-wrapper mb-30">
+          </div>
+          <%= form.hidden_field :buy_order, value: "buyorder#{Time.zone.now.to_i}", class: "TBK-input" %>
+          <%= form.hidden_field :session_id, value: "session_id#{Time.zone.now.to_i}", class: "TBK-input" %>
+          <%= form.label :number, "Numedo de tarjeta" %>
+          <%= form.text_field :number, value: "4051 8856 0044 6623", placeholder:"1234 1234 1234 1234",  class: "TBK-input" %>
+
+          <div class="TBK-input-group">
+            <div>
+              <%= form.label :expiry_month, "Mes" %>
+              <%= form.text_field :expiry_month, value: "12", class: "TBK-input" %>
+            </div>
+            <div>
+              <%= form.label :expiry_year, "Año", placeholder:"MM" %>
+              <%= form.text_field :expiry_year, value:"29", class: "TBK-input" %>
+            </div>
+            <div>
+              <%= form.label :cvc, "CVV", placeholder:"YY" %>
+              <%= form.text_field :cvc, value: "123", class: "TBK-input" %>
+            </div>
+          </div>
+
+          <%= form.label :amount, "monto" %>
+          <%= form.text_field :amount, value: "1000", class: "TBK-input" %>
+          <%= form.submit "PAGAR", class: "TBK-button" %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var card = new Card({
+      form: 'form#card',
+      container: '.card-wrapper',
+      messages: {
+        monthYear: 'mm/yy',
+      },
+      placeholders: {
+        name: '**** ****'
+      },
+      formSelectors: {
+        expiryInput: 'input[name=expiry_month], input[name=expiry_year]', // optional — default input[name="expiry"]
+      },
+      debug: true
+    });
+  </script>
+
+</div>

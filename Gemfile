@@ -12,7 +12,7 @@ gem "transbank-sdk"
 
 gem 'rails', '~> 5.1.7'
 gem 'sqlite3'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 gem 'coderay'
 gem 'redcarpet'
 gem 'emd'

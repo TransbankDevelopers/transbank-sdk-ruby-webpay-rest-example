@@ -10,7 +10,7 @@ end
 #gem "transbank-sdk", path: "D:/work/continuum/transbank/proyectos/ruby/transbank-sdk-ruby"
 gem "transbank-sdk"
 
-gem 'rails', '~> 5.1.7'
+gem 'rails', '~> 7.1.0'
 gem 'sqlite3'
 gem 'puma', '~> 4.3'
 gem 'coderay'

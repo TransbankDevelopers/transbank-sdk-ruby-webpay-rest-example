@@ -1,0 +1,2 @@
+module WebpayPlusHelper
+end

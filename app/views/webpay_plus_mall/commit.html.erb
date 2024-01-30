@@ -1,0 +1,67 @@
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+	<h1>Confirmar Transacción</h1>
+	<p>
+		En este paso tenemos que confirmar la transacción con el objetivo de
+		avisar a Transbank que hemos recibido la transacción ha sido recibida exitosamente.
+		En caso de que no se confirme la transacción, ésta será reversada.
+	</p>
+	<div class="TBK-content-left">
+		<div>
+			<h3>Datos recibidos</h3>
+			<p>Luego de que se termina el flujo en el formulario de pago recibiras un POST con lo siguiente</p>
+		</div>
+|   mark
+		<%#= render "/webpay_plus_mall/partials/commit-mark1" %>
+	</div>
+
+	<div class="TBK-content-right">
+		mark
+		<%#= render "/webpay_plus_mall/partials/commit-mark2" %>
+		<div class="item-right">
+			<h3>Petición</h3>
+			<p>Usaras el token recibido para confirmar la transacción usando nuevamente WebpayPlus</p>
+		</div>
+
+	</div>
+
+	<div class="TBK-content-left">
+		<div>
+			<h3>Respuesta</h3>
+			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
+		</div>
+		mark
+		<%#= render "/shared/resp_to_json" %>
+	</div>
+
+	<h2>Listo !</h2>
+	<p class="mb-40">Ya puedes mostrar al usuario una página de éxito de la transacción.</p>
+
+	<h2>Otras utilidades</h2>
+	<p class="mb-30">Luego de confirmada la transacción puedes Reembolsar (reversar o anular) el pago dependiendo de ciertas condiciones comerciales. También puedes consultar el estado de la transacción hasta 7 días después de realizada.</p>
+	
+	<div class="TBK-content-left">
+		<%= link_to "CONSULTAR ESTADO", webpay_plus_mall_status_path(token: @req["token_ws"]), class:"TBK-button j-self-start" %>
+
+    <div>
+      <%@resp["details"].each do |detail|%>
+        <%= form_with url: "/webpay_plus_mall/refund", class: "mb-30", data: { remote: false }, method: :post do |form| %>
+          <%= form.hidden_field  :token, value: @req["token_ws"], class: "TBK-input" %>
+          <%= form.label :amount, "Monto" %>
+          <%= form.text_field :amount, value:  detail["amount"], class: "TBK-input" %>
+          <%= form.label :buy_order, "Buy Order" %>
+          <%= form.text_field :buy_order, value:  detail["buy_order"], class: "TBK-input" %>
+          <%= form.label :commerce_code, "Commerce Code hijo" %>
+          <%= form.text_field    :commerce_code, value:  detail["commerce_code"], class: "TBK-input" %>
+          <%= form.submit "REEMBOLSAR", class: "TBK-button" %>
+        <% end %>
+      <% end %>
+    </div>
+	</div>
+
+
+
+</div>

@@ -1,0 +1,37 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h1>Incrementar Monto Pre-autorizado</h1>
+  <p>
+    En este paso podemos aumentar de manera directa el monto previamente pre-autorizado (todas las veces que se necesite). 
+    La transacción no debe haber sido capturada. 
+    Solo es soportado por tarjetas VISA/MASTERCARD (AMEX retornara un error 'Unsupported Operation').
+  </p>
+
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>
+        Para incrementar el monto pre-autorizado de una transacción necesitaremos el Token, Orden de compra, Código de autorización y monto a incrementar. 
+        Se hace de la siguiente manera.
+      </p>
+		</div>
+		<%= render "/webpay_plus_mall_deferred/partials/increase_amount" %>
+	</div>
+
+   <div class="TBK-content-right">
+    <%= render "/shared/resp_to_json" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>
+        Transbank contestará con lo siguiente. 
+        Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.
+      </p>
+		</div>
+	</div>
+
+  <%= render "/deferred/deferred-options" %>
+
+</div>
+

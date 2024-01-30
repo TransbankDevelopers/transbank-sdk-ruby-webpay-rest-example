@@ -12,12 +12,13 @@
         Para capturar una transacción necesitaremos el código de comercio de la tienda hija, Token, Orden de compra, Código de autorización y monto a capturar. Se hace de la siguiente manera.
       </p>
 		</div>
-
-		<%= render "/transaccion_completa_mall_deferred/partials/capture-mark1" %>
+    markdown
+		<%#= render "/transaccion_completa_mall_deferred/partials/capture-mark1" %>
 	</div>
 
   <div class="TBK-content-right">
-    <%= render "/shared/resp_to_json" %>
+  markdown
+    <%#= render "/shared/resp_to_json" %>
 		<div class="item-right">
 			<h3>Respuesta</h3>
 			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>

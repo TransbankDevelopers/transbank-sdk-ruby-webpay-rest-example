@@ -12,12 +12,13 @@
         Para poder confirmar la transacción debes enviar el token, y en caso de pago en cuotas debes también enviar el ID de la consulta de cuotas. En algunos casos tambien debes enviar el Indice del periodo diferido y un boolean indicando si se tomará el período de gracia.
       </p>
 		</div>
-
-		<%= render "/transaccion_completa/partials/commit-mark1" %>
+		markdown
+		<%#= render "/transaccion_completa/partials/commit-mark1" %>
 	</div>
 
   <div class="TBK-content-right">
-  		<%= render "/shared/resp_to_json" %>
+  		markdown
+			<%#= render "/shared/resp_to_json" %>
 		<div class="item-right">
 			<h3>Respuesta</h3>
 			<p>Una vez confirmada la transacción recibirás la siguiente información.</p>

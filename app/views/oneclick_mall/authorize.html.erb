@@ -1,0 +1,53 @@
+<div class="TBK-container">
+  <div   iv class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+	<h1>Autorizar transacción</h1>
+	<p>
+		En este paso autorizaremos una transacción en la tarjeta inscrita.
+	<div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>Una vez que ya tenemos el username y el tbk_user podemos autorizar transacciones en la tarjeta inscrita.</p>
+		</div>
+		mark
+		<%#= render "/oneclick_mall/partials/authorize-mark1" %>
+	</div>
+
+	<div class="TBK-content-right">
+	mark
+		<%#= render "/shared/resp_to_json" %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>Una vez autorizada la transacción, estos serán los datos de respuesta</p>
+		</div>
+	</div>
+
+	<h2>Listo !</h2>
+	<p class="mb-40">Ya puedes mostrar al usuario una página de éxito de la transacción.</p>
+
+	<h2>Otras utilidades</h2>
+	<p class="mb-30">
+    Luego de confirmada la transacción puedes Reembolsar (reversar o anular) el pago dependiendo de ciertas condiciones comerciales. También puedes consultar el estado de la transacción hasta 7 días después de realizada.
+  </p>
+	
+	<div class="TBK-content-left">
+		<%= link_to "CONSULTAR ESTADO", oneclick_mall_status_path(buy_order: @resp["buy_order"]), class:"TBK-button j-self-start" %>
+
+		<%= form_with url: "/oneclick_mall/refund", data: { remote: false }, method: :post do |form| %>
+			<%= form.label :child_buy_order, "buy order" %>
+			<%= form.text_field :child_buy_order, value: @resp["details"].first['buy_order'], class: "TBK-input" %>
+			<%= form.label :child_commerce_code, "child comerce code" %>
+			<%= form.text_field :child_commerce_code, value:  @resp["details"].first['commerce_code'], class: "TBK-input" %>
+			<%= form.label :parent_buy_order, "parent buy order" %>
+			<%= form.text_field :parent_buy_order, value:  @resp["buy_order"], class: "TBK-input" %>
+			<%= form.label :amount, "Monto" %>
+			<%= form.text_field :amount, value: @resp["details"].first['amount'], class: "TBK-input" %>
+			<%= form.submit "REEMBOLSAR", class: "TBK-button" %>
+		<% end %>
+	</div>
+
+
+
+</div>

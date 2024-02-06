@@ -15,3 +15,5 @@
  *= require config 
  *= require_tree .
  */
+
+ @import "rouge";

@@ -77,7 +77,7 @@ class WebpayPlusDeferredController < ApplicationController
     @amount = params[:amount]
     Pry::ColorPrinter.pp(params)
     @resp = @tx.increase_amount(@token, @buy_order, @authorization_code, @amount)
-    
+    Pry::ColorPrinter.pp(@resp)
     @amount = @resp['total_amount']
   end
 

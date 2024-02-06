@@ -13,13 +13,13 @@
       <p>Para comenzar debes importar WebpayPlus y luego crear una transacción</p>
     </div>
 
-    markdown
+    <%= render_markdown_highlighting("webpay_plus/partials/create-mark1.md") %>
     <%#= render "/webpay_plus/partials/create-mark1" %>
   </div>
 
   <div class="TBK-content-right">
-  markdown
-    <%#= render "/shared/resp_to_json" %>
+  <%= render_markdown_highlighting("shared/resp_to_json.md") %>
+  <%#= render "/shared/resp_to_json" %>
 
     <div class="item-right">
       <h3>Respuesta</h3>
@@ -33,7 +33,7 @@
       <p>Debes utilizar estos datos para crear un formulario</p>
     </div>
 
-    markdown
+    <%= render_markdown_highlighting("webpay_plus/partials/create-mark2.md") %>
     <%#= render "/webpay_plus/partials/create-mark2" %>
   </div>
 
@@ -73,7 +73,7 @@
       <div class="TBK-card">
         <p class="mb-40">Formulario de redirección</p>
         <%= form_with url: @resp["url"], data: { remote: false }, method: :post do |form| %>
-         <%= form.label :token_ws, "Token" %>
+          <%= form.label :token_ws, "Token" %>
           <%= form.text_field :token_ws, value: @resp["token"], class: "TBK-input" %>
           <%= form.submit "PAGAR", class: "TBK-button" %>
         <% end %>

@@ -41,6 +41,7 @@ gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-
 
 # https://github.com/rouge-ruby/rouge
 gem 'rouge'
+gem "redcarpet"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

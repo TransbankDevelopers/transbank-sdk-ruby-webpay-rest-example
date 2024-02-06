@@ -35,9 +35,12 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem 'bootsnap', require: false
 
 # Transbank SDK
-#gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'master'
+gem 'transbank-sdk', git: "https://github.com/TransbankDevelopers/transbank-sdk-ruby.git", branch: 'feat/downgrade-api'
 #gem "transbank-sdk", path: "D:/work/continuum/transbank/proyectos/ruby/transbank-sdk-ruby"
-gem "transbank-sdk"
+#gem "transbank-sdk"
+
+# https://github.com/rouge-ruby/rouge
+gem 'rouge'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

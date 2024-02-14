@@ -14,14 +14,11 @@
       <h3>Petición</h3>
       <p>Para comenzar debes importar WebpayPlus y luego crear una transacción</p>
     </div>
-    mark
-    <%#= render "/webpay_plus_mall_deferred/partials/create-mark1" %>
+    <%= render_markdown_highlighting("webpay_plus_mall_deferred/partials/create-mark1.md") %>
   </div>
 
   <div class="TBK-content-right">
-    mark
-    <%#= render "/shared/resp_to_json" %>
-
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
     <div class="item-right">
       <h3>Respuesta</h3>
       <p>Una vez creada la transacción, estos serán los datos de respuesta</p>
@@ -33,8 +30,7 @@
       <h3>Por último</h3>
       <p>Debes utilizar estos datos para crear un formulario</p>
     </div>
-    mark
-    <%#= render "/webpay_plus_mall_deferred/partials/create-mark2" %>
+    <%= render_markdown_highlighting("webpay_plus_mall_deferred/partials/create-mark2.md") %>
   </div>
 
   <h2>Ejemplo</h2>

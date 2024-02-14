@@ -35,6 +35,7 @@ class TransaccionCompletaController < ApplicationController
     @token = @req['token']
     @installments_number = @req['installments_number']
     @resp = @tx.installments(@token, @installments_number)  
+    Pry::ColorPrinter.pp(@resp)
     redirect_to transaccion_completa_installments_path(token: @token, installments_number: @installments_number, resp: @resp)
   end
 
@@ -66,14 +67,14 @@ class TransaccionCompletaController < ApplicationController
   def status
     @req = params.as_json
     @token = @req['token']
-    @resp = @tx.status(@token)  
+    @resp = @tx.status(@token)
   end
 
   def refund
     @req = params.as_json
     @token = @req['token']
     @amount = @req['amount']
-    @resp = @tx.refund(@token, @amount)  
+    @resp = @tx.refund(@token, @amount)
     redirect_to transaccion_completa_refund_path(token: @token, amount: @amount, resp: @resp)
   end
 

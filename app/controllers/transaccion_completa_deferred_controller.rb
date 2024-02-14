@@ -59,7 +59,16 @@ class TransaccionCompletaDeferredController < ApplicationController
     @amount = @resp['amount']
     @buy_order = @resp['buy_order']
     @authorization_code = @resp['authorization_code']
-    redirect_to transaccion_completa_deferred_commit_path(token: @token, id_query_installments: @id_query_installments, deferred_period_index: @deferred_period_index, grace_period: @grace_period, resp: @resp)
+    redirect_to transaccion_completa_deferred_commit_path(
+      token: @token,
+      id_query_installments: @id_query_installments,
+      deferred_period_index: @deferred_period_index,
+      grace_period: @grace_period,
+      amount: @amount,
+      buy_order: @buy_order,
+      authorization_code: @authorization_code,
+      resp: @resp
+    )
   end
 
   def show_commit
@@ -67,6 +76,9 @@ class TransaccionCompletaDeferredController < ApplicationController
     @id_query_installments = params[:id_query_installments]
     @deferred_period_index = params[:deferred_period_index]
     @grace_period = params[:grace_period]
+    @amount = params[:amount]
+    @buy_order = params[:buy_order]
+    @authorization_code = params[:authorization_code]
     @resp = params[:resp]
   end
 

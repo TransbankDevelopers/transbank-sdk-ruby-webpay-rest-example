@@ -38,10 +38,11 @@ class TransaccionCompletaMallDeferredController < ApplicationController
 
     @resp = @tx.create(@buy_order, @session_id, @card_number, @card_expiration_date, @details, @cvv)  
     Pry::ColorPrinter.pp(@resp)
-    redirect_to transaccion_completa_mall_deferred_create_path(resp: @resp)
+    redirect_to transaccion_completa_mall_deferred_create_path(resp: @resp, details: @details)
   end
 
   def show_create
+    @details = params[:details]
     @resp = params[:resp]
   end
 

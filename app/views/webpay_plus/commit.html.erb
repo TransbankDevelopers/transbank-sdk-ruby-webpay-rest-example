@@ -15,13 +15,12 @@
 			<p>Luego de que se termina el flujo en el formulario de pago recibiras un POST con lo siguiente</p>
 		</div>
 
-		markdown
-		 <%#= render "/webpay_plus/partials/commit-mark1" %>
+    <%= render_markdown_highlighting("webpay_plus/partials/commit-mark1.md") %>
 	</div>
 
 	<div class="TBK-content-right">
-	  markdown
-		 <%#= render "/webpay_plus/partials/commit-mark2" %>
+	  
+    <%= render_markdown_highlighting("webpay_plus/partials/commit-mark2.md") %>
 		<div class="item-right">
 			<h3>Petición</h3>
 			<p>Usaras el token recibido para confirmar la transacción usando nuevamente WebpayPlus</p>
@@ -34,8 +33,7 @@
 			<h3>Respuesta</h3>
 			<p>Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que response_code sea igual a cero.</p>
 		</div>
-   markdown
-		<%#= render "/shared/resp_to_json" %>
+       <%= render_markdown_highlighting("shared/resp_to_json.md") %>
 	</div>
 
 	<h2>Listo !</h2>

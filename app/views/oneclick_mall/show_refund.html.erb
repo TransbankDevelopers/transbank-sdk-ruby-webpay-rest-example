@@ -16,13 +16,11 @@
         No es posible hacer ni Anulaciones ni Anulaciones parciales en tarjetas que no sean de crédito. Tampoco es posible realizar reembolsos de compras en cuotas.
       </p>
     </div>
-    mark
-    <%#= render "/oneclick_mall/partials/refund-mark1" %>
+    <%= render_markdown_highlighting("oneclick_mall/partials/refund-mark1.md") %>
   </div>
 
   <div class="TBK-content-right">
-    mark
-    <%#= render "/shared/resp_to_json" %>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
     <div class="item-right">
       <h3>Respuesta</h3>
       <p>Transbank contestará con el resultado de la reversa o anulación. En el caso de que la transacción corresponda a una Reversa solo se retorna el parámetro type (REVERSED).</p>

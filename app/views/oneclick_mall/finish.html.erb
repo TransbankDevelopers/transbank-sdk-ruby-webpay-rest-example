@@ -13,13 +13,11 @@
       <h3>Datos recibidos</h3>
       <p>Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente</p>
     </div>
-  mark
-    <%#= render "/oneclick_mall/partials/finish-mark1" %>
+    <%= render_markdown_highlighting("oneclick_mall/partials/finish-mark1.md") %>
   </div>
 
   <div class="TBK-content-right">
-  mark
-    <%#= render "/oneclick_mall/partials/finish-mark2" %>
+    <%= render_markdown_highlighting("oneclick_mall/partials/finish-mark2.md") %>
 
     <div class="item-right">
       <h3>Petición</h3>
@@ -34,8 +32,7 @@
         Transbank contestará con lo siguiente. Debes guardar esta información. Para poder luego autorizar transacciones vas a necesitar el tbk_user
       </p>
     </div>
-    mark
-    <%#= render "/shared/resp_to_json" %>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
   </div>
 
   <h2>La tarjeta ya está inscrita!</h2>

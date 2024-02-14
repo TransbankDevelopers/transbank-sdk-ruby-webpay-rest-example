@@ -19,13 +19,11 @@
         Tampoco es posible realizar reembolsos de compras en cuotas.
       </p>
     </div>
-markdwon
-    <%#= render "/webpay_plus/partials/refund-mark1" %>
+    <%= render_markdown_highlighting("webpay_plus/partials/refund-mark1.md") %>
   </div>
 
   <div class="TBK-content-right">
-  markdown
-    <%#= render "/shared/resp_to_json" %>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
     <div class="item-right">
       <h3>Respuesta</h3>
       <p>Transbank contestará con el resultado de la reversa o anulación.</p>

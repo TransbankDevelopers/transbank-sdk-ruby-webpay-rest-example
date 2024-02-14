@@ -1,3 +1,5 @@
-{
-'token': '<%= @req["token_ws"] %>',
-}
+```ruby
+  {
+   'token': '<%= @req["token_ws"] %>',  
+  }
+```

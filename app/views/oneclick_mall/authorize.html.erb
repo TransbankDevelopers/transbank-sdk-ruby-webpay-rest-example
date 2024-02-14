@@ -11,13 +11,11 @@
 			<h3>Petición</h3>
 			<p>Una vez que ya tenemos el username y el tbk_user podemos autorizar transacciones en la tarjeta inscrita.</p>
 		</div>
-		mark
-		<%#= render "/oneclick_mall/partials/authorize-mark1" %>
+		<%= render_markdown_highlighting("oneclick_mall/partials/authorize-mark1.md") %>
 	</div>
 
 	<div class="TBK-content-right">
-	mark
-		<%#= render "/shared/resp_to_json" %>
+	  <%= render_markdown_highlighting("shared/resp_to_json.md") %>
 		<div class="item-right">
 			<h3>Respuesta</h3>
 			<p>Una vez autorizada la transacción, estos serán los datos de respuesta</p>

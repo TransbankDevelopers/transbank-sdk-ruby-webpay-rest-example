@@ -13,13 +13,11 @@
         Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente
       </p>
     </div>
-    mark
-    <%#= render "/patpass_comercio/partials/commit-mark1" %>
+    <%= render_markdown_highlighting("patpass_comercio/partials/commit-mark1.md") %>
   </div>
 
    <div class="TBK-content-right">
-   mark
-    <%#= render "/patpass_comercio/partials/commit-mark2" %>
+    <%= render_markdown_highlighting("patpass_comercio/partials/commit-mark2.md") %>
     <div class="item-right">
       <h3>Petición</h3>
       <p>Usaras el token recibido para confirmar la inscripción usando nuevamente PatpassComercio</p>
@@ -33,8 +31,7 @@
         Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que el atributo authorized sea igual a true.
       </p>
     </div>
-    mark
-    <%#= render "/shared/resp_to_json" %>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
   </div>
 
   <h3>Otras utilidades</h3>

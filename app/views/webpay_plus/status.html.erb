@@ -1,7 +1,6 @@
 <div class="TBK-container">
   <div   iv class="TBK-main-image">
-  markdown
-    <%#= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
   </div>
 
   <h1>Estado de Transacción</h1>
@@ -15,13 +14,11 @@
       <h3>Petición</h3>
       <p>Necesitas el token de la transacción de la cual quieres obtener el estado y con ello llamar nuevamente a WebpayPlus::Transaction.</p>
     </div>
-markdown
-    <%#= render "/webpay_plus/partials/status-mark1" %>
+    <%= render_markdown_highlighting("webpay_plus/partials/status-mark1.md") %>
   </div>
 
   <div class="TBK-content-right">
-  markdown
-    <%#= render "/shared/resp_to_json" %>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
     <div class="item-right">
       <h3>Respuesta</h3>
       <p>Transbank contestará con lo siguiente. Si no lo hiciste ya, 

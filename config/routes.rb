@@ -80,7 +80,7 @@ Rails.application.routes.draw do
 
   get '/transaccion_completa_deferred/form', to: 'transaccion_completa_deferred#form'
   post '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#create'
-  get '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#showcreate'
+  get '/transaccion_completa_deferred/create', to: 'transaccion_completa_deferred#show_create'
   post '/transaccion_completa_deferred/installments', to: 'transaccion_completa_deferred#installments'
   get '/transaccion_completa_deferred/installments', to: 'transaccion_completa_deferred#show_installments'
   post '/transaccion_completa_deferred/commit', to: 'transaccion_completa_deferred#commit'

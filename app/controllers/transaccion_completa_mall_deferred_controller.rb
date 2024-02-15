@@ -73,13 +73,23 @@ class TransaccionCompletaMallDeferredController < ApplicationController
     @buy_order = @detail['buy_order']
     @authorization_code = @detail['authorization_code']
     @child_commerce_code = @detail['commerce_code']
-    redirect_to transaccion_completa_mall_deferred_commit_path(token: @token, details: @details, resp: @resp)
+    redirect_to transaccion_completa_mall_deferred_commit_path(token: @token,
+      buy_order:@buy_order,
+      details: @details,
+      amount: @amount,
+      authorization_code: @authorization_code,
+      child_commerce_code: @child_commerce_code,
+      resp: @resp)
   end
 
   def show_commit
     @token = params[:token]
     @details = params[:details]
     @resp = params[:resp]
+    @amount = params[:amount]
+    @buy_order = params[:buy_order]
+    @authorization_code = params[:authorization_code]
+    @child_commerce_code = params[:child_commerce_code]
   end
 
 
@@ -118,7 +128,7 @@ class TransaccionCompletaMallDeferredController < ApplicationController
     @child_commerce_code = params[:commerce_code]
     @resp = @tx.capture(@token, @child_commerce_code, @buy_order, @authorization_code, @amount)
     Pry::ColorPrinter.pp(@resp)
-    redirect_to transaccion_completa_mall_deferred_capture_path(token: @token, buy_order: @buy_order, authorization_code: @authorization_code, amount: @amount, resp: @resp)
+    redirect_to transaccion_completa_mall_deferred_capture_path(token: @token, child_commerce_code:@child_commerce_code, buy_order: @buy_order, authorization_code: @authorization_code, amount: @amount, resp: @resp)
   end
 
   def show_capture
@@ -127,56 +137,7 @@ class TransaccionCompletaMallDeferredController < ApplicationController
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
     @resp = params[:resp]
+    @child_commerce_code = params[:child_commerce_code]
   end
-
-  # def increase_amount
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   @child_commerce_code = params[:commerce_code]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.increase_amount(@token, @child_commerce_code, @buy_order, @authorization_code, @amount)
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def increase_date
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   @child_commerce_code = params[:commerce_code]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.increase_authorization_date(@token, @child_commerce_code, @buy_order, @authorization_code)
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def reverse
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   @child_commerce_code = params[:commerce_code]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.reverse_pre_authorized_amount(@token, @child_commerce_code, @buy_order, @authorization_code, @amount) 
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def history
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   @child_commerce_code = params[:commerce_code]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.deferred_capture_history(@token, @child_commerce_code, @buy_order)
-  # end
 
 end

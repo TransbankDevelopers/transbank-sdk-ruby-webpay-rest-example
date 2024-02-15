@@ -1,0 +1,51 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "wepayplus.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+  <h1>Confirmar Transacción diferida</h1>
+  <p>
+    En este paso debemos capturar la transacción para realmente capturar el dinero que 
+    habia sido previamente reservado al hacer la transacción
+  </p>
+
+  <div class="TBK-content-left">
+		<div>
+			<h3>Petición</h3>
+			<p>
+        Para capturar una transacción necesitaremos el Token, Orden de compra,
+        Código de autorización y monto a capturar. Se hace de la siguiente manera.
+      </p>
+		</div>
+    <%= render_markdown_highlighting("webpay_plus_mall_deferred/partials/capture-mark1.md") %>
+	</div>
+
+   <div class="TBK-content-right">
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
+		<div class="item-right">
+			<h3>Respuesta</h3>
+			<p>
+        Transbank contestará con lo siguiente. Debes guardar esta información,
+        lo único que debes validar es que response_code sea igual a cero.
+      </p>
+		</div>
+	</div>
+
+  <h2>Otras utilidades</h2>
+  <p>
+    Luego de capturada la transacción puedes Reembolsar (reversar o anular) el pago dependiendo de ciertas condiciones comerciales.
+    También puedes consultar el estado de la transacción hasta 7 días después de realizada.
+  </p>
+
+  <div class="TBK-content-left">
+		<%= link_to "CONSULTAR ESTADO", webpay_plus_mall_deferred_status_path(token: @token), class:"TBK-button j-self-start" %>
+		<%= form_with url: "/webpay_plus_mall_deferred/refund", data: { remote: false }, method: :post do |form| %>
+			<%= form.hidden_field  :token, value: @token, class: "TBK-input" %>
+      <%= form.hidden_field  :commerce_code, value: @child_commerce_code, class: "TBK-input" %>
+      <%= form.hidden_field  :buy_order, value: @buy_order, class: "TBK-input" %>
+      <%= form.hidden_field  :authorization_code, value: @authorization_code, class: "TBK-input" %>
+			<%= form.label :amount, "Monto" %>
+			<%= form.text_field    :amount, value:  @amount, class: "TBK-input" %>
+			<%= form.submit "REEMBOLSAR", class: "TBK-button" %>
+		<% end %>
+	</div>
+</div>

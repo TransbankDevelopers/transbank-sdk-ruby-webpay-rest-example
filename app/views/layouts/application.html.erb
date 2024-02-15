@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyWebpayRestExample</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav class="nav-bar ">
+      <div class="nav-bar_container">
+        <%= link_to root_path do %>
+          <%= image_tag "tbk-nav.png", alt: "Go Home", class: "nav-image" %>
+        <% end %>
+      
+        <div class="menu">
+          <%= link_to "Inicio", root_path, {class: "menu-item"}  %>
+          <%= link_to "Transbank Developers", 'http://www.transbankdevelopers.cl', {class: "menu-item", target:'blank'}  %>
+        </div>
+      </div>  
+    </nav>
+    <%= yield %>
+    <div class="TBK-container">
+      <%= link_to "VOLVER AL INICIO", root_path, class:"TBK-button TBK-button_blank my-40" %>
+    </div>
+  </body>
+</html>

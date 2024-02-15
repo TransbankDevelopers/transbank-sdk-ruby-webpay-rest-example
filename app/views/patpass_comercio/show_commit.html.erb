@@ -1,0 +1,60 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "patpass.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+  <h2>Confirmar Registro</h2>
+  <p>Es necesario confirmar el registro, este solo se puede hacer una sola vez o retornara error.</p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Datos recibidos</h3>
+      <p>
+        Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente
+      </p>
+    </div>
+    <%= render_markdown_highlighting("patpass_comercio/partials/commit-mark1.md") %>
+  </div>
+
+   <div class="TBK-content-right">
+    <%= render_markdown_highlighting("patpass_comercio/partials/commit-mark2.md") %>
+    <div class="item-right">
+      <h3>Petición</h3>
+      <p>Usaras el token recibido para confirmar la inscripción usando nuevamente PatpassComercio</p>
+    </div>
+  </div>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Respuesta</h3>
+      <p>
+        Transbank contestará con lo siguiente. Debes guardar esta información, lo único que debes validar es que el atributo authorized sea igual a true.
+      </p>
+    </div>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
+  </div>
+
+  <h3>Otras utilidades</h3>
+  <p>Luego de realizar la inscripcion puedes visualizar el voucher</p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Datos recibidos</h3>
+      <p>
+        Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente
+      </p>
+    </div>
+    mark
+    <%#= render "/patpass_comercio/partials/commit-mark3" %>
+  </div>
+
+  <div class="TBK-card">
+    <p class="mb-40">Formulario de redirección al voucher</p>
+    <%= form_with url: @resp["voucherUrl"], data: { remote: false }, method: :post do |form| %>
+      <%= form.label :tokenComercio, "Token" %>
+      <%= form.text_field :tokenComercio, value: @token, class: "TBK-input" %>
+      <%= form.submit "VER VOUCHER", class: "TBK-button" %>
+    <% end %>
+  </div>
+
+</div>

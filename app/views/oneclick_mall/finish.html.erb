@@ -1,0 +1,68 @@
+<div class="TBK-container">
+  <div class="TBK-main-image">
+    <%= image_tag "oneclick.png" , alt: "webpayplus" , class:"adjusted-image" %>
+  </div>
+
+  <h2>Finalizar inscripción</h2>
+  <p>
+    En este paso terminaremos la inscripción, para luego poder hacer cargos cargos a la tarjeta que el tarjetahabiente inscriba.
+  </p>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Datos recibidos</h3>
+      <p>Luego de que se termina el flujo en el formulario de inscripción recibirás un POST con lo siguiente</p>
+    </div>
+    <%= render_markdown_highlighting("oneclick_mall/partials/finish-mark1.md") %>
+  </div>
+
+  <div class="TBK-content-right">
+    <%= render_markdown_highlighting("oneclick_mall/partials/finish-mark2.md") %>
+
+    <div class="item-right">
+      <h3>Petición</h3>
+      <p>Usaras el token recibido para autorizar la transacción usando nuevamente Oneclick</p>
+    </div>
+  </div>
+
+  <div class="TBK-content-left">
+    <div>
+      <h3>Respuesta</h3>
+      <p>
+        Transbank contestará con lo siguiente. Debes guardar esta información. Para poder luego autorizar transacciones vas a necesitar el tbk_user
+      </p>
+    </div>
+    <%= render_markdown_highlighting("shared/resp_to_json.md") %>
+  </div>
+
+  <h2>La tarjeta ya está inscrita!</h2>
+  <h3>Autorizar una transacción</h3>
+  <p>Para autorizar una transacción debes guardar datos de la respuesta necesarios</p>
+
+  <div class="TBK-table">
+    <div class="TBK-table_cell">
+      <p class="text-head">Campo</p>
+      <p class="text-head">valor</p>
+    </div>
+    <div class="TBK-table_cell">
+      <p class="main-text"> Nombre de usuario (username)</p>
+      <p><%= @user_name %></p>
+    </div>
+    <div class="TBK-table_cell">
+      <p class="main-text">TBK User (tbk_user)</p>
+      <p><%= @token %></p>
+    </div>
+  </div>
+
+  <div class="separed">
+    <%= link_to "AUTHORIZAR PAGO", oneclick_mall_authorize_path(tbk_user: @resp["tbk_user"]), class:"TBK-button j-self-start" %>
+    <%= form_with url: '/oneclick_mall/delete', data: { remote: false }, method: :post do |form| %>
+      <%= form.hidden_field  :_method, value: 'delete' %>
+      <%= form.hidden_field :user_name, value: @user_name %>
+      <%= form.hidden_field :tbk_user, value: @resp["tbk_user"] %>
+      <%= form.submit "BORRAR USUARIO", class: "TBK-button" %>
+    <% end %>
+  </div>
+
+
+</div>

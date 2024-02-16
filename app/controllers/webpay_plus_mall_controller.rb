@@ -27,14 +27,14 @@ class WebpayPlusMallController < ApplicationController
     ]
 
     @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def commit
     @req = params.as_json
     @token = params[:token_ws]
     @resp = @tx.commit(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def refund
@@ -44,7 +44,7 @@ class WebpayPlusMallController < ApplicationController
     @child_buy_order = params[:buy_order]
     @child_amount = params[:amount]
     @resp = @tx.refund(@token, @child_buy_order, @child_commerce_code,  @child_amount)
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to webpay_plus_mall_refund_path(token: @token, commerce_code: @child_commerce_code, buy_order: @child_buy_order, amount: @child_amount, resp: @resp)
   end
 
@@ -60,7 +60,7 @@ class WebpayPlusMallController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @resp = @tx.status(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
 end

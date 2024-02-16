@@ -43,7 +43,7 @@ class PatpassComercioController < ApplicationController
       @address,
       @city
     )
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def commit
@@ -51,7 +51,7 @@ class PatpassComercioController < ApplicationController
     @token = @req['j_token']
     @resp = @inscription::status(@token)
     @voucher_url = @resp['voucherUrl']
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to patpass_comercio_show_commit_path(token: @token, voucher_url: @voucher_url, resp: @resp)
   end
 
@@ -65,7 +65,7 @@ class PatpassComercioController < ApplicationController
     @req = params.as_json
     @token = @req['j_token']
     @voucher_url = 'https://pagoautomaticocontarjetasint.transbank.cl/nuevo-ic-rest/tokenVoucherLogin'
-  #  Pry::ColorPrinter.pp(@resp)
+  #  
   #  redirect_to patpass_comercio_show_voucher_return_path(token: @token, voucher_url: @voucher_url)
   end
 

@@ -22,7 +22,7 @@ class WebpayPlusController < ApplicationController
     @req = params.as_json
     @token = params[:token_ws]
     @resp = @tx.commit(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def refund
@@ -43,7 +43,7 @@ class WebpayPlusController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @resp = @tx.status(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
 end

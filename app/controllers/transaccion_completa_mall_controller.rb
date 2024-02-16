@@ -37,7 +37,7 @@ class TransaccionCompletaMallController < ApplicationController
     
 
     @resp = @tx.create(@buy_order, @session_id, @card_number, @card_expiration_date, @details, @cvv)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_mall_create_path(resp: @resp, details: @details)
   end
 
@@ -51,7 +51,7 @@ class TransaccionCompletaMallController < ApplicationController
     @token = @req['token']
     @details = @req['detail']['details']
     @resp = @tx.installments(@token, @details)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_mall_installments_path(token: @token, details: @details, resp: @resp)
   end
 
@@ -66,7 +66,7 @@ class TransaccionCompletaMallController < ApplicationController
     @token = @req['token']
     @details = @req['detail']['details']
     @resp = @tx.commit(@token, @details)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_mall_commit_path(token: @token, details: @details, resp: @resp)
   end
 
@@ -80,7 +80,7 @@ class TransaccionCompletaMallController < ApplicationController
     @req = params.as_json
     @token = @req['token']
     @resp = @tx.status(@token)  
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def refund
@@ -90,7 +90,7 @@ class TransaccionCompletaMallController < ApplicationController
     @child_buy_order = @req['child_buy_order']
     @child_commerce_code = @req['child_commerce_code']
     @resp = @tx.refund(@token, @child_buy_order, @child_commerce_code, @amount) 
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_mall_refund_path(token: @token, child_buy_order: @child_buy_order, child_commerce_code: @child_commerce_code, amount: @amount, resp: @resp) 
   end
  

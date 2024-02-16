@@ -22,7 +22,7 @@ class TransaccionCompletaController < ApplicationController
     expiry_month = @req['expiry_month']
     @card_expiration_date ="#{expiry_year}/#{expiry_month}"
     @resp = @tx.create(@buy_order, @session_id, @amount, @cvv, @card_number, @card_expiration_date)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_create_path(resp: @resp)
   end
 
@@ -35,7 +35,7 @@ class TransaccionCompletaController < ApplicationController
     @token = @req['token']
     @installments_number = @req['installments_number']
     @resp = @tx.installments(@token, @installments_number)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_installments_path(token: @token, installments_number: @installments_number, resp: @resp)
   end
 
@@ -52,7 +52,7 @@ class TransaccionCompletaController < ApplicationController
     @deferred_period_index = @req['deferred_period_index']
     @grace_period = @req.key?("grace_period") ? @req['grace_period'] != 'false' : false
     @resp = @tx.commit(@token, @id_query_installments, @deferred_period_index, @grace_period)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_commit_path(token: @token, id_query_installments: @id_query_installments, deferred_period_index: @deferred_period_index, grace_period: @grace_period, resp: @resp)
   end
 

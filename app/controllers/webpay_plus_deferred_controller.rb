@@ -20,7 +20,7 @@ class WebpayPlusDeferredController < ApplicationController
     @req = params.as_json
     @token = params[:token_ws]
     @resp = @tx.commit(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
 
     @amount = @resp['amount']
     @buy_order = @resp['buy_order']
@@ -32,7 +32,7 @@ class WebpayPlusDeferredController < ApplicationController
     @token = params[:token]
     @amount = params[:amount]
     @resp = @tx.refund(@token, @amount)
-    Pry::ColorPrinter.pp(@resp) 
+     
 
     redirect_to webpay_plus_deferred_refund_path(token: @token, amount: @amount, resp: @resp)
   end
@@ -47,7 +47,7 @@ class WebpayPlusDeferredController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @resp = @tx.status(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def capture
@@ -57,7 +57,7 @@ class WebpayPlusDeferredController < ApplicationController
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
     @resp = @tx.capture(@token, @buy_order, @authorization_code, @amount)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to webpay_plus_deferred_capture_path(token: @token, buy_order: @buy_order, authorization_code: @authorization_code, amount: @amount, resp: @resp)
   end
 
@@ -75,9 +75,8 @@ class WebpayPlusDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
-    Pry::ColorPrinter.pp(params)
     @resp = @tx.increase_amount(@token, @buy_order, @authorization_code, @amount)
-    Pry::ColorPrinter.pp(@resp)
+    
     @amount = @resp['total_amount']
   end
 
@@ -87,7 +86,6 @@ class WebpayPlusDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
-    Pry::ColorPrinter.pp(params)
     @resp = @tx.increase_authorization_date(@token, @buy_order, @authorization_code)
     
     @amount = @resp['total_amount']
@@ -99,7 +97,6 @@ class WebpayPlusDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
-    Pry::ColorPrinter.pp(params)
     @resp = @tx.reverse_pre_authorized_amount(@token, @buy_order, @authorization_code, @amount) 
     
     @amount = @resp['total_amount']
@@ -111,7 +108,6 @@ class WebpayPlusDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
-    Pry::ColorPrinter.pp(params)
     @resp = @tx.deferred_capture_history(@token)
   end
 

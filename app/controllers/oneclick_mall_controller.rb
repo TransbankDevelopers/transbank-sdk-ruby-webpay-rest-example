@@ -16,7 +16,7 @@ class OneclickMallController < ApplicationController
     session[:user_name] = @user_name
     session[:email] = @email
     @resp = @inscription.start(@user_name, @email, @response_url)  
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def finish
@@ -25,17 +25,16 @@ class OneclickMallController < ApplicationController
     @child_commerce_codes = [::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD1, ::Transbank::Common::IntegrationCommerceCodes::ONECLICK_MALL_CHILD2]
     @user_name = session[:user_name]
     @resp = @inscription.finish(@token)  
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def delete
     @req = params.as_json
-    Pry::ColorPrinter.pp(@req)
     #binding.pry
     @user_name = @req['user_name']
     @tbk_user = @req['tbk_user']
     @resp = @inscription.delete(@tbk_user, @user_name)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def authorize
@@ -58,14 +57,14 @@ class OneclickMallController < ApplicationController
       }
     ]
     @resp = @tx.authorize(@username, @tbk_user, @buy_order, @details)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def status
     @req = params.as_json
     @buy_order = params[:buy_order]
     @resp = @tx.status(@buy_order)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def refund
@@ -75,7 +74,7 @@ class OneclickMallController < ApplicationController
     @child_buy_order = params[:child_buy_order] 
     @amount = params[:amount] 
     @resp = @tx.refund(@buy_order, @child_commerce_code, @child_buy_order, @amount)
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to oneclick_mall_refund_path(parent_buy_order: @buy_order, child_commerce_code: @child_commerce_code, child_buy_order: @child_buy_order, amount: @amount, resp: @resp)
   end
 

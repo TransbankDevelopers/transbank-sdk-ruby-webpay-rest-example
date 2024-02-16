@@ -26,14 +26,14 @@ class WebpayPlusMallDeferredController < ApplicationController
     ]
 
     @resp = @tx.create(@buy_order, @session_id, @return_url, @details)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def commit
     @req = params.as_json
     @token = params[:token_ws]
     @resp = @tx.commit(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
 
     @detail = @resp['details'][0]
     @amount = @detail['amount']
@@ -44,13 +44,12 @@ class WebpayPlusMallDeferredController < ApplicationController
 
   def refund
     @req = params.as_json
-    Pry::ColorPrinter.pp(@req)
     @token = params[:token]
     @child_commerce_code = params[:commerce_code]
     @child_buy_order = params[:buy_order]
     @child_amount = params[:amount]
     @resp = @tx.refund(@token, @child_buy_order, @child_commerce_code,  @child_amount)
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to webpay_plus_mall_deferred_refund_path(token: @token, child_commerce_code: @child_commerce_code, buy_order: @child_buy_order, amount: @child_amount, resp: @resp)
   end
 
@@ -66,7 +65,7 @@ class WebpayPlusMallDeferredController < ApplicationController
     @req = params.as_json
     @token = params[:token]
     @resp = @tx.status(@token)
-    Pry::ColorPrinter.pp(@resp)
+    
   end
 
   def capture

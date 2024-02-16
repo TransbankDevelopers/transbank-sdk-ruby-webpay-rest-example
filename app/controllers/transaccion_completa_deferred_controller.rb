@@ -23,7 +23,7 @@ class TransaccionCompletaDeferredController < ApplicationController
     @card_expiration_date ="#{expiry_year}/#{expiry_month}"
 
     @resp = @tx.create(@buy_order, @session_id, @amount, @cvv, @card_number, @card_expiration_date)  
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_deferred_create_path(resp: @resp)
   end
 
@@ -36,7 +36,7 @@ class TransaccionCompletaDeferredController < ApplicationController
     @token = @req['token']
     @installments_number = @req['installments_number']
     @resp = @tx.installments(@token, @installments_number)
-    Pry::ColorPrinter.pp(@resp)
+    
     redirect_to transaccion_completa_deferred_installments_path(token: @token, installments_number: @installments_number, resp: @resp)
   end
 
@@ -54,7 +54,7 @@ class TransaccionCompletaDeferredController < ApplicationController
     @grace_period = @req.key?("grace_period") ? @req['grace_period'] != 'false' : false
 
     @resp = @tx.commit(@token, @id_query_installments, @deferred_period_index, @grace_period)  
-    Pry::ColorPrinter.pp(@resp)
+    
 
     @amount = @resp['amount']
     @buy_order = @resp['buy_order']
@@ -109,7 +109,6 @@ class TransaccionCompletaDeferredController < ApplicationController
     @buy_order = params[:buy_order]
     @authorization_code = params[:authorization_code]
     @amount = params[:amount]
-    Pry::ColorPrinter.pp(params)
     @resp = @tx.capture(@token, @buy_order, @authorization_code, @amount)  
     redirect_to transaccion_completa_deferred_capture_path(token: @token, buy_order: @buy_order, authorization_code: @authorization_code, amount: @amount, resp: @resp)
   end
@@ -121,53 +120,5 @@ class TransaccionCompletaDeferredController < ApplicationController
     @amount = params[:amount]
     @resp = params[:resp]
   end
-
-
-
-  # def increase_amount
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.increase_amount(@token, @buy_order, @authorization_code, @amount)
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def increase_date
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.increase_authorization_date(@token, @buy_order, @authorization_code)
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def reverse
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.reverse_pre_authorized_amount(@token, @buy_order, @authorization_code, @amount) 
-    
-  #   @amount = @resp['total_amount']
-  # end
-
-  # def history
-  #   @req = params.as_json
-  #   @token = params[:token]
-  #   @buy_order = params[:buy_order]
-  #   @authorization_code = params[:authorization_code]
-  #   @amount = params[:amount]
-  #   Pry::ColorPrinter.pp(params)
-  #   @resp = @tx.deferred_capture_history(@token)
-  # end
 
 end
